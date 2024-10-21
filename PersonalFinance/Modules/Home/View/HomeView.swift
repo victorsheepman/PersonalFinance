@@ -9,7 +9,26 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        Text("Home, World!")
+        NavigationStack{
+            ZStack{
+                Color("Background")
+                    .edgesIgnoringSafeArea(.all)
+                ScrollView{
+                    VStack{
+                        
+                        
+                        BalanceCardView(title: "Current Balance", balance: "4,836.00", isDark: true)
+                        BalanceCardView(title: "Income", balance: "3,814.25")
+                        BalanceCardView(title: "Expenses", balance: "1,700.50")
+                        
+                        
+                    }
+                    .padding()
+                }.navigationTitle("Overview")
+                
+            }
+        }
+        
     }
 }
 

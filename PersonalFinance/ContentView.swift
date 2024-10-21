@@ -20,7 +20,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color("#F2F3F7").edgesIgnoringSafeArea(.all)
+            
             VStack {
                 TabView(selection: $tabSelected) {
                     
