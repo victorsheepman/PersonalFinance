@@ -14,6 +14,8 @@
 		845CB2D92CC6A24D00181E76 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2D82CC6A24D00181E76 /* CustomTabBar.swift */; };
 		845CB2DF2CC6A89400181E76 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2DE2CC6A89400181E76 /* HomeView.swift */; };
 		845CB2E12CC6B4AC00181E76 /* BalanceCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2E02CC6B4AC00181E76 /* BalanceCardView.swift */; };
+		845CB2E42CC6C16300181E76 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2E32CC6C16300181E76 /* Transaction.swift */; };
+		845CB2E72CC6C2F100181E76 /* TransactionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2E62CC6C2F100181E76 /* TransactionMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		845CB2D82CC6A24D00181E76 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		845CB2DE2CC6A89400181E76 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		845CB2E02CC6B4AC00181E76 /* BalanceCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceCardView.swift; sourceTree = "<group>"; };
+		845CB2E32CC6C16300181E76 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		845CB2E62CC6C2F100181E76 /* TransactionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 		845CB2C92CC69A0100181E76 /* PersonalFinance */ = {
 			isa = PBXGroup;
 			children = (
+				845CB2E52CC6C2E100181E76 /* Mock */,
+				845CB2E22CC6C15400181E76 /* Model */,
 				845CB2DB2CC6A87800181E76 /* Modules */,
 				845CB2DA2CC6A25300181E76 /* Components */,
 				845CB2CA2CC69A0100181E76 /* PersonalFinanceApp.swift */,
@@ -106,6 +112,22 @@
 				845CB2DE2CC6A89400181E76 /* HomeView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		845CB2E22CC6C15400181E76 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				845CB2E32CC6C16300181E76 /* Transaction.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		845CB2E52CC6C2E100181E76 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				845CB2E62CC6C2F100181E76 /* TransactionMock.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +202,8 @@
 			files = (
 				845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */,
 				845CB2DF2CC6A89400181E76 /* HomeView.swift in Sources */,
+				845CB2E72CC6C2F100181E76 /* TransactionMock.swift in Sources */,
+				845CB2E42CC6C16300181E76 /* Transaction.swift in Sources */,
 				845CB2D92CC6A24D00181E76 /* CustomTabBar.swift in Sources */,
 				845CB2E12CC6B4AC00181E76 /* BalanceCardView.swift in Sources */,
 				845CB2CB2CC69A0100181E76 /* PersonalFinanceApp.swift in Sources */,
