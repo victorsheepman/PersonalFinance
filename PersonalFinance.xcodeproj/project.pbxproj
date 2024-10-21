@@ -11,6 +11,7 @@
 		845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2CC2CC69A0100181E76 /* ContentView.swift */; };
 		845CB2CF2CC69A0200181E76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845CB2CE2CC69A0200181E76 /* Assets.xcassets */; };
 		845CB2D22CC69A0200181E76 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845CB2D12CC69A0200181E76 /* Preview Assets.xcassets */; };
+		845CB2D92CC6A24D00181E76 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2D82CC6A24D00181E76 /* CustomTabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		845CB2CC2CC69A0100181E76 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		845CB2CE2CC69A0200181E76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		845CB2D12CC69A0200181E76 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		845CB2D82CC6A24D00181E76 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		845CB2C92CC69A0100181E76 /* PersonalFinance */ = {
 			isa = PBXGroup;
 			children = (
+				845CB2DA2CC6A25300181E76 /* Components */,
 				845CB2CA2CC69A0100181E76 /* PersonalFinanceApp.swift */,
 				845CB2CC2CC69A0100181E76 /* ContentView.swift */,
 				845CB2CE2CC69A0200181E76 /* Assets.xcassets */,
@@ -65,6 +68,14 @@
 				845CB2D12CC69A0200181E76 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		845CB2DA2CC6A25300181E76 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				845CB2D82CC6A24D00181E76 /* CustomTabBar.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */,
+				845CB2D92CC6A24D00181E76 /* CustomTabBar.swift in Sources */,
 				845CB2CB2CC69A0100181E76 /* PersonalFinanceApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
