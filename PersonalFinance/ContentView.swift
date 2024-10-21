@@ -20,20 +20,15 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
+            Color("#F2F3F7").edgesIgnoringSafeArea(.all)
             VStack {
                 TabView(selection: $tabSelected) {
-                    ForEach(Tab.allCases, id: \.rawValue) { tab in
-                        HStack {
-                            Image(systemName: tab.rawValue)
-                            Text("\(tab.rawValue.capitalized)")
-                                .bold()
-                            
-                                .animation(nil, value: tabSelected)
-                        }
-                        .tag(tab)
-                        
-                    }
+                    
+                    HomeView()
+                        .tag(Tab.house)
+                    
                 }
+                
             }
             VStack {
                 Spacer()
