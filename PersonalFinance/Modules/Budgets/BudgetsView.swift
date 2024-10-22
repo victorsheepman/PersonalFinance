@@ -23,15 +23,69 @@ struct BudgetsView: View {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
                 
-                VStack {
-                    
-                   budgetChart
-                    
-                    Spacer()
+                
+                ScrollView {
+                    VStack {
+                        
+                       budgetChart
+                        VStack(alignment:.leading) {
+                            HStack {
+                                
+                                Circle()
+                                    .fill(Color("Green"))
+                                    .frame(width: 16, height: 16)
+                                
+                                Text("Entertainment")
+                                    .font(.title2.bold())
+                                    .foregroundStyle(.black)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 16)
+                                
+                                
+                               
+                            }
+                            
+                            Text("Maximum of $50.00")
+                                .font(.system(size: 16))
+                                .foregroundStyle(.secondary)
+                                .padding(.top, 2)
+                            
+                            ProgressView(value: 50.00, total: 100.0)
+                                .accentColor(Color("Green"))
+                            
+                            
+                            //CONTINUE.....
+                            LazyVGrid(columns: columns, spacing: 10) {
+                                HStack{
+                                    Circle()
+                                        .fill(Color("Green"))
+                                        .frame(width: 10, height: 10)
+                                    VStack(alignment: .leading) {
+                                        Text("Spent")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                        
+                                        Text("Free")
+                                            .font(.system(size: 14).bold())
+                                            .foregroundStyle(.black)
+                                        
+                                    }
+                                }
+                                
+                            }
+                            .padding(.top, 20)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 12).fill(.white))
+
+                        
+                        Spacer()
+                    }
+                    .padding(.bottom, 100)
+                    .padding(.horizontal)
+                    .padding(.top, 40)
                 }
-                .padding(.bottom, 100)
-                .padding(.horizontal)
-                .padding(.top, 40)
                 
             }
             .toolbar {
