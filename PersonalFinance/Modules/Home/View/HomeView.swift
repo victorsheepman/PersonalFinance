@@ -6,11 +6,36 @@
 //
 
 import SwiftUI
+import Charts
 
 
+struct ValuePerCategory {
+    var category: String
+    var value: Double
+}
+
+
+let data: [ValuePerCategory] = [
+    .init(category: "A", value: 5),
+    .init(category: "B", value: 9),
+    .init(category: "C", value: 7)
+]
+
+let datas = [
+    (name: "Cachapa", sales: 9631),
+    (name: "Crêpe", sales: 6959),
+    (name: "Injera", sales: 4891),
+    (name: "Jian Bing", sales: 2506),
+]
 
 
 struct HomeView: View {
+    
+    let columns = [
+        GridItem(.flexible(), alignment: .leading), // Primera columna
+        GridItem(.flexible(), alignment: .leading)  // Segunda columna
+    ]
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -47,6 +72,51 @@ struct HomeView: View {
                             }
                             .foregroundColor(.secondary)
                             .padding(.bottom, 12)
+                            
+                            Chart(datas, id: \.name) { name, sales in
+                                SectorMark(
+                                    angle: .value("Value", sales),
+                                    innerRadius: .ratio(0.618),
+                                    outerRadius: .inset(10),
+                                    angularInset: 1.5
+                                )
+                                .foregroundStyle(colorForCategory(name))
+                            }
+                            .frame(width: 300, height: 300)
+                            .chartBackground { ChartProxy in
+                                GeometryReader {  geometry in
+                                    
+                                    if let plotFrame = ChartProxy.plotFrame{
+                                        let frame = geometry[plotFrame]
+                                        VStack {
+                                            Text("Most Sold Style")
+                                                .font(.callout)
+                                                .foregroundStyle(.secondary)
+                                            Text(":f")
+                                                .font(.title2.bold())
+                                                .foregroundStyle(.primary)
+                                            
+                                        }
+                                        .position(x: frame.midX, y: frame.midY)
+                                    }
+                                    
+                                }
+                            }
+                            
+                            LazyVGrid(columns: columns, spacing: 10) {
+
+                                ForEach(datas, id: \.name) { data in
+                                    HStack{
+                                        Circle()
+                                            .fill(colorForCategory(data.name))
+                                            .frame(width: 10, height: 10)
+                                        Text(data.name)
+                                            .font(.caption)
+                                    }
+                                }
+                            }
+                            .padding(.top, 20)
+                           
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
@@ -100,6 +170,25 @@ struct HomeView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
+    }
+    
+    func colorForCategory(_ category: String) -> Color {
+        switch category {
+        case "Cachapa":
+            return Color("Cyan")
+        case "Crêpe":
+            return Color("Yellow")
+        case "Injera":
+            return Color("Green")
+        case "Jian Bing":
+            return Color("Navy")
+        case "American":
+            return .orange
+        case "Dosa":
+            return .yellow
+        default:
+            return .gray
+        }
     }
 }
 
