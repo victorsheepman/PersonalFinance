@@ -14,7 +14,7 @@ let mockTransactions: [Transaction] = [
     Transaction(sender: "Freelance Work", amount: 500.00, date: Date().addingTimeInterval(-86400), category: nil), // Sin categoría
     
    
-    Transaction(sender: "Grocery Store", amount: -45.00, date: Date(), category: .general),
+    Transaction(sender: "Grocery Store", amount: -45.00, date: Date(), category: .personalCare),
     Transaction(sender: "Movie Night", amount: -12.50, date: Date().addingTimeInterval(-86400), category: .entertainment),
 
 ]
