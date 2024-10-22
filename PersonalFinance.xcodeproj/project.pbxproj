@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84234C6B2CC7F03500C52B74 /* Budget.swift */; };
+		84234C6E2CC7F06B00C52B74 /* BudgetMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84234C6D2CC7F06B00C52B74 /* BudgetMock.swift */; };
 		845CB2CB2CC69A0100181E76 /* PersonalFinanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2CA2CC69A0100181E76 /* PersonalFinanceApp.swift */; };
 		845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2CC2CC69A0100181E76 /* ContentView.swift */; };
 		845CB2CF2CC69A0200181E76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845CB2CE2CC69A0200181E76 /* Assets.xcassets */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84234C6B2CC7F03500C52B74 /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
+		84234C6D2CC7F06B00C52B74 /* BudgetMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetMock.swift; sourceTree = "<group>"; };
 		845CB2C72CC69A0100181E76 /* PersonalFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845CB2CA2CC69A0100181E76 /* PersonalFinanceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFinanceApp.swift; sourceTree = "<group>"; };
 		845CB2CC2CC69A0100181E76 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				845CB2E32CC6C16300181E76 /* Transaction.swift */,
+				84234C6B2CC7F03500C52B74 /* Budget.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				845CB2E62CC6C2F100181E76 /* TransactionMock.swift */,
+				84234C6D2CC7F06B00C52B74 /* BudgetMock.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -216,9 +222,11 @@
 			files = (
 				845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */,
 				845CB2DF2CC6A89400181E76 /* HomeView.swift in Sources */,
+				84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */,
 				845CB2E72CC6C2F100181E76 /* TransactionMock.swift in Sources */,
 				845CB2E42CC6C16300181E76 /* Transaction.swift in Sources */,
 				845CB2D92CC6A24D00181E76 /* CustomTabBar.swift in Sources */,
+				84234C6E2CC7F06B00C52B74 /* BudgetMock.swift in Sources */,
 				845CB2E12CC6B4AC00181E76 /* BalanceCardView.swift in Sources */,
 				845CB2E92CC6CB5E00181E76 /* TransactionDetailCellView.swift in Sources */,
 				845CB2EC2CC6CBBE00181E76 /* LabelStyle.swift in Sources */,
