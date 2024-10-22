@@ -26,6 +26,32 @@ struct HomeView: View {
                         
                         transactionSection
                         
+                        //BUDGETS IN PROGRESS....
+                        VStack{
+                            NavigationLink(value:"Transaction") {
+                                HStack{
+                                    
+                                    Text("Budgets")
+                                        .font(.system(size: 20))
+                                        .bold()
+                                        .foregroundStyle(Color("Grey-900"))
+                                    
+                                    Spacer()
+                                    
+                                    Label("See Details", systemImage:"arrowtriangle.forward.fill")
+                                        .labelStyle(RightIconLabelStyle())
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(Color("Grey-500"))
+                                    
+                                }
+                            }
+                            .foregroundColor(.secondary)
+                            .padding(.bottom, 12)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 12).fill(.white))
+                        
                     }
                     .padding()
                 }.navigationTitle("Overview")
