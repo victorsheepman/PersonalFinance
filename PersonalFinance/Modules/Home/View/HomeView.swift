@@ -126,7 +126,7 @@ struct HomeView: View {
                     outerRadius: .inset(10),
                     angularInset: 1.5
                 )
-                .foregroundStyle(colorForCategory(budget.name))
+                .foregroundStyle(budget.theme.color)
             }
             .frame(width: 300, height: 300)
             .chartBackground { ChartProxy in
@@ -151,18 +151,18 @@ struct HomeView: View {
             }
             
             LazyVGrid(columns: columns, spacing: 10) {
-
-                ForEach(budgetMock) { data in
+                
+                ForEach(budgetMock) { budget in
                     HStack{
                         Circle()
-                            .fill(colorForCategory(data.name))
+                            .fill(budget.theme.color)
                             .frame(width: 10, height: 10)
                         VStack(alignment: .leading) {
-                            Text(data.name)
+                            Text(budget.category.rawValue)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                             
-                            Text("$\(data.max, specifier: "%.2f")")
+                            Text("$\(budget.max, specifier: "%.2f")")
                                 .font(.system(size: 14).bold())
                                 .foregroundStyle(.black)
                             
@@ -176,21 +176,6 @@ struct HomeView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
-    }
-    
-    func colorForCategory(_ category: String) -> Color {
-        switch category {
-        case "Entertainment":
-            return  Color("Green")
-        case "Bills":
-            return  Color("Cyan")
-        case "Dining Out":
-            return Color("Yellow")
-        case "Personal Care":
-            return Color("Navy")
-        default:
-            return .gray
-        }
     }
 }
 
