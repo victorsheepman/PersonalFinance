@@ -73,14 +73,14 @@ struct HomeView: View {
                             .foregroundColor(.secondary)
                             .padding(.bottom, 12)
                             
-                            Chart(datas, id: \.name) { name, sales in
+                            Chart(budgetMock) { budget in
                                 SectorMark(
-                                    angle: .value("Value", sales),
+                                    angle: .value("Value", budget.spent),
                                     innerRadius: .ratio(0.618),
                                     outerRadius: .inset(10),
                                     angularInset: 1.5
                                 )
-                                .foregroundStyle(colorForCategory(name))
+                                .foregroundStyle(colorForCategory(budget.name))
                             }
                             .frame(width: 300, height: 300)
                             .chartBackground { ChartProxy in
