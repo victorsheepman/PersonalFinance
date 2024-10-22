@@ -8,8 +8,8 @@
 import Foundation
 
 let budgetMock: [Budget] = [
-    Budget(name: "Cachapa",   max: 10000, spent: 9631),
-    Budget(name: "Crêpe",     max: 10000, spent: 6959),
-    Budget(name: "Injera",    max: 10000, spent: 4891),
-    Budget(name: "Jian Bing", max: 10000, spent: 2506)
+    Budget(name: "Entertainment", max: 50.00,  spent: 25.00),
+    Budget(name: "Bills",         max: 750.00, spent: 250.00),
+    Budget(name: "Dining Out",    max: 75.00,  spent: 67.00),
+    Budget(name: "Personal Care", max: 100.00, spent: 65.00)
 ]

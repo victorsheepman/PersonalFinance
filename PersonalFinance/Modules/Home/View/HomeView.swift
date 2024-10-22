@@ -9,32 +9,24 @@ import SwiftUI
 import Charts
 
 
-struct ValuePerCategory {
-    var category: String
-    var value: Double
-}
 
-
-let data: [ValuePerCategory] = [
-    .init(category: "A", value: 5),
-    .init(category: "B", value: 9),
-    .init(category: "C", value: 7)
-]
-
-let datas = [
-    (name: "Cachapa", sales: 9631),
-    (name: "Crêpe", sales: 6959),
-    (name: "Injera", sales: 4891),
-    (name: "Jian Bing", sales: 2506),
+let columns = [
+    GridItem(.flexible(), alignment: .leading), // Primera columna
+    GridItem(.flexible(), alignment: .leading)  // Segunda columna
 ]
 
 
 struct HomeView: View {
     
-    let columns = [
-        GridItem(.flexible(), alignment: .leading), // Primera columna
-        GridItem(.flexible(), alignment: .leading)  // Segunda columna
-    ]
+  
+    var totalMax: Double {
+        budgetMock.reduce(0) { $0 + $1.max }
+    }
+       
+     
+    var totalSpent: Double {
+        budgetMock.reduce(0) { $0 + $1.spent }
+    }
     
     var body: some View {
         NavigationStack{
@@ -75,7 +67,7 @@ struct HomeView: View {
                             
                             Chart(budgetMock) { budget in
                                 SectorMark(
-                                    angle: .value("Value", budget.spent),
+                                    angle: .value("Value", budget.max),
                                     innerRadius: .ratio(0.618),
                                     outerRadius: .inset(10),
                                     angularInset: 1.5
@@ -89,12 +81,13 @@ struct HomeView: View {
                                     if let plotFrame = ChartProxy.plotFrame{
                                         let frame = geometry[plotFrame]
                                         VStack {
-                                            Text("Most Sold Style")
-                                                .font(.callout)
-                                                .foregroundStyle(.secondary)
-                                            Text(":f")
+                                           
+                                            Text("$\(totalSpent, specifier: "%.2f")")
                                                 .font(.title2.bold())
                                                 .foregroundStyle(.primary)
+                                            Text("of $\(totalMax, specifier: "%.2f")")
+                                                .font(.callout)
+                                                .foregroundStyle(.secondary)
                                             
                                         }
                                         .position(x: frame.midX, y: frame.midY)
@@ -105,13 +98,21 @@ struct HomeView: View {
                             
                             LazyVGrid(columns: columns, spacing: 10) {
 
-                                ForEach(datas, id: \.name) { data in
+                                ForEach(budgetMock) { data in
                                     HStack{
                                         Circle()
                                             .fill(colorForCategory(data.name))
                                             .frame(width: 10, height: 10)
-                                        Text(data.name)
-                                            .font(.caption)
+                                        VStack(alignment: .leading) {
+                                            Text(data.name)
+                                                .font(.caption)
+                                                .foregroundStyle(.secondary)
+                                            
+                                            Text("$\(data.max, specifier: "%.2f")")
+                                                .font(.system(size: 14).bold())
+                                                .foregroundStyle(.black)
+                                            
+                                        }
                                     }
                                 }
                             }
@@ -174,18 +175,14 @@ struct HomeView: View {
     
     func colorForCategory(_ category: String) -> Color {
         switch category {
-        case "Cachapa":
-            return Color("Cyan")
-        case "Crêpe":
+        case "Entertainment":
+            return  Color("Green")
+        case "Bills":
+            return  Color("Cyan")
+        case "Dining Out":
             return Color("Yellow")
-        case "Injera":
-            return Color("Green")
-        case "Jian Bing":
+        case "Personal Care":
             return Color("Navy")
-        case "American":
-            return .orange
-        case "Dosa":
-            return .yellow
         default:
             return .gray
         }
