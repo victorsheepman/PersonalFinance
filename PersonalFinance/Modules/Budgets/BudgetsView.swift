@@ -18,17 +18,16 @@ struct BudgetsView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack {
-                        Text("Budgets") // Título
-                            .font(.largeTitle) // Puedes ajustar el tamaño según tus necesidades
+                        Text("Budgets")
+                            .font(.largeTitle)
                             .bold()
                             .padding(.top)
-                        Spacer() // Empuja el contenido a los lados
+                        Spacer()
                     }
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        // Acción del botón
                         print("Add button tapped")
                     }) {
                         Text("Add New Budget")
