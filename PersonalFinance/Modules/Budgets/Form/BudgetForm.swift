@@ -17,12 +17,18 @@ struct BudgetForm: View {
     @State private var selectedCategory: BudgetCategory = .entertainment
     @State private var maxSpent: String = ""
     
+    private var usedThemes: Set<BudgetTheme> {
+        Set(viewModel.budgets.map { $0.theme })
+    }
     
+    private var usedCategories: Set<BudgetCategory> {
+        Set(viewModel.budgets.map { $0.category })
+    }
     
     var body: some View {
         Form {
             Picker("Budget Category", selection: $selectedCategory) {
-                ForEach(BudgetCategory.allCases) { category in
+                ForEach(BudgetCategory.allCases.filter { !usedCategories.contains($0) }) { category in
                     Text(category.rawValue).tag(category)
                 }
             }
@@ -33,7 +39,7 @@ struct BudgetForm: View {
                 .disableAutocorrection(true)
             
             Picker("Budget Theme", selection: $selectedTheme) {
-                ForEach(BudgetTheme.allCases) { theme in
+                ForEach(BudgetTheme.allCases.filter { !usedThemes.contains($0) }) { theme in
                     Text(theme.rawValue).tag(theme)
                 }
             }
