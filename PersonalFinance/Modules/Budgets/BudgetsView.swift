@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BudgetsView: View {
+    
+    @State private var isPresented: Bool = false
     var totalMax: Double {
         budgetMock.reduce(0) { $0 + $1.max }
     }
@@ -54,7 +56,7 @@ struct BudgetsView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        print("Add button tapped")
+                        isPresented = true
                     }) {
                         Text("Add New Budget")
                             .font(.system(size: 14).bold())
@@ -65,6 +67,9 @@ struct BudgetsView: View {
                     .cornerRadius(8)
                     .padding(.top)
                 }
+            }
+            .sheet(isPresented: $isPresented) {
+                FormularioView()
             }
         }
     }
@@ -115,6 +120,22 @@ struct BudgetsView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
+    }
+}
+
+
+struct FormularioView: View {
+    @State private var nombre = ""
+    @State private var email = ""
+
+    var body: some View {
+        Form {
+            TextField("Nombre", text: $nombre)
+            TextField("Email", text: $email)
+            Button("Enviar") {
+                // Acción al enviar el formulario
+            }
+        }
     }
 }
 
