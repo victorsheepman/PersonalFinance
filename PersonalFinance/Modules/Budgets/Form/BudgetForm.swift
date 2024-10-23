@@ -62,19 +62,11 @@ struct BudgetForm: View {
     
     private func submitBudget() {
         if let max = Double(maxSpent) {
-           
-            let usedCategories = viewModel.budgets.map { $0.category }
-            let usedThemes = viewModel.budgets.map { $0.theme }
             
-
-            if !usedCategories.contains(selectedCategory) && !usedThemes.contains(selectedTheme) {
-                viewModel.addBudget(category: selectedCategory, max: max, spent: 0, theme: selectedTheme)
-                isPresented = false
-                maxSpent = "0"
-            } else {
-                
-                print("La categoría o tema ya están en uso.")
-            }
+            viewModel.addBudget(category: selectedCategory, max: max, spent: 0, theme: selectedTheme)
+            isPresented = false
+            maxSpent = "0"
+            
         }
     }
 }

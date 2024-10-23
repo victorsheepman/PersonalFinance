@@ -96,7 +96,7 @@ struct BudgetsView: View {
     
     var budgetChart: some View {
         VStack {
-            PieChart(budgets: budgetMock)
+            PieChart(budgets: viewModel.budgets)
             
             Text("Spending Summary")
                 .font(.system(size: 20).bold())
@@ -115,13 +115,13 @@ struct BudgetsView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     
-                    Text("$\(budget.max, specifier: "%.2f")")
+                    Text("$\(budget.spent, specifier: "%.2f")")
                         .font(.system(size: 14).bold())
                         .foregroundStyle(.primary)
                         .frame(width: 80, alignment: .trailing)
                     
                     
-                    Text("of $\(viewModel.totalMax, specifier: "%.2f") limit")
+                    Text("of $\(budget.max, specifier: "%.2f") limit")
                         .font(.callout)
                         .foregroundStyle(.secondary)
                         .frame(width: 120, alignment: .trailing)
