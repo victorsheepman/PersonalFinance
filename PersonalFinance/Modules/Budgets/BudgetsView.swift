@@ -42,7 +42,21 @@ struct BudgetsView: View {
                                     .padding(.leading, 16)
                                 
                                 
-                               
+                                    
+                                Menu {
+                                    Button("Edit Budget"){
+                                        print("editing")
+                                    }
+                                    Button("Delete Budget", role: .destructive){
+                                        print("deleting")
+                                    }
+                                } label: {
+                                    Image(systemName: "ellipsis")
+                                        .foregroundStyle(Color("Grey-300"))
+                                }
+                                    
+                                
+                                
                             }
                             
                             Text("Maximum of $50.00")
@@ -52,6 +66,7 @@ struct BudgetsView: View {
                             
                             ProgressView(value: 50.00, total: 100.0)
                                 .accentColor(Color("Green"))
+                            
                             
                             
                             //CONTINUE.....
@@ -65,7 +80,23 @@ struct BudgetsView: View {
                                             .font(.caption)
                                             .foregroundStyle(.secondary)
                                         
+                                        Text("$250.00")
+                                            .font(.system(size: 14).bold())
+                                            .foregroundStyle(.black)
+                                        
+                                    }
+                                }
+                                
+                                HStack{
+                                    Circle()
+                                        .fill(Color("Beige-100"))
+                                        .frame(width: 10, height: 10)
+                                    VStack(alignment: .leading) {
                                         Text("Free")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                        
+                                        Text("$750.00")
                                             .font(.system(size: 14).bold())
                                             .foregroundStyle(.black)
                                         
