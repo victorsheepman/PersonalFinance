@@ -27,89 +27,11 @@ struct BudgetsView: View {
                 ScrollView {
                     VStack {
                         
-                       budgetChart
-                        VStack(alignment:.leading) {
-                            HStack {
-                                
-                                Circle()
-                                    .fill(Color("Green"))
-                                    .frame(width: 16, height: 16)
-                                
-                                Text("Entertainment")
-                                    .font(.title2.bold())
-                                    .foregroundStyle(.black)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.leading, 16)
-                                
-                                
-                                    
-                                Menu {
-                                    Button("Edit Budget"){
-                                        print("editing")
-                                    }
-                                    Button("Delete Budget", role: .destructive){
-                                        print("deleting")
-                                    }
-                                } label: {
-                                    Image(systemName: "ellipsis")
-                                        .foregroundStyle(Color("Grey-300"))
-                                }
-                                    
-                                
-                                
-                            }
-                            
-                            Text("Maximum of $50.00")
-                                .font(.system(size: 16))
-                                .foregroundStyle(.secondary)
-                                .padding(.top, 2)
-                            
-                            ProgressView(value: 50.00, total: 100.0)
-                                .accentColor(Color("Green"))
-                            
-                            
-                            
-                            //CONTINUE.....
-                            LazyVGrid(columns: columns, spacing: 10) {
-                                HStack{
-                                    Circle()
-                                        .fill(Color("Green"))
-                                        .frame(width: 10, height: 10)
-                                    VStack(alignment: .leading) {
-                                        Text("Spent")
-                                            .font(.caption)
-                                            .foregroundStyle(.secondary)
-                                        
-                                        Text("$250.00")
-                                            .font(.system(size: 14).bold())
-                                            .foregroundStyle(.black)
-                                        
-                                    }
-                                }
-                                
-                                HStack{
-                                    Circle()
-                                        .fill(Color("Beige-100"))
-                                        .frame(width: 10, height: 10)
-                                    VStack(alignment: .leading) {
-                                        Text("Free")
-                                            .font(.caption)
-                                            .foregroundStyle(.secondary)
-                                        
-                                        Text("$750.00")
-                                            .font(.system(size: 14).bold())
-                                            .foregroundStyle(.black)
-                                        
-                                    }
-                                }
-                                
-                            }
-                            .padding(.top, 20)
+                        budgetChart
+                        ForEach(budgetMock) { budget in
+                            BudgetsCard(budget: budget)
+                                .padding(.top, 24)
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 12).fill(.white))
-
                         
                         Spacer()
                     }

@@ -22,6 +22,7 @@
 		845CB2E72CC6C2F100181E76 /* TransactionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2E62CC6C2F100181E76 /* TransactionMock.swift */; };
 		845CB2E92CC6CB5E00181E76 /* TransactionDetailCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */; };
 		845CB2EC2CC6CBBE00181E76 /* LabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */; };
+		84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		845CB2E62CC6C2F100181E76 /* TransactionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionMock.swift; sourceTree = "<group>"; };
 		845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailCellView.swift; sourceTree = "<group>"; };
 		845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyle.swift; sourceTree = "<group>"; };
+		84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		845CB2DA2CC6A25300181E76 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */,
 				845CB2D82CC6A24D00181E76 /* CustomTabBar.swift */,
 				845CB2E02CC6B4AC00181E76 /* BalanceCardView.swift */,
 				845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */,
@@ -234,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */,
 				841D72272CC812C000BF7F72 /* PieChart.swift in Sources */,
 				845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */,
 				841D72242CC8117200BF7F72 /* BudgetsView.swift in Sources */,
