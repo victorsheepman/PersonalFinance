@@ -10,15 +10,14 @@ import SwiftUI
 struct BudgetsView: View {
     
     @State private var isPresented: Bool = false
+    @StateObject private var viewModel = BudgetViewModel()
+ 
+    
     var totalMax: Double {
         budgetMock.reduce(0) { $0 + $1.max }
     }
        
-     
-    var totalSpent: Double {
-        budgetMock.reduce(0) { $0 + $1.spent }
-    }
-    
+        
     var body: some View {
         NavigationStack {
             ZStack {
@@ -30,7 +29,7 @@ struct BudgetsView: View {
                     VStack {
                         
                         budgetChart
-                        ForEach(budgetMock) { budget in
+                        ForEach(viewModel.budgets) { budget in
                             BudgetsCard(budget: budget)
                                 .padding(.top, 24)
                         }
@@ -69,20 +68,41 @@ struct BudgetsView: View {
                 }
             }
             .sheet(isPresented: $isPresented) {
-                FormularioView()
+                VStack{
+                    HStack(spacing:95) {
+                        Text("Add New Budget")
+                            .font(.title)
+                            .bold()
+                           
+                        Button(action: {
+                            isPresented = false
+                        }) {
+                            Image(systemName: "xmark.circle")
+                                .resizable()
+                                .frame(width: 32, height: 32)
+                                .foregroundStyle(Color("Grey-500"))
+                        }
+                        
+                    }
+                    
+                    BudgetForm(isPresented: $isPresented, viewModel: viewModel)
+                        
+                }
+                .padding()
+                
             }
         }
     }
     
     var budgetChart: some View {
         VStack {
-            PieChart(budgets: budgetMock)
+            PieChart(budgets: viewModel.budgets)
             
             Text("Spending Summary")
                 .font(.system(size: 20).bold())
                 .padding(.trailing, 148)
             
-            ForEach(budgetMock) { budget in
+            ForEach(viewModel.budgets) { budget in
                 HStack {
                     
                     Circle()
@@ -95,18 +115,18 @@ struct BudgetsView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     
-                    Text("$\(budget.max, specifier: "%.2f")")
+                    Text("$\(budget.spent, specifier: "%.2f")")
                         .font(.system(size: 14).bold())
                         .foregroundStyle(.primary)
                         .frame(width: 80, alignment: .trailing)
                     
                     
-                    Text("of $\(totalMax, specifier: "%.2f") limit")
+                    Text("of $\(budget.max, specifier: "%.2f") limit")
                         .font(.callout)
                         .foregroundStyle(.secondary)
                         .frame(width: 120, alignment: .trailing)
                 }
-                if budget.id != budgetMock.last?.id {
+                if budget.id != viewModel.budgets.last?.id {
                     Divider()
                         .background(Color("Grey-100"))
                     
@@ -124,20 +144,7 @@ struct BudgetsView: View {
 }
 
 
-struct FormularioView: View {
-    @State private var nombre = ""
-    @State private var email = ""
 
-    var body: some View {
-        Form {
-            TextField("Nombre", text: $nombre)
-            TextField("Email", text: $email)
-            Button("Enviar") {
-                // Acción al enviar el formulario
-            }
-        }
-    }
-}
 
 #Preview {
     BudgetsView()
