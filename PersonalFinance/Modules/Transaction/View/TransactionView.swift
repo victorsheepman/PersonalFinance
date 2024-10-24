@@ -14,7 +14,7 @@ struct TransactionView: View {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
                 VStack{
-                    VStack {
+                    /*VStack {
                         List(mockTransactions) { t in
                             TransactionDetailCell(sender: t.sender, amount: t.amount, date: t.date)
                                 .padding(.top, 12)
@@ -26,7 +26,7 @@ struct TransactionView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 12).fill(.white))
-                    
+                    */
                     Spacer()
 
                 }.padding()

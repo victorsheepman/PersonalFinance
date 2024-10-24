@@ -12,6 +12,8 @@ struct PersonalFinanceApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(BudgetViewModel())
         }
+        
     }
 }

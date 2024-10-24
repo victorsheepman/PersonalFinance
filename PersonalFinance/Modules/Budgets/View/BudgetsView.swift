@@ -11,7 +11,8 @@ struct BudgetsView: View {
     
     @State private var isPresented: Bool = false
     @State private var showAlert: Bool = false
-    @StateObject private var viewModel = BudgetViewModel()
+    
+    @Environment(BudgetViewModel.self) var viewModel
  
     var body: some View {
         NavigationStack {

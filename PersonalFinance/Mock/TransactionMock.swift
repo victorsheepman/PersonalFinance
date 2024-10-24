@@ -8,7 +8,7 @@
 import Foundation
 
 // Creando datos simulados
-let mockTransactions: [Transaction] = [
+/*let mockTransactions: [Transaction] = [
 
     Transaction(sender: "Salary", amount: 3000.00, date: Date(), category: nil), // Sin categoría
     Transaction(sender: "Freelance Work", amount: 500.00, date: Date().addingTimeInterval(-86400), category: nil), // Sin categoría
@@ -18,3 +18,4 @@ let mockTransactions: [Transaction] = [
     Transaction(sender: "Movie Night", amount: -12.50, date: Date().addingTimeInterval(-86400), category: .entertainment),
 
 ]
+*/
