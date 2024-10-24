@@ -48,15 +48,12 @@ class BudgetViewModel: ObservableObject {
     
     @MainActor
     func updateBudget(budget: Budget, newCategory: BudgetCategory, newMax: Double, newSpent: Double, newTheme: BudgetTheme) {
-        // Modificar las propiedades del presupuesto existente
+        
         budget.category = newCategory
         budget.max = newMax
         budget.spent = newSpent
         budget.theme = newTheme
         
-       
-        
-        // Actualizar la lista de presupuestos
         budgets = []
         getBudgets()
     }
