@@ -60,7 +60,7 @@ enum BudgetTheme: String, CaseIterable, Identifiable, Codable {
     case navy = "Navy"
     case red = "Red"
     case purple = "Purple"
-    case turquoise = "Turquoise"
+    case orange = "Orange"
     
     var id: String { rawValue }
  

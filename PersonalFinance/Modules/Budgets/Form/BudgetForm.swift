@@ -66,13 +66,20 @@ struct BudgetForm: View {
                 selectedTheme = budget.theme
             }
         }
+        
     }
     
     private func submitBudget() {
         if let max = Double(maxSpent) {
             
             if let budget = budgetToEdit {
-                viewModel.updateBudget(budget: budget, newCategory: selectedCategory, newMax: max, newSpent: budget.spent, newTheme: selectedTheme)
+                viewModel.updateBudget(
+                    budget: budget,
+                    newCategory: selectedCategory,
+                    newMax: max,
+                    newSpent: budget.spent,
+                    newTheme: selectedTheme
+                )
             } else {
                 viewModel.addBudget(category: selectedCategory, max: max, spent: 0, theme: selectedTheme)
             }
