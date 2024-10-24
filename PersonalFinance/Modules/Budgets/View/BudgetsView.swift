@@ -30,7 +30,7 @@ struct BudgetsView: View {
                         
                         budgetChart
                         ForEach(viewModel.budgets) { budget in
-                            BudgetsCard(budget: budget)
+                            BudgetsCard(budget: budget, viewModel: viewModel)
                                 .padding(.top, 24)
                         }
                         
@@ -91,6 +91,9 @@ struct BudgetsView: View {
                 .padding()
                 
             }
+        }
+        .onAppear(){
+            viewModel.getBudgets()
         }
     }
     

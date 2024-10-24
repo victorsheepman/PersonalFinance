@@ -11,10 +11,11 @@ struct BudgetsCard: View {
     
     var budget: Budget
     
+    @ObservedObject var viewModel: BudgetViewModel
     
-   var free: Double {
+    var free: Double {
        budget.max - budget.spent
-   }
+    }
     
     var body: some View {
         VStack(alignment:.leading) {
@@ -35,7 +36,7 @@ struct BudgetsCard: View {
                         print("editing")
                     }
                     Button("Delete Budget", role: .destructive){
-                        print("deleting")
+                        viewModel.deleteBudget(budget: budget)
                     }
                 } label: {
                     Image(systemName: "ellipsis")
@@ -97,5 +98,5 @@ struct BudgetsCard: View {
 }
 
 #Preview {
-    BudgetsCard(budget: Budget(category: .entertainment, max: 50.00,  spent: 25.00,  theme: .green))
+    BudgetsCard(budget: Budget(id: UUID(), category: .entertainment, max: 50.00,  spent: 25.00,  theme: .green),viewModel: BudgetViewModel() )
 }

@@ -6,17 +6,51 @@
 //
 
 import Foundation
-import Combine
+import SwiftData
 
+@Observable
 class BudgetViewModel: ObservableObject {
-    @Published var budgets: [Budget] = budgetMock 
+    
+   
 
-    private var cancellables: Set<AnyCancellable> = []
-
-    func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
-        let newBudget = Budget(category: category, max: max, spent: spent, theme: theme)
-        budgets.append(newBudget)
+    let container = try! ModelContainer(for: Budget.self)
+    
+    @MainActor
+    var modelContext: ModelContext {
+        container.mainContext
     }
+    
+    var budgets: [Budget] = []
+    
+    @MainActor
+    func getBudgets() {
+        let fetchDescriptor = FetchDescriptor<Budget>()
+        
+        budgets = try! modelContext.fetch(fetchDescriptor)
+        print(budgets)
+    }
+    
+  
+
+    @MainActor 
+    func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
+        let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme)
+       insertBudget(budget: newBudget)
+    }
+    
+    @MainActor
+    private func insertBudget(budget: Budget) {
+        modelContext.insert(budget)
+        budgets = []
+        getBudgets()
+    }
+    
+    @MainActor
+        func deleteBudget(budget: Budget) {
+            modelContext.delete(budget)
+            budgets = []
+            getBudgets()
+        }
 
     var totalMax: Double {
         budgets.reduce(0) { $0 + $1.max }
