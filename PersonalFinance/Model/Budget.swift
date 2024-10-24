@@ -19,6 +19,8 @@ class Budget {
     var spent: Double
     var theme: BudgetTheme
     
+    @Relationship(deleteRule: .nullify, inverse: \Transaction.budget) var transactions: [Transaction]?
+    
     
     @Transient var percentageSpent: Double {
         return (spent / max) * 100
