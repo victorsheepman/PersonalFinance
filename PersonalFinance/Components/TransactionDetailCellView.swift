@@ -17,7 +17,7 @@ struct TransactionDetailCell: View {
     var body: some View{
         HStack{
             Circle()
-                .frame(width: 50, height: 50)
+                .frame(width: 32, height: 32)
                 .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                 .padding(.trailing, 10)
             VStack(alignment: .leading){

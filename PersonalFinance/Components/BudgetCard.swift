@@ -94,7 +94,7 @@ struct BudgetsCard: View {
             .padding(.top, 20)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
+       .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
         .sheet(isPresented: $isPresented) {
             VStack{
