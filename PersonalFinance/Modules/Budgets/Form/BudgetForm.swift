@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BudgetForm: View {
     
+    var budgetToEdit: Budget? = nil
+    
     @Binding var isPresented: Bool
     @ObservedObject var viewModel: BudgetViewModel
     
@@ -28,7 +30,7 @@ struct BudgetForm: View {
     var body: some View {
         Form {
             Picker("Budget Category", selection: $selectedCategory) {
-                ForEach(BudgetCategory.allCases.filter { !usedCategories.contains($0) }) { category in
+                ForEach(BudgetCategory.allCases.filter { !usedCategories.contains($0) || budgetToEdit?.category == $0 }) { category in
                     Text(category.rawValue).tag(category)
                 }
             }
@@ -39,7 +41,7 @@ struct BudgetForm: View {
                 .disableAutocorrection(true)
             
             Picker("Budget Theme", selection: $selectedTheme) {
-                ForEach(BudgetTheme.allCases.filter { !usedThemes.contains($0) }) { theme in
+                ForEach(BudgetTheme.allCases.filter { !usedThemes.contains($0) || budgetToEdit?.theme == $0 }) { theme in
                     Text(theme.rawValue).tag(theme)
                 }
             }
@@ -58,12 +60,24 @@ struct BudgetForm: View {
                     .cornerRadius(8)
             }
         }
+        .onAppear {
+            if let budget = budgetToEdit {
+                selectedCategory = budget.category
+                maxSpent = String(budget.max)
+                selectedTheme = budget.theme
+            }
+        }
     }
     
     private func submitBudget() {
         if let max = Double(maxSpent) {
             
-            viewModel.addBudget(category: selectedCategory, max: max, spent: 0, theme: selectedTheme)
+            if let budget = budgetToEdit {
+                viewModel.updateBudget(budget: budget, newCategory: selectedCategory, newMax: max, newSpent: budget.spent, newTheme: selectedTheme)
+            } else {
+                viewModel.addBudget(category: selectedCategory, max: max, spent: 0, theme: selectedTheme)
+            }
+            
             isPresented = false
             maxSpent = "0"
             

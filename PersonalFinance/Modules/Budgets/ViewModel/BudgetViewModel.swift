@@ -22,13 +22,7 @@ class BudgetViewModel: ObservableObject {
     
     var budgets: [Budget] = []
     
-    @MainActor
-    func getBudgets() {
-        let fetchDescriptor = FetchDescriptor<Budget>()
-        
-        budgets = try! modelContext.fetch(fetchDescriptor)
-        print(budgets)
-    }
+    
     
   
 
@@ -46,11 +40,34 @@ class BudgetViewModel: ObservableObject {
     }
     
     @MainActor
-        func deleteBudget(budget: Budget) {
-            modelContext.delete(budget)
-            budgets = []
-            getBudgets()
-        }
+    func deleteBudget(budget: Budget) {
+        modelContext.delete(budget)
+        budgets = []
+        getBudgets()
+    }
+    
+    @MainActor
+    func updateBudget(budget: Budget, newCategory: BudgetCategory, newMax: Double, newSpent: Double, newTheme: BudgetTheme) {
+        // Modificar las propiedades del presupuesto existente
+        budget.category = newCategory
+        budget.max = newMax
+        budget.spent = newSpent
+        budget.theme = newTheme
+        
+       
+        
+        // Actualizar la lista de presupuestos
+        budgets = []
+        getBudgets()
+    }
+    
+    @MainActor
+    func getBudgets() {
+        let fetchDescriptor = FetchDescriptor<Budget>()
+        
+        budgets = try! modelContext.fetch(fetchDescriptor)
+        print(budgets)
+    }
 
     var totalMax: Double {
         budgets.reduce(0) { $0 + $1.max }
