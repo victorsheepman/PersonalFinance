@@ -48,7 +48,6 @@ struct BudgetForm: View {
             .pickerStyle(MenuPickerStyle())
             
             Button(action: {
-                print("Budget submitted with category: \(selectedCategory) and maximum spending: \(maxSpent)")
                 submitBudget()
             }) {
                 Text("Add Budget")

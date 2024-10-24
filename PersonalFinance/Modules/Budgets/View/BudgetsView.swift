@@ -10,6 +10,7 @@ import SwiftUI
 struct BudgetsView: View {
     
     @State private var isPresented: Bool = false
+    @State private var showAlert: Bool = false
     @StateObject private var viewModel = BudgetViewModel()
  
     var body: some View {
@@ -49,7 +50,11 @@ struct BudgetsView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        isPresented = true
+                        if viewModel.budgets.count < 4 {
+                            isPresented = true
+                        } else {
+                            showAlert = true
+                        }
                     }) {
                         Text("Add New Budget")
                             .font(.system(size: 14).bold())
@@ -60,6 +65,13 @@ struct BudgetsView: View {
                     .cornerRadius(8)
                     .padding(.top)
                 }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("Budget Limit Reached"),
+                    message: Text("You cannot add more than 4 budgets."),
+                    dismissButton: .default(Text("OK"))
+                )
             }
             .sheet(isPresented: $isPresented) {
                 VStack{
