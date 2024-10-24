@@ -12,12 +12,6 @@ struct BudgetsView: View {
     @State private var isPresented: Bool = false
     @StateObject private var viewModel = BudgetViewModel()
  
-    
-    var totalMax: Double {
-        budgetMock.reduce(0) { $0 + $1.max }
-    }
-       
-        
     var body: some View {
         NavigationStack {
             ZStack {

@@ -11,22 +11,16 @@ import SwiftData
 @Observable
 class BudgetViewModel: ObservableObject {
     
-   
-
     let container = try! ModelContainer(for: Budget.self)
+   
+    var budgets: [Budget] = []
     
     @MainActor
     var modelContext: ModelContext {
         container.mainContext
     }
     
-    var budgets: [Budget] = []
-    
-    
-    
-  
-
-    @MainActor 
+    @MainActor
     func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
         let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme)
        insertBudget(budget: newBudget)
@@ -62,8 +56,12 @@ class BudgetViewModel: ObservableObject {
     func getBudgets() {
         let fetchDescriptor = FetchDescriptor<Budget>()
         
-        budgets = try! modelContext.fetch(fetchDescriptor)
-        print(budgets)
+        do {
+            budgets = try modelContext.fetch(fetchDescriptor)
+            print(budgets)
+        } catch {
+            print("Error fetching budgets: \(error.localizedDescription)")
+        }
     }
 
     var totalMax: Double {
