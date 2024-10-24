@@ -27,6 +27,9 @@ struct ContentView: View {
                     HomeView()
                         .tag(Tab.house)
                     
+                    BudgetsView()
+                        .tag(Tab.chart)
+                    
                 }
                 
             }
