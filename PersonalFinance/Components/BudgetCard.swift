@@ -12,6 +12,7 @@ struct BudgetsCard: View {
     var budget: Budget
     
     @ObservedObject var viewModel: BudgetViewModel
+    @State private var isPresented: Bool = false
     
     var free: Double {
        budget.max - budget.spent
@@ -34,6 +35,7 @@ struct BudgetsCard: View {
                 Menu {
                     Button("Edit Budget"){
                         print("editing")
+                        isPresented = true
                     }
                     Button("Delete Budget", role: .destructive){
                         viewModel.deleteBudget(budget: budget)
@@ -94,6 +96,30 @@ struct BudgetsCard: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
+        .sheet(isPresented: $isPresented) {
+            VStack{
+                HStack(spacing:95) {
+                    Text("Edit Budget")
+                        .font(.title)
+                        .bold()
+                       
+                    Button(action: {
+                        isPresented = false
+                    }) {
+                        Image(systemName: "xmark.circle")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .foregroundStyle(Color("Grey-500"))
+                    }
+                    
+                }
+                
+                BudgetForm(budgetToEdit: budget, isPresented: $isPresented, viewModel: viewModel)
+                    
+            }
+            .padding()
+            
+        }
     }
 }
 
