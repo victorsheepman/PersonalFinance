@@ -6,12 +6,30 @@
 //
 
 import Foundation
+import SwiftUI
+import SwiftData
 
-struct Transaction: Identifiable {
-    let id = UUID()
-    let sender: String
-    let amount: Double
-    let date: Date
-    let category: BudgetCategory?
+@Model
+class Transaction {
     
+    @Attribute(.unique) var id: UUID
+    var amount: Double // Monto de la transacción
+    var date: Date // Fecha de la transacción
+    var type: TransactionType // Tipo de transacción (ingreso o gasto)
+    var budget: Budget?
+    
+    init(id: UUID = UUID(), amount: Double, date: Date, type: TransactionType) {
+        self.id = id
+        self.amount = amount
+        self.date = date
+        self.type = type
+        
+    }
+}
+
+enum TransactionType: String, CaseIterable, Identifiable, Codable {
+    case income = "Income"
+    case expense = "Expense"
+    
+    var id: String { rawValue }
 }
