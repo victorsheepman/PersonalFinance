@@ -13,23 +13,8 @@ struct TransactionView: View {
             ZStack {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
-                VStack{
-                    /*VStack {
-                        List(mockTransactions) { t in
-                            TransactionDetailCell(sender: t.sender, amount: t.amount, date: t.date)
-                                .padding(.top, 12)
-                                
-                        }.listStyle(.inset)
-                        
-                        Spacer()
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 12).fill(.white))
-                    */
-                    Spacer()
-
-                }.padding()
+               
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -63,7 +48,12 @@ struct TransactionView: View {
         }
      
     }
-}
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMM yyyy" // Formato deseado: "19 Aug 2024"
+        return formatter.string(from: date)
+    }
+
 
 #Preview {
     TransactionView()
