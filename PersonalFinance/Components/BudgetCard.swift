@@ -11,10 +11,12 @@ struct BudgetsCard: View {
     
     var budget: Budget
     
+    @ObservedObject var viewModel: BudgetViewModel
+    @State private var isPresented: Bool = false
     
-   var free: Double {
+    var free: Double {
        budget.max - budget.spent
-   }
+    }
     
     var body: some View {
         VStack(alignment:.leading) {
@@ -33,9 +35,10 @@ struct BudgetsCard: View {
                 Menu {
                     Button("Edit Budget"){
                         print("editing")
+                        isPresented = true
                     }
                     Button("Delete Budget", role: .destructive){
-                        print("deleting")
+                        viewModel.deleteBudget(budget: budget)
                     }
                 } label: {
                     Image(systemName: "ellipsis")
@@ -93,9 +96,33 @@ struct BudgetsCard: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
+        .sheet(isPresented: $isPresented) {
+            VStack{
+                HStack(spacing:95) {
+                    Text("Edit Budget")
+                        .font(.title)
+                        .bold()
+                       
+                    Button(action: {
+                        isPresented = false
+                    }) {
+                        Image(systemName: "xmark.circle")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .foregroundStyle(Color("Grey-500"))
+                    }
+                    
+                }
+                
+                BudgetForm(budgetToEdit: budget, isPresented: $isPresented, viewModel: viewModel)
+                    
+            }
+            .padding()
+            
+        }
     }
 }
 
 #Preview {
-    BudgetsCard(budget: Budget(category: .entertainment, max: 50.00,  spent: 25.00,  theme: .green))
+    BudgetsCard(budget: Budget(id: UUID(), category: .entertainment, max: 50.00,  spent: 25.00,  theme: .green),viewModel: BudgetViewModel() )
 }

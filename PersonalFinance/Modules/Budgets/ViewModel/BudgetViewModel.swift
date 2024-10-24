@@ -6,16 +6,62 @@
 //
 
 import Foundation
-import Combine
+import SwiftData
 
+@Observable
 class BudgetViewModel: ObservableObject {
-    @Published var budgets: [Budget] = budgetMock 
-
-    private var cancellables: Set<AnyCancellable> = []
-
+    
+    let container = try! ModelContainer(for: Budget.self)
+   
+    var budgets: [Budget] = []
+    
+    @MainActor
+    var modelContext: ModelContext {
+        container.mainContext
+    }
+    
+    @MainActor
     func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
-        let newBudget = Budget(category: category, max: max, spent: spent, theme: theme)
-        budgets.append(newBudget)
+        let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme)
+       insertBudget(budget: newBudget)
+    }
+    
+    @MainActor
+    private func insertBudget(budget: Budget) {
+        modelContext.insert(budget)
+        budgets = []
+        getBudgets()
+    }
+    
+    @MainActor
+    func deleteBudget(budget: Budget) {
+        modelContext.delete(budget)
+        budgets = []
+        getBudgets()
+    }
+    
+    @MainActor
+    func updateBudget(budget: Budget, newCategory: BudgetCategory, newMax: Double, newSpent: Double, newTheme: BudgetTheme) {
+        
+        budget.category = newCategory
+        budget.max = newMax
+        budget.spent = newSpent
+        budget.theme = newTheme
+        
+        budgets = []
+        getBudgets()
+    }
+    
+    @MainActor
+    func getBudgets() {
+        let fetchDescriptor = FetchDescriptor<Budget>()
+        
+        do {
+            budgets = try modelContext.fetch(fetchDescriptor)
+            print(budgets)
+        } catch {
+            print("Error fetching budgets: \(error.localizedDescription)")
+        }
     }
 
     var totalMax: Double {

@@ -12,12 +12,6 @@ struct BudgetsView: View {
     @State private var isPresented: Bool = false
     @StateObject private var viewModel = BudgetViewModel()
  
-    
-    var totalMax: Double {
-        budgetMock.reduce(0) { $0 + $1.max }
-    }
-       
-        
     var body: some View {
         NavigationStack {
             ZStack {
@@ -30,7 +24,7 @@ struct BudgetsView: View {
                         
                         budgetChart
                         ForEach(viewModel.budgets) { budget in
-                            BudgetsCard(budget: budget)
+                            BudgetsCard(budget: budget, viewModel: viewModel)
                                 .padding(.top, 24)
                         }
                         
@@ -91,6 +85,9 @@ struct BudgetsView: View {
                 .padding()
                 
             }
+        }
+        .onAppear(){
+            viewModel.getBudgets()
         }
     }
     
