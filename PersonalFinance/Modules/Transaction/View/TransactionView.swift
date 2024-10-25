@@ -16,8 +16,10 @@ struct TransactionView: View {
             ZStack {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
-                VStack{
-                    
+                VStack {
+                    List(viewModel.transactions) {
+                        Text($0.title)
+                    }
                 }
             }
             .toolbar {
@@ -57,6 +59,8 @@ struct TransactionView: View {
                     
                 }
             }
+        }.onAppear {
+            viewModel.getTransactions()
         }
         
     }
