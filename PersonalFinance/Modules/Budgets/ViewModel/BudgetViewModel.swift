@@ -25,6 +25,7 @@ class BudgetViewModel: ObservableObject {
     var transactions: [Transaction] = [] 
     
 
+    // Mark:  Optomizar
     @MainActor
     func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
         let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme, transactions: [])

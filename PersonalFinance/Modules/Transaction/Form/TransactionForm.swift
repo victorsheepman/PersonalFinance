@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TransactionForm: View {
     
-    @ObservedObject var viewModel: BudgetViewModel
+    @ObservedObject var viewModel: TransactionViewModel
     
     @State private var title: String = ""
     @State private var amount: String = ""
@@ -41,7 +41,7 @@ struct TransactionForm: View {
             if selectedType == .expense {
                 Picker("Budget", selection: $selectedBudget) {
                     Text("General").tag(nil as Budget?)
-                    ForEach(viewModel.budgets.filter { !$0.isOverBudget }) { budget in
+                    ForEach(viewModel.availableBudgets.filter { !$0.isOverBudget }) { budget in
                         Text(budget.category.rawValue)
                             .tag(budget as Budget?)
                     }
@@ -70,7 +70,7 @@ struct TransactionForm: View {
             }
             
         }.onAppear{
-            viewModel.getBudgets()
+            viewModel.getAvailableBudgets()
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
@@ -99,5 +99,5 @@ struct TransactionForm: View {
 }
 
 #Preview {
-    TransactionForm(viewModel: BudgetViewModel(), isPresented: .constant(true))
+    TransactionForm(viewModel: TransactionViewModel(), isPresented: .constant(true))
 }

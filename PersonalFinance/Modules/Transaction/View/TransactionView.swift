@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TransactionView: View {
     
-    @Environment(BudgetViewModel.self) var viewModel
+    @StateObject var viewModel: TransactionViewModel = TransactionViewModel()
     
     @State private var isPresented: Bool = false
     
