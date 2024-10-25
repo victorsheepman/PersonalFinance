@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct TransactionView: View {
+    
+    @Environment(BudgetViewModel.self) var viewModel
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
-               
+                VStack{
+                    
                 }
             }
             .toolbar {
@@ -29,7 +33,15 @@ struct TransactionView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        print("print")
+                        withAnimation {
+                            viewModel.addTransaction(
+                                to: viewModel.budgets.first ?? nil ,
+                                title: "Bravo Zen Spa",
+                                amount: 25.0,
+                                date: Date(),
+                                type: .expense
+                            )
+                        }
                     }) {
                         Image(systemName: "plus")
                             .font(.system(size: 20)) // Ajusta el tamaño del icono
@@ -41,18 +53,20 @@ struct TransactionView: View {
                     .background(Color("Grey-900"))
                     .clipShape(Circle()) // Forma circular
                     .padding(.top)
-
-
+                    
+                    
                 }
             }
         }
-     
+        
     }
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy" // Formato deseado: "19 Aug 2024"
-        return formatter.string(from: date)
-    }
+    
+}
+private func formatDate(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd MMM yyyy" // Formato deseado: "19 Aug 2024"
+    return formatter.string(from: date)
+}
 
 
 #Preview {

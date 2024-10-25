@@ -63,6 +63,34 @@ class BudgetViewModel: ObservableObject {
             print("Error fetching budgets: \(error.localizedDescription)")
         }
     }
+    
+    @MainActor
+    func addTransaction(to budget: Budget?, title: String, amount: Double, date: Date, type: TransactionType) {
+       
+        if type == .expense, let budget = budget {
+            let transaction = Transaction(title: title, amount: amount, date: date, type: type, budget: budget)
+            
+            modelContext.insert(transaction)
+            budget.transactions?.append(transaction) 
+            
+            budget.spent += amount
+            
+            
+        } else if type == .income {
+            
+            let transaction = Transaction(title: title, amount: amount, date: date, type: type, budget: nil)
+                    
+            modelContext.insert(transaction)
+        } else {
+            print("Solo se pueden asociar transacciones de tipo 'expense' a un presupuesto.")
+            return
+        }
+        
+        
+        budgets = []
+        getBudgets()
+    }
+       
 
     var totalMax: Double {
         budgets.reduce(0) { $0 + $1.max }
