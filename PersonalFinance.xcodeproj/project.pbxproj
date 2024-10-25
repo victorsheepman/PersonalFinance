@@ -26,6 +26,7 @@
 		84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */; };
 		84AF9FE32CC9548500EAE5DB /* BudgetForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */; };
 		84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */; };
+		84F9E2B12CCBE16600DDFFD2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCard.swift; sourceTree = "<group>"; };
 		84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetForm.swift; sourceTree = "<group>"; };
 		84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewModel.swift; sourceTree = "<group>"; };
+		84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */,
+				84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */,
+				84F9E2B12CCBE16600DDFFD2 /* Extensions.swift in Sources */,
 				841D72272CC812C000BF7F72 /* PieChart.swift in Sources */,
 				845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */,
 				84AF9FE32CC9548500EAE5DB /* BudgetForm.swift in Sources */,

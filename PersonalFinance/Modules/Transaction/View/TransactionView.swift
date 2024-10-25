@@ -17,8 +17,27 @@ struct TransactionView: View {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    List(viewModel.transactions) {
-                        Text($0.title)
+                    List {
+                        ForEach(viewModel.transactions) { t in
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(t.title)
+                                    Text(t.budget?.category.rawValue ?? "General")
+                                        .foregroundColor(.gray)
+                                }
+                                Spacer()
+                                
+                                VStack {
+                                    Text("\(t.type == .income ? "+" : "-")\(t.amount, specifier: "%.2f")$")
+                                        .foregroundColor(t.type == .income ? Color("Green") : Color("Red"))
+                                    
+                                    Text(t.date.formattedAsString())
+                                        .font(.system(size: 12))
+                                        .foregroundStyle(Color("Grey-500"))
+                                    
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -38,25 +57,23 @@ struct TransactionView: View {
                         withAnimation {
                             viewModel.addTransaction(
                                 to: viewModel.budgets.first ?? nil ,
-                                title: "Bravo Zen Spa",
+                                title: "Pago",
                                 amount: 25.0,
                                 date: Date(),
-                                type: .expense
+                                type: .income
                             )
                         }
                     }) {
                         Image(systemName: "plus")
-                            .font(.system(size: 20)) // Ajusta el tamaño del icono
+                            .font(.system(size: 20))
                             .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center) // Centrar el icono
-                            .padding(.trailing, 5)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center) 
+                            .padding(.trailing, 4)
                     }
                     .frame(width: 40, height: 40)
                     .background(Color("Grey-900"))
-                    .clipShape(Circle()) // Forma circular
+                    .clipShape(Circle())
                     .padding(.top)
-                    
-                    
                 }
             }
         }.onAppear {
@@ -66,11 +83,7 @@ struct TransactionView: View {
     }
     
 }
-private func formatDate(_ date: Date) -> String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "dd MMM yyyy" // Formato deseado: "19 Aug 2024"
-    return formatter.string(from: date)
-}
+
 
 
 #Preview {
