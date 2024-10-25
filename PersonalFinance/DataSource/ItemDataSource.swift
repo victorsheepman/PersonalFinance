@@ -21,8 +21,8 @@ final class ItemDataSource {
         self.modelContext = modelContainer.mainContext
     }
 
-    func appendBudget(item: Budget) {
-        modelContext.insert(item)
+    func append<T: PersistentModel>(_ data: T) {
+        modelContext.insert(data)
         do {
             try modelContext.save()
         } catch {
@@ -30,37 +30,17 @@ final class ItemDataSource {
         }
     }
 
-    func fetchBudgets() -> [Budget] {
+    func fetch<T: PersistentModel>() -> [T] {
         do {
-            return try modelContext.fetch(FetchDescriptor<Budget>())
+            return try modelContext.fetch(FetchDescriptor<T>())
         } catch {
             fatalError(error.localizedDescription)
         }
     }
 
-    func removeBudget(item: Budget) {
-        modelContext.delete(item)
+    func remove<T: PersistentModel>(_ data: T) {
+        modelContext.delete(data)
         
     }
     
-    
-    ///TRANSACTION
-    
-    func appendTransaction(item: Transaction) {
-    
-        modelContext.insert(item)
-        do {
-            try modelContext.save()
-        } catch {
-            fatalError(error.localizedDescription)
-        }
-    }
-    
-    func fetchTransaction() -> [Transaction] {
-        do {
-            return try modelContext.fetch(FetchDescriptor<Transaction>())
-        } catch {
-            fatalError(error.localizedDescription)
-        }
-    }
 }

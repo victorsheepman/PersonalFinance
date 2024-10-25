@@ -27,20 +27,20 @@ class BudgetViewModel: ObservableObject {
 
     @MainActor
     func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
-        let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme)
+        let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme, transactions: [])
        insertBudget(budget: newBudget)
     }
     
    
     private func insertBudget(budget: Budget) {
-        dataSource.appendBudget(item: budget)
+        dataSource.append(budget)
         budgets = []
         getBudgets()
     }
     
     
     func deleteBudget(budget: Budget) {
-        dataSource.removeBudget(item: budget)
+        dataSource.remove(budget)
         budgets = []
         getBudgets()
     }
@@ -63,7 +63,7 @@ class BudgetViewModel: ObservableObject {
         if type == .expense, let budget = budget {
             let transaction = Transaction(title: title, amount: amount, date: date, type: type, budget: budget)
             
-            dataSource.appendTransaction(item: transaction)
+            dataSource.append(transaction)
             budget.transactions?.append(transaction)
             
             budget.spent += amount
@@ -73,7 +73,7 @@ class BudgetViewModel: ObservableObject {
             
             let transaction = Transaction(title: title, amount: amount, date: date, type: type, budget: nil)
             
-            dataSource.appendTransaction(item: transaction)
+            dataSource.append(transaction)
         } else {
             print("Solo se pueden asociar transacciones de tipo 'expense' a un presupuesto.")
             return
@@ -89,11 +89,11 @@ class BudgetViewModel: ObservableObject {
     
     
     func getBudgets() {
-        budgets = dataSource.fetchBudgets()
+        budgets = dataSource.fetch()
     }
     
     func getTransactions() {
-        transactions = dataSource.fetchTransaction()
+        transactions = dataSource.fetch()
     }
     
     
