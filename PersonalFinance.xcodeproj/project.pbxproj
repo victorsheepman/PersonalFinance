@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840F10AB2CCBFC6500666CA7 /* ItemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F10AA2CCBFC6500666CA7 /* ItemDataSource.swift */; };
 		841D72242CC8117200BF7F72 /* BudgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D72232CC8117200BF7F72 /* BudgetsView.swift */; };
 		841D72272CC812C000BF7F72 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D72262CC812C000BF7F72 /* PieChart.swift */; };
 		84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84234C6B2CC7F03500C52B74 /* Budget.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		840F10AA2CCBFC6500666CA7 /* ItemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDataSource.swift; sourceTree = "<group>"; };
 		841D72232CC8117200BF7F72 /* BudgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsView.swift; sourceTree = "<group>"; };
 		841D72262CC812C000BF7F72 /* PieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
 		84234C6B2CC7F03500C52B74 /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
@@ -66,6 +68,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		840F10A92CCBFC4D00666CA7 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				840F10AA2CCBFC6500666CA7 /* ItemDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		841D72252CC8117A00BF7F72 /* Budgets */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +105,7 @@
 		845CB2C92CC69A0100181E76 /* PersonalFinance */ = {
 			isa = PBXGroup;
 			children = (
+				840F10A92CCBFC4D00666CA7 /* DataSource */,
 				845CB2EA2CC6CBA800181E76 /* Resources */,
 				845CB2E52CC6C2E100181E76 /* Mock */,
 				845CB2E22CC6C15400181E76 /* Model */,
@@ -309,6 +320,7 @@
 				845CB2DF2CC6A89400181E76 /* HomeView.swift in Sources */,
 				84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */,
 				84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */,
+				840F10AB2CCBFC6500666CA7 /* ItemDataSource.swift in Sources */,
 				845CB2E72CC6C2F100181E76 /* TransactionMock.swift in Sources */,
 				84F9E2B42CCBE34C00DDFFD2 /* TransactionForm.swift in Sources */,
 				845CB2E42CC6C16300181E76 /* Transaction.swift in Sources */,
