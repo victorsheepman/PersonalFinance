@@ -17,14 +17,10 @@ class BudgetViewModel: ObservableObject {
     init(dataSource: ItemDataSource = ItemDataSource.shared) {
         self.dataSource = dataSource
         getBudgets()
-        getTransactions()
     }
-   
-   
-    var budgets: [Budget] = []
-    var transactions: [Transaction] = [] 
     
-
+    var budgets: [Budget] = []
+    
     // Mark:  Optomizar
     @MainActor
     func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
@@ -58,45 +54,13 @@ class BudgetViewModel: ObservableObject {
         getBudgets()
     }
     
-    @MainActor
-    func addTransaction(to budget: Budget?, title: String, amount: Double, date: Date, type: TransactionType) {
-        
-        if type == .expense, let budget = budget {
-            let transaction = Transaction(title: title, amount: amount, date: date, type: type, budget: budget)
-            
-            dataSource.append(transaction)
-            budget.transactions?.append(transaction)
-            
-            budget.spent += amount
-            
-            
-        } else if type == .income {
-            
-            let transaction = Transaction(title: title, amount: amount, date: date, type: type, budget: nil)
-            
-            dataSource.append(transaction)
-        } else {
-            print("Solo se pueden asociar transacciones de tipo 'expense' a un presupuesto.")
-            return
-        }
-        
-        
-        budgets = []
-        getBudgets()
-        
-        transactions = []
-        getTransactions()
-    }
-    
+   
     
     func getBudgets() {
         budgets = dataSource.fetch()
     }
     
-    func getTransactions() {
-        transactions = dataSource.fetch()
-    }
-    
+  
     
        
 
