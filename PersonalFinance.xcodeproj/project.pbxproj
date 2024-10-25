@@ -26,6 +26,8 @@
 		84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */; };
 		84AF9FE32CC9548500EAE5DB /* BudgetForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */; };
 		84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */; };
+		84F9E2B12CCBE16600DDFFD2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */; };
+		84F9E2B42CCBE34C00DDFFD2 /* TransactionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E2B32CCBE34C00DDFFD2 /* TransactionForm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCard.swift; sourceTree = "<group>"; };
 		84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetForm.swift; sourceTree = "<group>"; };
 		84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewModel.swift; sourceTree = "<group>"; };
+		84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		84F9E2B32CCBE34C00DDFFD2 /* TransactionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionForm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */,
+				84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -179,6 +184,7 @@
 		84607DF52CCA9E860097C233 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				84F9E2B22CCBE33B00DDFFD2 /* Form */,
 				84607DF62CCA9E8D0097C233 /* View */,
 			);
 			path = Transaction;
@@ -214,6 +220,14 @@
 				84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		84F9E2B22CCBE33B00DDFFD2 /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				84F9E2B32CCBE34C00DDFFD2 /* TransactionForm.swift */,
+			);
+			path = Form;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */,
+				84F9E2B12CCBE16600DDFFD2 /* Extensions.swift in Sources */,
 				841D72272CC812C000BF7F72 /* PieChart.swift in Sources */,
 				845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */,
 				84AF9FE32CC9548500EAE5DB /* BudgetForm.swift in Sources */,
@@ -295,6 +310,7 @@
 				84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */,
 				84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */,
 				845CB2E72CC6C2F100181E76 /* TransactionMock.swift in Sources */,
+				84F9E2B42CCBE34C00DDFFD2 /* TransactionForm.swift in Sources */,
 				845CB2E42CC6C16300181E76 /* Transaction.swift in Sources */,
 				845CB2D92CC6A24D00181E76 /* CustomTabBar.swift in Sources */,
 				84234C6E2CC7F06B00C52B74 /* BudgetMock.swift in Sources */,

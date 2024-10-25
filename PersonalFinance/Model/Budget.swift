@@ -31,12 +31,13 @@ class Budget {
         return spent > max
     }
     
-    init(id: UUID, category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
+    init(id: UUID, category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme, transactions:[Transaction]? = nil) {
         self.id = id
         self.category = category
         self.max = max
         self.spent = spent
         self.theme = theme
+        self.transactions = transactions
     }
 }
 

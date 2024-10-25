@@ -8,28 +8,38 @@
 import SwiftUI
 
 struct TransactionView: View {
+    
+    @Environment(BudgetViewModel.self) var viewModel
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
-                VStack{
-                    /*VStack {
-                        List(mockTransactions) { t in
-                            TransactionDetailCell(sender: t.sender, amount: t.amount, date: t.date)
-                                .padding(.top, 12)
+                VStack {
+                    List {
+                        ForEach(viewModel.transactions) { t in
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(t.title)
+                                    Text(t.budget?.category.rawValue ?? "General")
+                                        .foregroundColor(.gray)
+                                }
+                                Spacer()
                                 
-                        }.listStyle(.inset)
-                        
-                        Spacer()
+                                VStack {
+                                    Text("\(t.type == .income ? "+" : "-")\(t.amount, specifier: "%.2f")$")
+                                        .foregroundColor(t.type == .income ? Color("Green") : Color("Red"))
+                                    
+                                    Text(t.date.formattedAsString())
+                                        .font(.system(size: 12))
+                                        .foregroundStyle(Color("Grey-500"))
+                                    
+                                }
+                            }
+                        }
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 12).fill(.white))
-                    */
-                    Spacer()
-
-                }.padding()
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -44,26 +54,37 @@ struct TransactionView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        print("print")
+                        withAnimation {
+                            viewModel.addTransaction(
+                                to: viewModel.budgets.first ?? nil ,
+                                title: "Pago",
+                                amount: 25.0,
+                                date: Date(),
+                                type: .income
+                            )
+                        }
                     }) {
                         Image(systemName: "plus")
-                            .font(.system(size: 20)) // Ajusta el tamaño del icono
+                            .font(.system(size: 20))
                             .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center) // Centrar el icono
-                            .padding(.trailing, 5)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center) 
+                            .padding(.trailing, 4)
                     }
                     .frame(width: 40, height: 40)
                     .background(Color("Grey-900"))
-                    .clipShape(Circle()) // Forma circular
+                    .clipShape(Circle())
                     .padding(.top)
-
-
                 }
             }
+        }.onAppear {
+            viewModel.getTransactions()
         }
-     
+        
     }
+    
 }
+
+
 
 #Preview {
     TransactionView()

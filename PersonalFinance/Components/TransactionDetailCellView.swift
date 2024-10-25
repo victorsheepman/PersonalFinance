@@ -37,7 +37,7 @@ struct TransactionDetailCell: View {
                     .bold()
                     .foregroundColor(amount >= 0 ? Color("Green") : Color("Red"))
                 
-                Text(formatDate(date))
+                Text(date.formattedAsString())
                     .font(.system(size: 12))
                     .foregroundStyle(Color("Grey-500"))
             }
@@ -45,11 +45,7 @@ struct TransactionDetailCell: View {
     }
     
     
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy" // Formato deseado: "19 Aug 2024"
-        return formatter.string(from: date)
-    }
+  
 }
 
 
