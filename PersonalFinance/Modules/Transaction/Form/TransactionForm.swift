@@ -16,6 +16,8 @@ struct TransactionForm: View {
     @State private var date = Date()
     @State private var selectedBudget: Budget? = nil
     @State private var selectedType: TransactionType = .expense
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
     
     @Binding var isPresented: Bool
     
@@ -26,7 +28,7 @@ struct TransactionForm: View {
             TextField("Amount", text: $amount)
                 .keyboardType(.decimalPad)
                 .disableAutocorrection(true)
-           
+            
             
             Picker("Type", selection: $selectedType) {
                 ForEach(TransactionType.allCases) { type in
@@ -39,14 +41,14 @@ struct TransactionForm: View {
             if selectedType == .expense {
                 Picker("Budget", selection: $selectedBudget) {
                     Text("General").tag(nil as Budget?)
-                    ForEach(viewModel.budgets) { budget in
+                    ForEach(viewModel.budgets.filter { !$0.isOverBudget }) { budget in
                         Text(budget.category.rawValue)
                             .tag(budget as Budget?)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
             }
-         
+            
             DatePicker(
                 "Date",
                 selection: $date,
@@ -70,11 +72,20 @@ struct TransactionForm: View {
         }.onAppear{
             viewModel.getBudgets()
         }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
     }
     
     private func submitTransaction() {
         
         if let selectedAmount = Double(amount) {
+            
+            if let budget = selectedBudget, budget.isOverBudget {
+                alertMessage = "Cannot add more transactions to this budget as it has reached its maximum limit."
+                showAlert = true
+                return
+            }
             
             viewModel.addTransaction(to: selectedBudget, title: title, amount: selectedAmount, date: date, type: selectedType)
             
