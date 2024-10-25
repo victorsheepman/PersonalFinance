@@ -11,6 +11,8 @@ struct TransactionView: View {
     
     @Environment(BudgetViewModel.self) var viewModel
     
+    @State private var isPresented: Bool = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -54,15 +56,7 @@ struct TransactionView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        withAnimation {
-                            viewModel.addTransaction(
-                                to: viewModel.budgets.first ?? nil ,
-                                title: "Pago",
-                                amount: 25.0,
-                                date: Date(),
-                                type: .income
-                            )
-                        }
+                        isPresented = true
                     }) {
                         Image(systemName: "plus")
                             .font(.system(size: 20))
@@ -75,6 +69,30 @@ struct TransactionView: View {
                     .clipShape(Circle())
                     .padding(.top)
                 }
+            }
+            .sheet(isPresented: $isPresented) {
+                VStack{
+                    HStack(spacing:95) {
+                        Text("Add New Budget")
+                            .font(.title)
+                            .bold()
+                        
+                        Button(action: {
+                            isPresented = false
+                        }) {
+                            Image(systemName: "xmark.circle")
+                                .resizable()
+                                .frame(width: 32, height: 32)
+                                .foregroundStyle(Color("Grey-500"))
+                        }
+                    }
+                    TransactionForm(viewModel: viewModel, isPresented: $isPresented)
+                    
+                   
+                    
+                }
+                .padding()
+                
             }
         }.onAppear {
             viewModel.getTransactions()
