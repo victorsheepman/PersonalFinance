@@ -24,7 +24,7 @@ class TransactionViewModel: ObservableObject {
     
     
     @MainActor
-    func addTransaction(to budget: Budget?, title: String, amount: Double, date: Date, type: TransactionType) {
+    func addTransaction(to budget: Budget?, title: String, amount: Double, date: Date, type: TransactionType) -> Void {
         
         if type == .expense, let budget = budget {
             let transaction = Transaction(title: title, amount: amount, date: date, type: type, budget: budget)
@@ -49,7 +49,26 @@ class TransactionViewModel: ObservableObject {
         getTransactions()
     }
     
+    func removeTransaction(at indexSet: IndexSet) -> Void {
+        for i in indexSet {
+            let transactionToDelete = transactions[i]
+            removeTransactionFromBudget(transactionToDelete)
+            dataSource.remove(transactionToDelete)
+        }
+    }
     
+    private func removeTransactionFromBudget(_ transaction: Transaction) -> Void {
+        guard let budget = transaction.budget else {
+            return
+        }
+        
+        if let index = budget.transactions?.firstIndex(where: { $0.id == transaction.id }) {
+            budget.transactions?.remove(at: index)
+            
+            budget.spent -= transaction.amount
+        }
+    
+    }
    
     func getTransactions() {
         transactions = dataSource.fetch()

@@ -39,7 +39,7 @@ struct TransactionView: View {
                                     
                                 }
                             }
-                        }
+                        }.onDelete(perform: viewModel.removeTransaction)
                     }
                 }
             }
