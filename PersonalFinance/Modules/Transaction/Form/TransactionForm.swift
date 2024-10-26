@@ -13,7 +13,7 @@ struct TransactionForm: View {
     
     @State private var title: String = ""
     @State private var amount: String = ""
-    @State private var date = Date()
+    @State private var selectedDate = Date()
     @State private var selectedBudget: Budget? = nil
     @State private var selectedType: TransactionType = .expense
     @State private var showAlert: Bool = false
@@ -51,7 +51,7 @@ struct TransactionForm: View {
             
             DatePicker(
                 "Date",
-                selection: $date,
+                selection: $selectedDate,
                 displayedComponents: .date
             )
             .datePickerStyle(.graphical)
@@ -78,23 +78,23 @@ struct TransactionForm: View {
     }
     
     private func submitTransaction() {
-        
-        if let selectedAmount = Double(amount) {
-            
-            if let budget = selectedBudget, budget.isOverBudget {
-                alertMessage = "Cannot add more transactions to this budget as it has reached its maximum limit."
-                showAlert = true
-                return
-            }
-            
-            viewModel.addTransaction(to: selectedBudget, title: title, amount: selectedAmount, date: date, type: selectedType)
-            
-            
-            isPresented = false
-            amount = "0"
-            title = ""
-            
+        if let budget = selectedBudget, budget.isOverBudget {
+            alertMessage = "Cannot add more transactions to this budget as it has reached its maximum limit."
+            showAlert = true
+            return
         }
+        
+        guard let selectedAmount = Double(amount) else {
+            return
+        }
+        
+        let newTransaction = Transaction(title: title, amount: selectedAmount, date: selectedDate, type: selectedType)
+      
+        viewModel.addTransaction(to: selectedBudget, transaction: newTransaction)
+        
+        isPresented = false
+        amount = "0"
+        title = ""
     }
 }
 

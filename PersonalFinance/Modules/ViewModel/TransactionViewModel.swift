@@ -24,14 +24,11 @@ class TransactionViewModel: ObservableObject {
     
     
     @MainActor
-    func addTransaction(to budget: Budget?, title: String, amount: Double, date: Date, type: TransactionType) -> Void {
-        
-        let transaction = Transaction(title: title, amount: amount, date: date, type: type, budget: nil)
-        
-        if type == .expense, let budget = budget {
+    func addTransaction(to budget: Budget?, transaction: Transaction) -> Void {
+        if transaction.type == .expense, let budget = budget {
             transaction.budget = budget
             budget.transactions?.append(transaction)
-            budget.spent += amount
+            budget.spent += transaction.amount
         }
             
         dataSource.append(transaction)
