@@ -36,6 +36,32 @@ class TransactionViewModel: ObservableObject {
         getTransactions()
     }
     
+    func updateTransaction(transaction: Transaction, newTitle: String?, newAmount: Double?, newBudget: Budget?, newDate: Date?, newType: TransactionType?) {
+        // Actualizar los valores de la transacción solo si existen nuevos valores
+        if let title = newTitle {
+            transaction.title = title
+        }
+        
+        if let amount = newAmount {
+            transaction.amount = amount
+        }
+        
+        if let budget = newBudget {
+            transaction.budget = budget
+        }
+        
+        if let date = newDate {
+            transaction.date = date
+        }
+        
+        if let type = newType {
+            transaction.type = type
+        }
+        
+       
+        transactions = []
+        getTransactions()
+    }
     
     func removeTransaction(at indexSet: IndexSet) -> Void {
         for i in indexSet {

@@ -9,6 +9,10 @@ import SwiftUI
 
 struct TransactionForm: View {
     
+    @Environment(\.dismiss) private var dismiss
+    
+    var transactionToEdit: Transaction? = nil
+    
     @ObservedObject var viewModel: TransactionViewModel
     
     @State private var title: String = ""
@@ -31,7 +35,7 @@ struct TransactionForm: View {
             
             
             Picker("Type", selection: $selectedType) {
-                ForEach(TransactionType.allCases) { type in
+                ForEach(TransactionType.allCases.filter { transactionToEdit?.type == $0 }) { type in
                     Text(type.rawValue)
                         .tag(type)
                 }
@@ -41,7 +45,7 @@ struct TransactionForm: View {
             if selectedType == .expense {
                 Picker("Budget", selection: $selectedBudget) {
                     Text("General").tag(nil as Budget?)
-                    ForEach(viewModel.availableBudgets.filter { !$0.isOverBudget }) { budget in
+                    ForEach(viewModel.availableBudgets.filter { !$0.isOverBudget || transactionToEdit?.budget?.id == $0.id }) { budget in
                         Text(budget.category.rawValue)
                             .tag(budget as Budget?)
                     }
@@ -60,7 +64,7 @@ struct TransactionForm: View {
             Button(action: {
                 submitTransaction()
             }) {
-                Text("Add Budget")
+                Text(transactionToEdit == nil ? "Add" : "Edit")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -71,6 +75,13 @@ struct TransactionForm: View {
             
         }.onAppear{
             viewModel.getAvailableBudgets()
+            if let transaction = transactionToEdit {
+                title = transaction.title
+                selectedDate = transaction.date
+                amount = String(transaction.amount)
+                selectedBudget = transaction.budget
+                selectedType = transaction.type
+            }
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
@@ -87,14 +98,35 @@ struct TransactionForm: View {
         guard let selectedAmount = Double(amount) else {
             return
         }
+ 
         
-        let newTransaction = Transaction(title: title, amount: selectedAmount, date: selectedDate, type: selectedType)
-      
-        viewModel.addTransaction(to: selectedBudget, transaction: newTransaction)
-        
-        isPresented = false
-        amount = "0"
-        title = ""
+        if let transaction = transactionToEdit {
+            
+            let newTitle  = title != transaction.title ? title : nil
+            let newAmount = selectedAmount != transaction.amount ? selectedAmount : nil
+            let newBudget = selectedBudget != transaction.budget ? selectedBudget : nil
+            let newDate   = selectedDate != transaction.date ? selectedDate : nil
+            let newType = selectedType != transaction.type ? selectedType : nil
+            
+            viewModel.updateTransaction(
+                transaction: transaction,
+                newTitle: newTitle,
+                newAmount: newAmount,
+                newBudget: newBudget,
+                newDate: newDate,
+                newType: newType
+            )
+            dismiss()
+        } else {
+            
+            let newTransaction = Transaction(title: title, amount: selectedAmount, date: selectedDate, type: selectedType)
+          
+            viewModel.addTransaction(to: selectedBudget, transaction: newTransaction)
+            isPresented = false
+            amount = "0"
+            title = ""
+        }
+     
     }
 }
 

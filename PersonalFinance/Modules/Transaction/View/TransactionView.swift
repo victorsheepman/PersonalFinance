@@ -21,22 +21,24 @@ struct TransactionView: View {
                 VStack {
                     List {
                         ForEach(viewModel.transactions) { t in
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(t.title)
-                                    Text(t.budget?.category.rawValue ?? "General")
-                                        .foregroundColor(.gray)
-                                }
-                                Spacer()
-                                
-                                VStack {
-                                    Text("\(t.type == .income ? "+" : "-")\(t.amount, specifier: "%.2f")$")
-                                        .foregroundColor(t.type == .income ? Color("Green") : Color("Red"))
+                            NavigationLink(destination: TransactionForm(transactionToEdit: t, viewModel: viewModel, isPresented:$isPresented )) {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(t.title)
+                                        Text(t.budget?.category.rawValue ?? "General")
+                                            .foregroundColor(.gray)
+                                    }
+                                    Spacer()
                                     
-                                    Text(t.date.formattedAsString())
-                                        .font(.system(size: 12))
-                                        .foregroundStyle(Color("Grey-500"))
-                                    
+                                    VStack {
+                                        Text("\(t.type == .income ? "+" : "-")\(t.amount, specifier: "%.2f")$")
+                                            .foregroundColor(t.type == .income ? Color("Green") : Color("Red"))
+                                        
+                                        Text(t.date.formattedAsString())
+                                            .font(.system(size: 12))
+                                            .foregroundStyle(Color("Grey-500"))
+                                        
+                                    }
                                 }
                             }
                         }.onDelete(perform: viewModel.removeTransaction)
