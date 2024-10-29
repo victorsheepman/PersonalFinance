@@ -48,7 +48,11 @@ class TransactionViewModel: ObservableObject {
         if let budget = newBudget, transaction.budget != budget {
             removeTransactionFromBudget(transaction)
             transactionToBudget(transaction, budget)
+        } else{
+            removeTransactionFromBudget(transaction)
+            transaction.budget = nil
         }
+        
         
         if let date = newDate {
             transaction.date = date
@@ -59,9 +63,9 @@ class TransactionViewModel: ObservableObject {
         }
         
         if transaction.type == .income{
-            print("la transaction es una ganancia")
             removeTransactionFromBudget(transaction)
         }
+        
         
         
         transactions = []
