@@ -10,6 +10,9 @@ import Foundation
 
 @Observable
 class TransactionViewModel: ObservableObject {
+
+    var transactions: [Transaction] = []
+    var availableBudgets: [Budget] = []
     
     @ObservationIgnored
     private let dataSource: ItemDataSource
@@ -18,10 +21,6 @@ class TransactionViewModel: ObservableObject {
         self.dataSource = dataSource
         getTransactions()
     }
-    
-    var transactions: [Transaction] = []
-    var availableBudgets: [Budget] = []
-    
     
     @MainActor
     func addTransaction(to budget: Budget?, transaction: Transaction) -> Void {
