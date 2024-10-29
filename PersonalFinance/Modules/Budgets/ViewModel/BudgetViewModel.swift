@@ -58,6 +58,7 @@ class BudgetViewModel: ObservableObject {
     
     func getBudgets() {
         budgets = dataSource.fetch()
+        
     }
     
   

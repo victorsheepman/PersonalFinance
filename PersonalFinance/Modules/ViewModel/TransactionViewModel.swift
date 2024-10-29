@@ -13,7 +13,7 @@ class TransactionViewModel: ObservableObject {
     
     @ObservationIgnored
     private let dataSource: ItemDataSource
-
+    
     init(dataSource: ItemDataSource = ItemDataSource.shared) {
         self.dataSource = dataSource
         getTransactions()
@@ -26,18 +26,16 @@ class TransactionViewModel: ObservableObject {
     @MainActor
     func addTransaction(to budget: Budget?, transaction: Transaction) -> Void {
         if transaction.type == .expense, let budget = budget {
-            transaction.budget = budget
-            budget.transactions?.append(transaction)
-            budget.spent += transaction.amount
+            transactionToBudget(transaction, budget)
         }
-            
+        
         dataSource.append(transaction)
         transactions = []
         getTransactions()
     }
     
     func updateTransaction(transaction: Transaction, newTitle: String?, newAmount: Double?, newBudget: Budget?, newDate: Date?, newType: TransactionType?) {
-        // Actualizar los valores de la transacción solo si existen nuevos valores
+        
         if let title = newTitle {
             transaction.title = title
         }
@@ -46,8 +44,10 @@ class TransactionViewModel: ObservableObject {
             transaction.amount = amount
         }
         
-        if let budget = newBudget {
-            transaction.budget = budget
+        
+        if let budget = newBudget, transaction.budget != budget {
+            removeTransactionFromBudget(transaction)
+            transactionToBudget(transaction, budget)
         }
         
         if let date = newDate {
@@ -58,7 +58,12 @@ class TransactionViewModel: ObservableObject {
             transaction.type = type
         }
         
-       
+        if transaction.type == .income{
+            print("la transaction es una ganancia")
+            removeTransactionFromBudget(transaction)
+        }
+        
+        
         transactions = []
         getTransactions()
     }
@@ -81,7 +86,13 @@ class TransactionViewModel: ObservableObject {
             
             budget.spent -= transaction.amount
         }
+        
+    }
     
+    private func transactionToBudget(_ transaction: Transaction, _ budget:Budget) -> Void{
+        transaction.budget = budget
+        budget.transactions?.append(transaction)
+        budget.spent += transaction.amount
     }
    
     func getTransactions() {

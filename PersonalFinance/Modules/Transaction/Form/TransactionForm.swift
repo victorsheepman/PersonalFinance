@@ -35,7 +35,7 @@ struct TransactionForm: View {
             
             
             Picker("Type", selection: $selectedType) {
-                ForEach(TransactionType.allCases.filter { transactionToEdit?.type == $0 }) { type in
+                ForEach(TransactionType.allCases) { type in
                     Text(type.rawValue)
                         .tag(type)
                 }
@@ -45,7 +45,7 @@ struct TransactionForm: View {
             if selectedType == .expense {
                 Picker("Budget", selection: $selectedBudget) {
                     Text("General").tag(nil as Budget?)
-                    ForEach(viewModel.availableBudgets.filter { !$0.isOverBudget || transactionToEdit?.budget?.id == $0.id }) { budget in
+                    ForEach(viewModel.availableBudgets.filter { !$0.isOverBudget }) { budget in
                         Text(budget.category.rawValue)
                             .tag(budget as Budget?)
                     }
@@ -104,10 +104,10 @@ struct TransactionForm: View {
             
             let newTitle  = title != transaction.title ? title : nil
             let newAmount = selectedAmount != transaction.amount ? selectedAmount : nil
-            let newBudget = selectedBudget != transaction.budget ? selectedBudget : nil
+            var newBudget = selectedBudget != transaction.budget ? selectedBudget : nil
             let newDate   = selectedDate != transaction.date ? selectedDate : nil
-            let newType = selectedType != transaction.type ? selectedType : nil
-            
+            let newType   = selectedType != transaction.type ? selectedType : nil
+                    
             viewModel.updateTransaction(
                 transaction: transaction,
                 newTitle: newTitle,
