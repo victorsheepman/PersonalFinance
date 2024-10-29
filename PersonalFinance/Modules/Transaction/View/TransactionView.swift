@@ -94,6 +94,7 @@ struct TransactionView: View {
                     
                 }
                 .padding()
+                .background(Color("Background"))
                 
             }
         }.onAppear {
