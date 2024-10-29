@@ -11,32 +11,33 @@ import SwiftData
 @Observable
 class BudgetViewModel: ObservableObject {
     
-    let container = try! ModelContainer(for: Budget.self)
-   
-    var budgets: [Budget] = []
-    var transactions: [Transaction] = [] 
-    
-    @MainActor
-    var modelContext: ModelContext {
-        container.mainContext
+    @ObservationIgnored
+    private let dataSource: ItemDataSource
+
+    init(dataSource: ItemDataSource = ItemDataSource.shared) {
+        self.dataSource = dataSource
+        getBudgets()
     }
     
+    var budgets: [Budget] = []
+    
+    // Mark:  Optomizar
     @MainActor
     func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
-        let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme)
+        let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme, transactions: [])
        insertBudget(budget: newBudget)
     }
     
-    @MainActor
+   
     private func insertBudget(budget: Budget) {
-        modelContext.insert(budget)
+        dataSource.append(budget)
         budgets = []
         getBudgets()
     }
     
-    @MainActor
+    
     func deleteBudget(budget: Budget) {
-        modelContext.delete(budget)
+        dataSource.remove(budget)
         budgets = []
         getBudgets()
     }
@@ -53,59 +54,14 @@ class BudgetViewModel: ObservableObject {
         getBudgets()
     }
     
-    @MainActor
-    func addTransaction(to budget: Budget?, title: String, amount: Double, date: Date, type: TransactionType) {
-        
-        if type == .expense, let budget = budget {
-            let transaction = Transaction(title: title, amount: amount, date: date, type: type, budget: budget)
-            
-            modelContext.insert(transaction)
-            budget.transactions?.append(transaction)
-            
-            budget.spent += amount
-            
-            
-        } else if type == .income {
-            
-            let transaction = Transaction(title: title, amount: amount, date: date, type: type, budget: nil)
-            
-            modelContext.insert(transaction)
-        } else {
-            print("Solo se pueden asociar transacciones de tipo 'expense' a un presupuesto.")
-            return
-        }
-        
-        
-        budgets = []
-        getBudgets()
-        
-        transactions = []
-        getTransactions()
-    }
+   
     
-    @MainActor
     func getBudgets() {
-        let fetchDescriptor = FetchDescriptor<Budget>()
+        budgets = dataSource.fetch()
         
-        do {
-            budgets = try modelContext.fetch(fetchDescriptor)
-            print(budgets)
-        } catch {
-            print("Error fetching budgets: \(error.localizedDescription)")
-        }
-    }
-    @MainActor
-    func getTransactions() {
-        let fetchDescriptor = FetchDescriptor<Transaction>()
-        
-        do {
-            transactions = try modelContext.fetch(fetchDescriptor)
-            print(transactions)
-        } catch {
-            print("Error fetching transactions: \(error.localizedDescription)")
-        }
     }
     
+  
     
        
 

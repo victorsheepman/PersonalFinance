@@ -9,11 +9,15 @@ import SwiftUI
 
 struct TransactionForm: View {
     
-    @ObservedObject var viewModel: BudgetViewModel
+    @Environment(\.dismiss) private var dismiss
+    
+    var transactionToEdit: Transaction? = nil
+    
+    @ObservedObject var viewModel: TransactionViewModel
     
     @State private var title: String = ""
     @State private var amount: String = ""
-    @State private var date = Date()
+    @State private var selectedDate = Date()
     @State private var selectedBudget: Budget? = nil
     @State private var selectedType: TransactionType = .expense
     @State private var showAlert: Bool = false
@@ -41,7 +45,7 @@ struct TransactionForm: View {
             if selectedType == .expense {
                 Picker("Budget", selection: $selectedBudget) {
                     Text("General").tag(nil as Budget?)
-                    ForEach(viewModel.budgets.filter { !$0.isOverBudget }) { budget in
+                    ForEach(viewModel.availableBudgets.filter { !$0.isOverBudget }) { budget in
                         Text(budget.category.rawValue)
                             .tag(budget as Budget?)
                     }
@@ -51,7 +55,7 @@ struct TransactionForm: View {
             
             DatePicker(
                 "Date",
-                selection: $date,
+                selection: $selectedDate,
                 displayedComponents: .date
             )
             .datePickerStyle(.graphical)
@@ -60,7 +64,7 @@ struct TransactionForm: View {
             Button(action: {
                 submitTransaction()
             }) {
-                Text("Add Budget")
+                Text(transactionToEdit == nil ? "Add" : "Edit")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -70,7 +74,14 @@ struct TransactionForm: View {
             }
             
         }.onAppear{
-            viewModel.getBudgets()
+            viewModel.getAvailableBudgets()
+            if let transaction = transactionToEdit {
+                title = transaction.title
+                selectedDate = transaction.date
+                amount = String(transaction.amount)
+                selectedBudget = transaction.budget
+                selectedType = transaction.type
+            }
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
@@ -78,26 +89,47 @@ struct TransactionForm: View {
     }
     
     private func submitTransaction() {
+        if let budget = selectedBudget, budget.isOverBudget {
+            alertMessage = "Cannot add more transactions to this budget as it has reached its maximum limit."
+            showAlert = true
+            return
+        }
         
-        if let selectedAmount = Double(amount) {
+        guard let selectedAmount = Double(amount) else {
+            return
+        }
+ 
+        
+        if let transaction = transactionToEdit {
             
-            if let budget = selectedBudget, budget.isOverBudget {
-                alertMessage = "Cannot add more transactions to this budget as it has reached its maximum limit."
-                showAlert = true
-                return
-            }
+            let newTitle  = title != transaction.title ? title : nil
+            let newAmount = selectedAmount != transaction.amount ? selectedAmount : nil
+            var newBudget = selectedBudget != transaction.budget ? selectedBudget : nil
+            let newDate   = selectedDate != transaction.date ? selectedDate : nil
+            let newType   = selectedType != transaction.type ? selectedType : nil
+                    
+            viewModel.updateTransaction(
+                transaction: transaction,
+                newTitle: newTitle,
+                newAmount: newAmount,
+                newBudget: newBudget,
+                newDate: newDate,
+                newType: newType
+            )
+            dismiss()
+        } else {
             
-            viewModel.addTransaction(to: selectedBudget, title: title, amount: selectedAmount, date: date, type: selectedType)
-            
-            
+            let newTransaction = Transaction(title: title, amount: selectedAmount, date: selectedDate, type: selectedType)
+          
+            viewModel.addTransaction(to: selectedBudget, transaction: newTransaction)
             isPresented = false
             amount = "0"
             title = ""
-            
         }
+     
     }
 }
 
 #Preview {
-    TransactionForm(viewModel: BudgetViewModel(), isPresented: .constant(true))
+    TransactionForm(viewModel: TransactionViewModel(), isPresented: .constant(true))
 }
