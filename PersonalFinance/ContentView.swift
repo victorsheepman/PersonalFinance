@@ -30,6 +30,9 @@ struct ContentView: View {
                     BudgetsView()
                         .tag(Tab.chart)
                     
+                    TransactionView()
+                        .tag(Tab.transaction)
+                    
                 }
                 
             }

@@ -12,8 +12,7 @@ enum Tab: String, CaseIterable {
     case house
     case transaction = "arrow.up.arrow.down"
     case chart = "chart.pie"
-    case leaf
-    case gearshape
+    
 }
 
 struct CustomTabBar: View {
@@ -29,10 +28,7 @@ struct CustomTabBar: View {
             return Color("Cyan")
         case .chart:
             return Color("Purple")
-        case .leaf:
-            return .green
-        case .gearshape:
-            return .orange
+        
         }
     }
     

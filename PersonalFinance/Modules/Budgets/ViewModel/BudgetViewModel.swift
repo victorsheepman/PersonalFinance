@@ -11,31 +11,33 @@ import SwiftData
 @Observable
 class BudgetViewModel: ObservableObject {
     
-    let container = try! ModelContainer(for: Budget.self)
-   
-    var budgets: [Budget] = []
-    
-    @MainActor
-    var modelContext: ModelContext {
-        container.mainContext
+    @ObservationIgnored
+    private let dataSource: ItemDataSource
+
+    init(dataSource: ItemDataSource = ItemDataSource.shared) {
+        self.dataSource = dataSource
+        getBudgets()
     }
     
+    var budgets: [Budget] = []
+    
+    // Mark:  Optomizar
     @MainActor
     func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
-        let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme)
+        let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme, transactions: [])
        insertBudget(budget: newBudget)
     }
     
-    @MainActor
+   
     private func insertBudget(budget: Budget) {
-        modelContext.insert(budget)
+        dataSource.append(budget)
         budgets = []
         getBudgets()
     }
     
-    @MainActor
+    
     func deleteBudget(budget: Budget) {
-        modelContext.delete(budget)
+        dataSource.remove(budget)
         budgets = []
         getBudgets()
     }
@@ -52,17 +54,16 @@ class BudgetViewModel: ObservableObject {
         getBudgets()
     }
     
-    @MainActor
+   
+    
     func getBudgets() {
-        let fetchDescriptor = FetchDescriptor<Budget>()
+        budgets = dataSource.fetch()
         
-        do {
-            budgets = try modelContext.fetch(fetchDescriptor)
-            print(budgets)
-        } catch {
-            print("Error fetching budgets: \(error.localizedDescription)")
-        }
     }
+    
+  
+    
+       
 
     var totalMax: Double {
         budgets.reduce(0) { $0 + $1.max }

@@ -31,7 +31,7 @@ struct HomeView: View {
                         BalanceCardView(title: "Income", balance: "3,814.25")
                         BalanceCardView(title: "Expenses", balance: "1,700.50")
                         
-                        transactionSection
+                        //transactionSection
                         
                         budgetSection
               
@@ -39,13 +39,22 @@ struct HomeView: View {
                     }
                     .padding()
                     .padding(.bottom, 100)
-                }.navigationTitle("Overview")
-                
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    
+                    Text("Overview")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.top)
+                    
+                }
             }
         }
         
     }
-    
+   /*
     var transactionSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             NavigationLink(value:"Transaction") {
@@ -86,7 +95,7 @@ struct HomeView: View {
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
     }
-    
+    */
     var budgetSection: some View {
         VStack{
             NavigationLink(value:"Transaction") {

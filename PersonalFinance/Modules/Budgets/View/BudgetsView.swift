@@ -11,44 +11,39 @@ struct BudgetsView: View {
     
     @State private var isPresented: Bool = false
     @State private var showAlert: Bool = false
-    @StateObject private var viewModel = BudgetViewModel()
+    
+    @StateObject private var viewModel: BudgetViewModel = BudgetViewModel()
  
     var body: some View {
         NavigationStack {
             ZStack {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
-                
-                
                 ScrollView {
                     VStack {
-                        
                         budgetChart
                         ForEach(viewModel.budgets) { budget in
                             BudgetsCard(budget: budget, viewModel: viewModel)
                                 .padding(.top, 24)
                         }
-                        
                         Spacer()
                     }
                     .padding(.bottom, 100)
                     .padding(.horizontal)
                     .padding(.top, 40)
                 }
-                
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    HStack {
-                        Text("Budgets")
-                            .font(.largeTitle)
-                            .bold()
-                            .padding(.top)
-                        Spacer()
-                    }
+                    
+                    Text("Budgets")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.top)
+                    
+                    
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         if viewModel.budgets.count < 4 {
                             isPresented = true
@@ -56,14 +51,9 @@ struct BudgetsView: View {
                             showAlert = true
                         }
                     }) {
-                        Text("Add New Budget")
-                            .font(.system(size: 14).bold())
-                            .foregroundStyle(.white)
+                        Image(systemName: "plus")
+                            .foregroundStyle(.black)
                     }
-                    .frame(width: 155, height: 53)
-                    .background(Color("Grey-900"))
-                    .cornerRadius(8)
-                    .padding(.top)
                 }
             }
             .alert(isPresented: $showAlert) {
@@ -79,7 +69,7 @@ struct BudgetsView: View {
                         Text("Add New Budget")
                             .font(.title)
                             .bold()
-                           
+
                         Button(action: {
                             isPresented = false
                         }) {
@@ -90,12 +80,10 @@ struct BudgetsView: View {
                         }
                         
                     }
-                    
                     BudgetForm(isPresented: $isPresented, viewModel: viewModel)
-                        
                 }
                 .padding()
-                
+                .background(Color("Background"))
             }
         }
         .onAppear(){
@@ -138,13 +126,9 @@ struct BudgetsView: View {
                 if budget.id != viewModel.budgets.last?.id {
                     Divider()
                         .background(Color("Grey-100"))
-                    
                 }
-                
             }
             .padding(.top, 10)
-           
-        
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
