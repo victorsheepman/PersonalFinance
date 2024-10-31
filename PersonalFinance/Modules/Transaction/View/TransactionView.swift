@@ -12,6 +12,21 @@ struct TransactionView: View {
     @StateObject var viewModel: TransactionViewModel = TransactionViewModel()
     
     @State private var isPresented: Bool = false
+    @State private var search: String = ""
+    @State private var budgetSelected: BudgetCategory? = nil
+    
+    var transactionFiltered: [Transaction] {
+        var filtered = viewModel.transactions
+        if !search.isEmpty {
+            filtered = filtered.filter { $0.title.contains(search) }
+        }
+        
+        if let currentBudget = budgetSelected {
+           filtered = filtered.filter { $0.budget?.category.rawValue == currentBudget.rawValue }
+        }
+        
+        return filtered
+    }
     
     var body: some View {
         NavigationStack {
@@ -19,8 +34,23 @@ struct TransactionView: View {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
                 VStack {
+                    
                     List {
-                        ForEach(viewModel.transactions) { t in
+                        HStack{
+                            TextField("Search Transaction", text: $search)
+                           
+                            Menu {
+                                ForEach(viewModel.availableBudgets) { budget in
+                                    Button(budget.category.rawValue) {
+                                        print(budget.category.rawValue)
+                                    }
+                                }
+                            } label: {
+                                Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                                    .foregroundStyle(.black)
+                            }
+                        }
+                        ForEach(transactionFiltered) { t in
                             NavigationLink(destination: TransactionForm(transactionToEdit: t, viewModel: viewModel, isPresented:$isPresented )) {
                                 HStack {
                                     VStack(alignment: .leading) {
@@ -56,24 +86,19 @@ struct TransactionView: View {
                     }
                 }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         isPresented = true
                     }) {
                         Image(systemName: "plus")
-                            .font(.system(size: 20))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center) 
-                            .padding(.trailing, 4)
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     }
-                    .frame(width: 40, height: 40)
-                    .background(Color("Grey-900"))
-                    .clipShape(Circle())
-                    .padding(.top)
+                   
                 }
             }
             .sheet(isPresented: $isPresented) {
-                VStack{
+                VStack {
                     HStack(spacing:95) {
                         Text("Add New Budget")
                             .font(.title)
@@ -89,9 +114,6 @@ struct TransactionView: View {
                         }
                     }
                     TransactionForm(viewModel: viewModel, isPresented: $isPresented)
-                    
-                   
-                    
                 }
                 .padding()
                 .background(Color("Background"))
