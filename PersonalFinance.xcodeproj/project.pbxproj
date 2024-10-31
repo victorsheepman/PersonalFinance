@@ -83,7 +83,8 @@
 			children = (
 				840F10B12CCC0B8300666CA7 /* TransactionViewModel.swift */,
 			);
-			path = ViewModel;
+			name = ViewModel;
+			path = ../ViewModel;
 			sourceTree = "<group>";
 		};
 		841D72252CC8117A00BF7F72 /* Budgets */ = {
@@ -152,7 +153,6 @@
 		845CB2DB2CC6A87800181E76 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				840F10B02CCC0B7400666CA7 /* ViewModel */,
 				84607DF52CCA9E860097C233 /* Transaction */,
 				845CB2DC2CC6A88100181E76 /* Home */,
 				841D72252CC8117A00BF7F72 /* Budgets */,
@@ -206,6 +206,7 @@
 		84607DF52CCA9E860097C233 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				840F10B02CCC0B7400666CA7 /* ViewModel */,
 				84F9E2B22CCBE33B00DDFFD2 /* Form */,
 				84607DF62CCA9E8D0097C233 /* View */,
 			);

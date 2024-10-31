@@ -13,7 +13,7 @@ struct TransactionView: View {
     
     @State private var isPresented: Bool = false
     @State private var search: String = ""
-    @State private var budgetSelected: BudgetCategory? = nil
+    @State private var budgetSelected: BudgetCategory?
     
     var transactionFiltered: [Transaction] {
         var filtered = viewModel.transactions
@@ -40,9 +40,13 @@ struct TransactionView: View {
                             TextField("Search Transaction", text: $search)
                            
                             Menu {
-                                ForEach(viewModel.availableBudgets) { budget in
-                                    Button(budget.category.rawValue) {
-                                        print(budget.category.rawValue)
+                                Button("All Transactions") {
+                                    budgetSelected = nil
+                                }
+                                ForEach(BudgetCategory.allCases) { budget in
+                                    
+                                    Button(budget.rawValue) {
+                                        budgetSelected = budget
                                     }
                                 }
                             } label: {
@@ -77,15 +81,13 @@ struct TransactionView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    HStack {
-                        Text("Transactions")
-                            .font(.largeTitle)
-                            .bold()
-                            .padding(.top)
-                        Spacer()
-                    }
+                    
+                    Text("Transactions")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.top)
+                    
                 }
-                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         isPresented = true

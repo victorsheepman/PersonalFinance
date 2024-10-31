@@ -47,9 +47,6 @@ class TransactionViewModel: ObservableObject {
         if let budget = newBudget, transaction.budget != budget {
             removeTransactionFromBudget(transaction)
             transactionToBudget(transaction, budget)
-        } else{
-            removeTransactionFromBudget(transaction)
-            transaction.budget = nil
         }
         
         

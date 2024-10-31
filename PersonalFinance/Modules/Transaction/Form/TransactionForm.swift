@@ -112,7 +112,7 @@ struct TransactionForm: View {
                 transaction: transaction,
                 newTitle: newTitle,
                 newAmount: newAmount,
-                newBudget: newBudget,
+                newBudget: selectedBudget,
                 newDate: newDate,
                 newType: newType
             )

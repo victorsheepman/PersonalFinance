@@ -39,8 +39,17 @@ struct HomeView: View {
                     }
                     .padding()
                     .padding(.bottom, 100)
-                }.navigationTitle("Overview")
-                
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    
+                    Text("Overview")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.top)
+                    
+                }
             }
         }
         
