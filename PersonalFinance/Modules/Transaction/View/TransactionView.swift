@@ -18,12 +18,16 @@ struct TransactionView: View {
     @State private var budgetSelected: BudgetCategory? = nil
     
     var transactionFiltered: [Transaction] {
-        
+        var filtered = viewModel.transactions
         if !search.isEmpty {
-            return viewModel.transactions.filter { $0.title.contains(search) }
+            filtered = filtered.filter { $0.title.contains(search) }
         }
         
-        return viewModel.transactions
+        if let currentBudget = budgetSelected {
+           filtered = filtered.filter { $0.budget?.category.rawValue == currentBudget.rawValue }
+        }
+        
+        return filtered
     }
     
     
@@ -39,14 +43,14 @@ struct TransactionView: View {
                             TextField("Search Transaction", text: $search)
                            
                             Menu {
-                                ForEach(viewModel.availableBudgets){ budget in
-                                    Button(budget.category.rawValue){
+                                ForEach(viewModel.availableBudgets) { budget in
+                                    Button(budget.category.rawValue) {
                                         print(budget.category.rawValue)
                                     }
                                 }
                             } label: {
                                 Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                                    .foregroundStyle(Color("Grey-300"))
+                                    .foregroundStyle(.black)
                             }
                         }
                         ForEach(transactionFiltered) { t in
@@ -85,24 +89,19 @@ struct TransactionView: View {
                     }
                 }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         isPresented = true
                     }) {
                         Image(systemName: "plus")
-                            .font(.system(size: 20))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center) 
-                            .padding(.trailing, 4)
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     }
-                    .frame(width: 40, height: 40)
-                    .background(Color("Grey-900"))
-                    .clipShape(Circle())
-                    .padding(.top)
+                   
                 }
             }
             .sheet(isPresented: $isPresented) {
-                VStack{
+                VStack {
                     HStack(spacing:95) {
                         Text("Add New Budget")
                             .font(.title)
@@ -118,9 +117,6 @@ struct TransactionView: View {
                         }
                     }
                     TransactionForm(viewModel: viewModel, isPresented: $isPresented)
-                    
-                   
-                    
                 }
                 .padding()
                 .background(Color("Background"))
