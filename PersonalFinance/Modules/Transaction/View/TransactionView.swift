@@ -12,9 +12,7 @@ struct TransactionView: View {
     @StateObject var viewModel: TransactionViewModel = TransactionViewModel()
     
     @State private var isPresented: Bool = false
-    
     @State private var search: String = ""
-    
     @State private var budgetSelected: BudgetCategory? = nil
     
     var transactionFiltered: [Transaction] {
@@ -29,7 +27,6 @@ struct TransactionView: View {
         
         return filtered
     }
-    
     
     var body: some View {
         NavigationStack {
