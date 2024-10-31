@@ -15,10 +15,14 @@ struct TransactionView: View {
     
     @State private var search: String = ""
     
+    @State private var budgetSelected: BudgetCategory? = nil
+    
     var transactionFiltered: [Transaction] {
+        
         if !search.isEmpty {
             return viewModel.transactions.filter { $0.title.contains(search) }
         }
+        
         return viewModel.transactions
     }
     
@@ -33,7 +37,17 @@ struct TransactionView: View {
                     List {
                         HStack{
                             TextField("Search Transaction", text: $search)
-                            Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                           
+                            Menu {
+                                ForEach(viewModel.availableBudgets){ budget in
+                                    Button(budget.category.rawValue){
+                                        print(budget.category.rawValue)
+                                    }
+                                }
+                            } label: {
+                                Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                                    .foregroundStyle(Color("Grey-300"))
+                            }
                         }
                         ForEach(transactionFiltered) { t in
                             NavigationLink(destination: TransactionForm(transactionToEdit: t, viewModel: viewModel, isPresented:$isPresented )) {
