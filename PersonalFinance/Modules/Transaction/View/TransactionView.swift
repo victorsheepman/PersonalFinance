@@ -13,14 +13,29 @@ struct TransactionView: View {
     
     @State private var isPresented: Bool = false
     
+    @State private var search: String = ""
+    
+    var transactionFiltered: [Transaction] {
+        if !search.isEmpty {
+            return viewModel.transactions.filter { $0.title.contains(search) }
+        }
+        return viewModel.transactions
+    }
+    
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
                 VStack {
+                    
                     List {
-                        ForEach(viewModel.transactions) { t in
+                        HStack{
+                            TextField("Search Transaction", text: $search)
+                            Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                        }
+                        ForEach(transactionFiltered) { t in
                             NavigationLink(destination: TransactionForm(transactionToEdit: t, viewModel: viewModel, isPresented:$isPresented )) {
                                 HStack {
                                     VStack(alignment: .leading) {
