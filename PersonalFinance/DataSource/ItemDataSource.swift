@@ -8,12 +8,12 @@
 import Foundation
 import SwiftData
 
-final class ItemDataSource {
+final class SwiftDataService {
     private let modelContainer: ModelContainer
     private let modelContext: ModelContext
 
     @MainActor
-    static let shared = ItemDataSource()
+    static let shared = SwiftDataService()
 
     @MainActor
     private init() {
@@ -40,7 +40,5 @@ final class ItemDataSource {
 
     func remove<T: PersistentModel>(_ data: T) {
         modelContext.delete(data)
-        
     }
-    
 }

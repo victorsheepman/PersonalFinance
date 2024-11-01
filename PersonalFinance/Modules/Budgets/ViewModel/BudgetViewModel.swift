@@ -6,35 +6,25 @@
 //
 
 import Foundation
-import SwiftData
+
 
 @Observable
 class BudgetViewModel: ObservableObject {
     
     @ObservationIgnored
-    private let dataSource: ItemDataSource
+    private let dataSource: SwiftDataService
 
-    init(dataSource: ItemDataSource = ItemDataSource.shared) {
+    init(dataSource: SwiftDataService = SwiftDataService.shared) {
         self.dataSource = dataSource
         getBudgets()
     }
     
     var budgets: [Budget] = []
     
-    // Mark:  Optomizar
-    @MainActor
     func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
         let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme, transactions: [])
        insertBudget(budget: newBudget)
     }
-    
-   
-    private func insertBudget(budget: Budget) {
-        dataSource.append(budget)
-        budgets = []
-        getBudgets()
-    }
-    
     
     func deleteBudget(budget: Budget) {
         dataSource.remove(budget)
@@ -42,7 +32,6 @@ class BudgetViewModel: ObservableObject {
         getBudgets()
     }
     
-    @MainActor
     func updateBudget(budget: Budget, newCategory: BudgetCategory, newMax: Double, newSpent: Double, newTheme: BudgetTheme) {
         
         budget.category = newCategory
@@ -54,22 +43,15 @@ class BudgetViewModel: ObservableObject {
         getBudgets()
     }
     
-   
-    
     func getBudgets() {
         budgets = dataSource.fetch()
         
     }
     
-  
-    
-       
+    private func insertBudget(budget: Budget) {
+        dataSource.append(budget)
+        budgets = []
+        getBudgets()
+    }
 
-    var totalMax: Double {
-        budgets.reduce(0) { $0 + $1.max }
-    }
-    
-    var totalSpent: Double {
-        budgets.reduce(0) { $0 + $1.spent }
-    }
 }

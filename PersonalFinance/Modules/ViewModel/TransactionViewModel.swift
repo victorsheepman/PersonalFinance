@@ -15,14 +15,13 @@ class TransactionViewModel: ObservableObject {
     var availableBudgets: [Budget] = []
     
     @ObservationIgnored
-    private let dataSource: ItemDataSource
+    private let dataSource: SwiftDataService
     
-    init(dataSource: ItemDataSource = ItemDataSource.shared) {
+    init(dataSource: SwiftDataService = SwiftDataService.shared) {
         self.dataSource = dataSource
         getTransactions()
     }
     
-    @MainActor
     func addTransaction(to budget: Budget?, transaction: Transaction) -> Void {
         if transaction.type == .expense, let budget = budget {
             transactionToBudget(transaction, budget)
@@ -49,7 +48,6 @@ class TransactionViewModel: ObservableObject {
             transactionToBudget(transaction, budget)
         }
         
-        
         if let date = newDate {
             transaction.date = date
         }
@@ -65,8 +63,6 @@ class TransactionViewModel: ObservableObject {
         if let account = newAccount {
             transaction.account = account
         }
-        
-        
         
         transactions = []
         getTransactions()

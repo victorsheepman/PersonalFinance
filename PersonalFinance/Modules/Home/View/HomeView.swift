@@ -18,12 +18,12 @@ let columns = [
 
 struct HomeView: View {
     
-    private let dataSource: ItemDataSource
+    private let dataSource: SwiftDataService
     
     @State private var transactions: [Transaction]?
     @State private var budgets: [Budget]?
     
-    init(dataSource: ItemDataSource = ItemDataSource.shared) {
+    init(dataSource: SwiftDataService = SwiftDataService.shared) {
         self.dataSource = dataSource
     }
     
