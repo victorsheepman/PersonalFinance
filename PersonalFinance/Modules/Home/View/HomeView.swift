@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Charts
-
+import SwiftData
 
 
 let columns = [
@@ -18,18 +18,26 @@ let columns = [
 
 struct HomeView: View {
     
+    private let dataSource: ItemDataSource
+    
+    @State private var transactions: [Transaction]?
+    
+    init(dataSource: ItemDataSource = ItemDataSource.shared) {
+        self.dataSource = dataSource
+    }
+    
     var body: some View {
         NavigationStack{
-            ZStack{
+            ZStack {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
                 ScrollView{
                     VStack{
                         
                         
-                        BalanceCardView(title: "Current Balance", balance: "4,836.00", isDark: true)
-                        BalanceCardView(title: "Income", balance: "3,814.25")
-                        BalanceCardView(title: "Expenses", balance: "1,700.50")
+                        BalanceCardView(title: "Necesidades Basicas 50%", balance: String(getAmount(from: .basic)), isDark: true)
+                        BalanceCardView(title: "Gastos Prescindibles 30%", balance: String(getAmount(from: .person)))
+                        BalanceCardView(title: "Ahorro 20%", balance: String(getAmount(from: .saving)))
                         
                         //transactionSection
                         
@@ -51,37 +59,35 @@ struct HomeView: View {
                     
                 }
             }
+            .onAppear {
+                fetchTransaction()
+            }
         }
         
     }
-   /*
+   
     var transactionSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            NavigationLink(value:"Transaction") {
-                HStack{
-                    
-                    Text("Transactions")
-                        .font(.system(size: 20))
-                        .bold()
-                        .foregroundStyle(Color("Grey-900"))
-                    
-                    Spacer()
-                    
-                    Label("View All", systemImage:"arrowtriangle.forward.fill")
-                        .labelStyle(RightIconLabelStyle())
-                        .font(.system(size: 14))
-                        .foregroundStyle(Color("Grey-500"))
-                    
-                }
-            }
-            .foregroundColor(.secondary)
-            .padding(.bottom, 12)
-            
             ForEach(mockTransactions, id: \.id) { t in
                 
-                TransactionDetailCell(sender: t.sender, amount: t.amount, date: t.date)
-                    .listRowSeparator(.hidden, edges: .all)
-                    .padding(.vertical, 2)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(t.title)
+                        Text(t.budget?.category.rawValue ?? "General")
+                            .foregroundColor(.gray)
+                    }
+                    Spacer()
+                    
+                    VStack {
+                        Text("\(t.type == .income ? "+" : "-")\(t.amount, specifier: "%.2f")$")
+                            .foregroundColor(t.type == .income ? Color("Green") : Color("Red"))
+                        
+                        Text(t.date.formattedAsString())
+                            .font(.system(size: 12))
+                            .foregroundStyle(Color("Grey-500"))
+                        
+                    }
+                }
                 
                 if t.id != mockTransactions.last?.id {
                     Divider()
@@ -95,7 +101,7 @@ struct HomeView: View {
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
     }
-    */
+    
     var budgetSection: some View {
         VStack{
             NavigationLink(value:"Transaction") {
@@ -146,6 +152,27 @@ struct HomeView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
+    }
+    
+    private func fetchTransaction() {
+        transactions = dataSource.fetch()
+    }
+    private func getAmount(from account: TransactionAccount) -> Double {
+        guard let transactions = self.transactions else {
+            return 0.0
+        }
+        
+        let income = transactions
+            .filter { $0.account == account }
+            .filter { $0.type == .income }
+            .reduce(0) { $0 + $1.amount }
+        
+        let expense = transactions
+            .filter { $0.account == account }
+            .filter { $0.type == .expense }
+            .reduce(0) { $0 + $1.amount }
+        
+        return income - expense
     }
 }
 

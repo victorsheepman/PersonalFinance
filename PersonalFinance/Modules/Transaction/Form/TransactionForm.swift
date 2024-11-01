@@ -20,6 +20,7 @@ struct TransactionForm: View {
     @State private var selectedDate = Date()
     @State private var selectedBudget: Budget? = nil
     @State private var selectedType: TransactionType = .expense
+    @State private var selectedAccount: TransactionAccount = .basic
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
     
@@ -38,6 +39,15 @@ struct TransactionForm: View {
                 ForEach(TransactionType.allCases) { type in
                     Text(type.rawValue)
                         .tag(type)
+                }
+            }
+            .pickerStyle(MenuPickerStyle())
+            
+            
+            Picker("Account", selection: $selectedAccount) {
+                ForEach(TransactionAccount.allCases) { account in
+                    Text(account.rawValue)
+                        .tag(account)
                 }
             }
             .pickerStyle(MenuPickerStyle())
@@ -114,12 +124,13 @@ struct TransactionForm: View {
                 newAmount: newAmount,
                 newBudget: selectedBudget,
                 newDate: newDate,
-                newType: newType
+                newType: newType,
+                newAccount: selectedAccount
             )
             dismiss()
         } else {
             
-            let newTransaction = Transaction(title: title, amount: selectedAmount, date: selectedDate, type: selectedType)
+            let newTransaction = Transaction(title: title, amount: selectedAmount, date: selectedDate, type: selectedType, account: selectedAccount)
           
             viewModel.addTransaction(to: selectedBudget, transaction: newTransaction)
             isPresented = false

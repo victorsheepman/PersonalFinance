@@ -59,8 +59,13 @@ struct TransactionView: View {
                                 HStack {
                                     VStack(alignment: .leading) {
                                         Text(t.title)
-                                        Text(t.budget?.category.rawValue ?? "General")
-                                            .foregroundColor(.gray)
+                                        HStack {
+                                            Text(t.budget?.category.rawValue ?? "General")
+                                                .foregroundColor(.gray)
+                                            Text(t.account.rawValue)
+                                                .foregroundColor(.gray)
+                                        }
+                                        
                                     }
                                     Spacer()
                                     
