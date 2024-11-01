@@ -25,7 +25,7 @@ struct TransactionView: View {
            filtered = filtered.filter { $0.budget?.category.rawValue == currentBudget.rawValue }
         }
         
-        return filtered
+        return filtered.sorted { $0.date > $1.date }
     }
     
     var body: some View {

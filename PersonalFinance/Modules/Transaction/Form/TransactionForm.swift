@@ -91,6 +91,7 @@ struct TransactionForm: View {
                 amount = String(transaction.amount)
                 selectedBudget = transaction.budget
                 selectedType = transaction.type
+                selectedAccount = transaction.account
             }
         }
         .alert(isPresented: $showAlert) {

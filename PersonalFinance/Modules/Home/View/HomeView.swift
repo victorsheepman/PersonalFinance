@@ -76,7 +76,7 @@ struct HomeView: View {
                     .foregroundStyle(Color("Grey-900"))
                 
             if let transactions = self.transactions {
-                ForEach(transactions.suffix(3), id: \.id) { t in
+                ForEach(transactions.suffix(3).sorted { $0.date > $1.date }, id: \.id) { t in
                     
                     HStack {
                         VStack(alignment: .leading) {

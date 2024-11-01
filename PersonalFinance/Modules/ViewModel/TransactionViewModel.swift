@@ -62,6 +62,10 @@ class TransactionViewModel: ObservableObject {
             removeTransactionFromBudget(transaction)
         }
         
+        if let account = newAccount {
+            transaction.account = account
+        }
+        
         
         
         transactions = []
