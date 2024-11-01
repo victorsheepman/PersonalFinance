@@ -33,7 +33,7 @@ class TransactionViewModel: ObservableObject {
         getTransactions()
     }
     
-    func updateTransaction(transaction: Transaction, newTitle: String?, newAmount: Double?, newBudget: Budget?, newDate: Date?, newType: TransactionType?) {
+    func updateTransaction(transaction: Transaction, newTitle: String?, newAmount: Double?, newBudget: Budget?, newDate: Date?, newType: TransactionType?, newAccount: TransactionAccount?) {
         
         if let title = newTitle {
             transaction.title = title
@@ -60,6 +60,10 @@ class TransactionViewModel: ObservableObject {
         
         if transaction.type == .income{
             removeTransactionFromBudget(transaction)
+        }
+        
+        if let account = newAccount {
+            transaction.account = account
         }
         
         
