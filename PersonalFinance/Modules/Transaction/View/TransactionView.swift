@@ -43,7 +43,7 @@ struct TransactionView: View {
                                 Button("All Transactions") {
                                     budgetSelected = nil
                                 }
-                                ForEach(BudgetCategory.allCases) { budget in
+                                ForEach(BudgetCategory.allCases, id: \.id) { budget in
                                     
                                     Button(budget.rawValue) {
                                         budgetSelected = budget
@@ -54,7 +54,7 @@ struct TransactionView: View {
                                     .foregroundStyle(.black)
                             }
                         }
-                        ForEach(transactionFiltered) { t in
+                        ForEach(transactionFiltered, id: \.id) { t in
                             NavigationLink(destination: TransactionForm(transactionToEdit: t, viewModel: viewModel, isPresented:$isPresented )) {
                                 HStack {
                                     VStack(alignment: .leading) {
