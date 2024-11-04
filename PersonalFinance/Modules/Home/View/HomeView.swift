@@ -27,6 +27,61 @@ struct HomeView: View {
         self.dataSource = dataSource
     }
     
+    var basicAmount: Double {
+        guard let transactions = self.transactions else {
+            return 0.0
+        }
+        
+        let income = transactions
+            .filter { $0.account == .basic }
+            .filter { $0.type == .income }
+            .reduce(0) { $0 + $1.amount }
+        
+        let expense = transactions
+            .filter { $0.account == .basic }
+            .filter { $0.type == .expense }
+            .reduce(0) { $0 + $1.amount }
+        
+        return income - expense
+    }
+    
+    var personalAmount: Double {
+        guard let transactions = self.transactions else {
+            return 0.0
+        }
+        
+        let income = transactions
+            .filter { $0.account == .person }
+            .filter { $0.type == .income }
+            .reduce(0) { $0 + $1.amount }
+        
+        let expense = transactions
+            .filter { $0.account == .person }
+            .filter { $0.type == .expense }
+            .reduce(0) { $0 + $1.amount }
+        
+        return income - expense
+    }
+    
+    var savingAmount: Double {
+        guard let transactions = self.transactions else {
+            return 0.0
+        }
+        
+        let income = transactions
+            .filter { $0.account == .saving }
+            .filter { $0.type == .income }
+            .reduce(0) { $0 + $1.amount }
+        
+        let expense = transactions
+            .filter { $0.account == .saving }
+            .filter { $0.type == .expense }
+            .reduce(0) { $0 + $1.amount }
+        
+        return income - expense
+    }
+    
+    
     var body: some View {
         NavigationStack{
             ZStack {
@@ -36,9 +91,9 @@ struct HomeView: View {
                     VStack{
                         
                         
-                        BalanceCardView(title: "Necesidades Basicas 50%", balance: String(getAmount(from: .basic)), isDark: true)
-                        BalanceCardView(title: "Gastos Prescindibles 30%", balance: String(getAmount(from: .person)))
-                        BalanceCardView(title: "Ahorro 20%", balance: String(getAmount(from: .saving)))
+                        BalanceCardView(title: "Necesidades Basicas 50%", balance: String(basicAmount), isDark: true)
+                        BalanceCardView(title: "Gastos Prescindibles 30%", balance: String(personalAmount))
+                        BalanceCardView(title: "Ahorro 20%", balance: String(savingAmount))
                         
                         transactionSection
                         
@@ -161,24 +216,7 @@ struct HomeView: View {
     }
     private func fetchBudget() {
         budgets = dataSource.fetch()
-    }
-    private func getAmount(from account: TransactionAccount) -> Double {
-        guard let transactions = self.transactions else {
-            return 0.0
-        }
-        
-        let income = transactions
-            .filter { $0.account == account }
-            .filter { $0.type == .income }
-            .reduce(0) { $0 + $1.amount }
-        
-        let expense = transactions
-            .filter { $0.account == account }
-            .filter { $0.type == .expense }
-            .reduce(0) { $0 + $1.amount }
-        
-        return income - expense
-    }
+    }    
 }
 
 #Preview {
