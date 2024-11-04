@@ -39,6 +39,11 @@ final class SwiftDataService {
     }
 
     func remove<T: PersistentModel>(_ data: T) {
-        modelContext.delete(data)
+        do {
+            modelContext.delete(data)
+            try modelContext.save()
+        } catch {
+            print("error")
+        }
     }
 }

@@ -68,11 +68,11 @@ class TransactionViewModel: ObservableObject {
         getTransactions()
     }
     
-    func removeTransaction(at indexSet: IndexSet) -> Void {
-        for i in indexSet {
-            let transactionToDelete = transactions[i]
-            removeTransactionFromBudget(transactionToDelete)
-            dataSource.remove(transactionToDelete)
+    func removeTransaction(_ id: UUID) {
+        let transactionToDelete: Transaction? = transactions.first { $0.id == id} ?? nil
+        if let selectedTransaction = transactionToDelete {
+            removeTransactionFromBudget(selectedTransaction)
+            dataSource.remove(selectedTransaction)
         }
     }
     

@@ -80,7 +80,12 @@ struct TransactionView: View {
                                     }
                                 }
                             }
-                        }.onDelete(perform: viewModel.removeTransaction)
+                        }.onDelete { indexSet in
+                            if let index = indexSet.first {
+                                let transactionID = transactionFiltered[index].id
+                                viewModel.removeTransaction(transactionID)
+                            }
+                        }
                     }
                 }
             }
