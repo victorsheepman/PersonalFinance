@@ -54,7 +54,7 @@ struct TransactionView: View {
                                     .foregroundStyle(.black)
                             }
                         }
-                        ForEach(transactionFiltered, id: \.id) { t in
+                        ForEach(transactionFiltered) { t in
                             NavigationLink(destination: TransactionForm(transactionToEdit: t, viewModel: viewModel, isPresented:$isPresented )) {
                                 HStack {
                                     VStack(alignment: .leading) {
@@ -80,7 +80,12 @@ struct TransactionView: View {
                                     }
                                 }
                             }
-                        }.onDelete(perform: viewModel.removeTransaction)
+                        }.onDelete { indexSet in
+                            if let index = indexSet.first {
+                                let transactionID = transactionFiltered[index].id
+                                viewModel.removeTransaction(transactionID)
+                            }
+                        }
                     }
                 }
             }
