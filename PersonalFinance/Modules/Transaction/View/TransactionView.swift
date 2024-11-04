@@ -54,7 +54,7 @@ struct TransactionView: View {
                                     .foregroundStyle(.black)
                             }
                         }
-                        ForEach(transactionFiltered) { t in
+                        ForEach(transactionFiltered, id: \.id) { t in
                             NavigationLink(destination: TransactionForm(transactionToEdit: t, viewModel: viewModel, isPresented:$isPresented )) {
                                 HStack {
                                     VStack(alignment: .leading) {
