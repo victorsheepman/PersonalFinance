@@ -22,6 +22,15 @@ Este proyecto está en desarrollo y está diseñado para fortalecer conocimiento
 - Asignación de Transacciones a cualquier cuenta disponible (50, 30 y 20).
 - Asignación de Transacciones a cualquier presupuesto creado.
 
+ ## Tecnologías y detalles del desarrollo
+- iOS
+- Swift
+- SwiftUI
+- MVVM
+- SwiftData
+- SwiftChart
+
+
 ## Imagenes 
 
 ![Home](https://sqrevjfizglmjxxfuvxy.supabase.co/storage/v1/object/sign/Talhua/Personal%20Finance/Home.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJUYWxodWEvUGVyc29uYWwgRmluYW5jZS9Ib21lLnBuZyIsImlhdCI6MTczMDczMjg1OSwiZXhwIjoxNzYyMjY4ODU5fQ.u55ntarRKTGmKHamyetFJSThXNLvdxchuXs2pntdb7k&t=2024-11-04T15%3A06%3A50.944Z)
