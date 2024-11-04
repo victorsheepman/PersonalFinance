@@ -7,27 +7,42 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
-struct Budget: Identifiable {
-    let id = UUID()
-    let category: BudgetCategory
-    let max: Double
-    let spent: Double
-    let theme: BudgetTheme
+@Model
+class Budget {
+    
+    @Attribute(.unique) var id: UUID
+    
+    var category: BudgetCategory
+    var max: Double
+    var spent: Double
+    var theme: BudgetTheme
+    
+    @Relationship(deleteRule: .nullify, inverse: \Transaction.budget) var transactions: [Transaction]?
     
     
-    var percentageSpent: Double {
+    @Transient var percentageSpent: Double {
         return (spent / max) * 100
     }
     
     
-    var isOverBudget: Bool {
+    @Transient var isOverBudget: Bool {
         return spent > max
+    }
+    
+    init(id: UUID, category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme, transactions:[Transaction]? = nil) {
+        self.id = id
+        self.category = category
+        self.max = max
+        self.spent = spent
+        self.theme = theme
+        self.transactions = transactions
     }
 }
 
 
-enum BudgetCategory: String, CaseIterable, Identifiable {
+enum BudgetCategory: String, CaseIterable, Identifiable, Codable {
     
     case entertainment = "Entertainment"
     case bills = "Bills"
@@ -41,14 +56,14 @@ enum BudgetCategory: String, CaseIterable, Identifiable {
 }
 
 
-enum BudgetTheme: String, CaseIterable, Identifiable {
+enum BudgetTheme: String, CaseIterable, Identifiable, Codable {
     case cyan = "Cyan"
     case green = "Green"
     case yellow = "Yellow"
     case navy = "Navy"
     case red = "Red"
     case purple = "Purple"
-    case turquoise = "Turquoise"
+    case orange = "Orange"
     
     var id: String { rawValue }
  

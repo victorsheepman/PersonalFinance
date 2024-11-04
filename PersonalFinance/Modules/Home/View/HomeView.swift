@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Charts
-
+import SwiftData
 
 
 let columns = [
@@ -18,28 +18,27 @@ let columns = [
 
 struct HomeView: View {
     
-  
-    var totalMax: Double {
-        budgetMock.reduce(0) { $0 + $1.max }
-    }
-       
-     
-    var totalSpent: Double {
-        budgetMock.reduce(0) { $0 + $1.spent }
+    private let dataSource: SwiftDataService
+    
+    @State private var transactions: [Transaction]?
+    @State private var budgets: [Budget]?
+    
+    init(dataSource: SwiftDataService = SwiftDataService.shared) {
+        self.dataSource = dataSource
     }
     
     var body: some View {
         NavigationStack{
-            ZStack{
+            ZStack {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
                 ScrollView{
                     VStack{
                         
                         
-                        BalanceCardView(title: "Current Balance", balance: "4,836.00", isDark: true)
-                        BalanceCardView(title: "Income", balance: "3,814.25")
-                        BalanceCardView(title: "Expenses", balance: "1,700.50")
+                        BalanceCardView(title: "Necesidades Basicas 50%", balance: String(getAmount(from: .basic)), isDark: true)
+                        BalanceCardView(title: "Gastos Prescindibles 30%", balance: String(getAmount(from: .person)))
+                        BalanceCardView(title: "Ahorro 20%", balance: String(getAmount(from: .saving)))
                         
                         transactionSection
                         
@@ -49,47 +48,61 @@ struct HomeView: View {
                     }
                     .padding()
                     .padding(.bottom, 100)
-                }.navigationTitle("Overview")
-                
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    
+                    Text("Overview")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.top)
+                    
+                }
+            }
+            .onAppear {
+                fetchTransaction()
+                fetchBudget()
             }
         }
         
     }
-    
+   
     var transactionSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            NavigationLink(value:"Transaction") {
-                HStack{
+            Text("Transactions")
+                    .font(.system(size: 20))
+                    .bold()
+                    .foregroundStyle(Color("Grey-900"))
+                
+            if let transactions = self.transactions {
+                ForEach(transactions.suffix(3).sorted { $0.date > $1.date }, id: \.id) { t in
                     
-                    Text("Transactions")
-                        .font(.system(size: 20))
-                        .bold()
-                        .foregroundStyle(Color("Grey-900"))
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(t.title)
+                            Text(t.budget?.category.rawValue ?? "General")
+                                .foregroundColor(.gray)
+                        }
+                        Spacer()
+                        
+                        VStack {
+                            Text("\(t.type == .income ? "+" : "-")\(t.amount, specifier: "%.2f")$")
+                                .foregroundColor(t.type == .income ? Color("Green") : Color("Red"))
+                            
+                            Text(t.date.formattedAsString())
+                                .font(.system(size: 12))
+                                .foregroundStyle(Color("Grey-500"))
+                            
+                        }
+                    }
                     
-                    Spacer()
-                    
-                    Label("View All", systemImage:"arrowtriangle.forward.fill")
-                        .labelStyle(RightIconLabelStyle())
-                        .font(.system(size: 14))
-                        .foregroundStyle(Color("Grey-500"))
-                    
+                    if t.id != transactions.suffix(3).last?.id {
+                        Divider()
+                            .background(Color("Grey-100"))
+                    }
                 }
             }
-            .foregroundColor(.secondary)
-            .padding(.bottom, 12)
-            
-            ForEach(mockTransactions, id: \.id) { t in
-                
-                TransactionDetailCell(sender: t.sender, amount: t.amount, date: t.date)
-                    .listRowSeparator(.hidden, edges: .all)
-                    .padding(.vertical, 2)
-                
-                if t.id != mockTransactions.last?.id {
-                    Divider()
-                        .background(Color("Grey-100"))
-                }
-            }
-            
             Spacer()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -98,84 +111,73 @@ struct HomeView: View {
     }
     
     var budgetSection: some View {
-        VStack{
-            NavigationLink(value:"Transaction") {
-                HStack{
-                    
-                    Text("Budgets")
-                        .font(.system(size: 20))
-                        .bold()
-                        .foregroundStyle(Color("Grey-900"))
-                    
-                    Spacer()
-                    
-                    Label("See Details", systemImage:"arrowtriangle.forward.fill")
-                        .labelStyle(RightIconLabelStyle())
-                        .font(.system(size: 14))
-                        .foregroundStyle(Color("Grey-500"))
-                    
-                }
-            }
-            .foregroundColor(.secondary)
-            .padding(.bottom, 12)
+        VStack {
             
-            Chart(budgetMock) { budget in
-                SectorMark(
-                    angle: .value("Value", budget.max),
-                    innerRadius: .ratio(0.618),
-                    outerRadius: .inset(10),
-                    angularInset: 1.5
-                )
-                .foregroundStyle(budget.theme.color)
-            }
-            .frame(width: 300, height: 300)
-            .chartBackground { ChartProxy in
-                GeometryReader {  geometry in
-                    
-                    if let plotFrame = ChartProxy.plotFrame{
-                        let frame = geometry[plotFrame]
-                        VStack {
-                           
-                            Text("$\(totalSpent, specifier: "%.2f")")
-                                .font(.title2.bold())
-                                .foregroundStyle(.primary)
-                            Text("of $\(totalMax, specifier: "%.2f")")
-                                .font(.callout)
-                                .foregroundStyle(.secondary)
-                            
-                        }
-                        .position(x: frame.midX, y: frame.midY)
-                    }
-                    
-                }
-            }
-            
-            LazyVGrid(columns: columns, spacing: 10) {
+            HStack {
+                Text("Budgets")
+                    .font(.system(size: 20))
+                    .bold()
+                    .foregroundStyle(Color("Grey-900"))
                 
-                ForEach(budgetMock) { budget in
-                    HStack{
-                        Circle()
-                            .fill(budget.theme.color)
-                            .frame(width: 10, height: 10)
-                        VStack(alignment: .leading) {
-                            Text(budget.category.rawValue)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            
-                            Text("$\(budget.max, specifier: "%.2f")")
-                                .font(.system(size: 14).bold())
-                                .foregroundStyle(.black)
-                            
+                Spacer()
+            }
+            
+            if let budgets = self.budgets {
+                PieChart(budgets: budgets)
+                
+                LazyVGrid(columns: columns, spacing: 10) {
+                    
+                    ForEach(budgets) { budget in
+                        HStack{
+                            Circle()
+                                .fill(budget.theme.color)
+                                .frame(width: 10, height: 10)
+                            VStack(alignment: .leading) {
+                                Text(budget.category.rawValue)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                
+                                Text("$\(budget.max, specifier: "%.2f")")
+                                    .font(.system(size: 14).bold())
+                                    .foregroundStyle(.black)
+                                
+                            }
                         }
                     }
                 }
+                .padding(.top, 20)
             }
-            .padding(.top, 20)
-           
+            
+            
+            
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
+    }
+    
+    private func fetchTransaction() {
+        transactions = dataSource.fetch()
+    }
+    private func fetchBudget() {
+        budgets = dataSource.fetch()
+    }
+    private func getAmount(from account: TransactionAccount) -> Double {
+        guard let transactions = self.transactions else {
+            return 0.0
+        }
+        
+        let income = transactions
+            .filter { $0.account == account }
+            .filter { $0.type == .income }
+            .reduce(0) { $0 + $1.amount }
+        
+        let expense = transactions
+            .filter { $0.account == account }
+            .filter { $0.type == .expense }
+            .reduce(0) { $0 + $1.amount }
+        
+        return income - expense
     }
 }
 
