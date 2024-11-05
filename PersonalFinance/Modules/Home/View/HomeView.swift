@@ -131,7 +131,6 @@ struct BudgetItemView: View {
                 Text("$\(budget.max, specifier: "%.2f")")
                     .font(.system(size: 14).bold())
                     .foregroundStyle(.black)
-                
             }
         }
     }

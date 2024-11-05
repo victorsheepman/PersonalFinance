@@ -29,112 +29,83 @@ struct TransactionView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color("Background")
-                    .edgesIgnoringSafeArea(.all)
-                VStack {
-                    
-                    List {
-                        HStack{
-                            TextField("Search Transaction", text: $search)
-                           
-                            Menu {
-                                Button("All Transactions") {
-                                    budgetSelected = nil
-                                }
-                                ForEach(BudgetCategory.allCases, id: \.id) { budget in
-                                    
-                                    Button(budget.rawValue) {
-                                        budgetSelected = budget
-                                    }
-                                }
-                            } label: {
-                                Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                                    .foregroundStyle(.black)
-                            }
-                        }
-                        ForEach(transactionFiltered, id: \.id) { t in
-                            NavigationLink(destination: TransactionForm(transactionToEdit: t, viewModel: viewModel, isPresented:$isPresented )) {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(t.title)
-                                        HStack {
-                                            Text(t.budget?.category.rawValue ?? "General")
-                                                .foregroundColor(.gray)
-                                            Text(t.account.rawValue)
-                                                .foregroundColor(.gray)
-                                        }
-                                        
-                                    }
-                                    Spacer()
-                                    
-                                    VStack {
-                                        Text("\(t.type == .income ? "+" : "-")\(t.amount, specifier: "%.2f")$")
-                                            .foregroundColor(t.type == .income ? Color("Green") : Color("Red"))
-                                        
-                                        Text(t.date.formattedAsString())
-                                            .font(.system(size: 12))
-                                            .foregroundStyle(Color("Grey-500"))
-                                        
-                                    }
-                                }
-                            }
-                        }.onDelete { indexSet in
-                            if let index = indexSet.first {
-                                let transactionID = transactionFiltered[index].id
-                                viewModel.removeTransaction(transactionID)
-                            }
-                        }
-                    }
+        BackgroundContainer(isPresented: $isPresented, title: "Transactions"){
+            VStack {
+                List {
+                    transactionFilter
+                    transactionList
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    
-                    Text("Transactions")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.top)
-                    
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        isPresented = true
-                    }) {
-                        Image(systemName: "plus")
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    }
-                   
-                }
-            }
-            .sheet(isPresented: $isPresented) {
-                VStack {
-                    HStack(spacing:95) {
-                        Text("Add New Budget")
-                            .font(.title)
-                            .bold()
-                        
-                        Button(action: {
-                            isPresented = false
-                        }) {
-                            Image(systemName: "xmark.circle")
-                                .resizable()
-                                .frame(width: 32, height: 32)
-                                .foregroundStyle(Color("Grey-500"))
-                        }
-                    }
-                    TransactionForm(viewModel: viewModel, isPresented: $isPresented)
-                }
-                .padding()
-                .background(Color("Background"))
-                
-            }
-        }.onAppear {
+        }
+        .sheet(isPresented: $isPresented) {
+            transactionFormContainer
+        }
+        .onAppear {
             viewModel.getTransactions()
         }
-        
+    }
+    
+    private var transactionFilter: some View {
+        HStack{
+            TextField("Search Transaction", text: $search)
+           
+            Menu {
+                Button("All Transactions") {
+                    budgetSelected = nil
+                }
+                ForEach(BudgetCategory.allCases, id: \.id) { budget in
+                    
+                    Button(budget.rawValue) {
+                        budgetSelected = budget
+                    }
+                }
+            } label: {
+                Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                    .foregroundStyle(.black)
+            }
+        }
+
+    }
+    
+    private var transactionList: some View {
+        ForEach(transactionFiltered, id: \.id) { t in
+            NavigationLink(destination:
+                            TransactionForm(
+                                transactionToEdit: t,
+                                viewModel: viewModel,
+                                isPresented:$isPresented
+                            )
+            ) {
+                TransactionCellView(transaccion: t)
+            }
+        }.onDelete { indexSet in
+            if let index = indexSet.first {
+                let transactionID = transactionFiltered[index].id
+                viewModel.removeTransaction(transactionID)
+            }
+        }
+    }
+    
+    private var transactionFormContainer: some View {
+        VStack {
+            HStack(spacing:95) {
+                Text("Add New Budget")
+                    .font(.title)
+                    .bold()
+                
+                Button(action: {
+                    isPresented = false
+                }) {
+                    Image(systemName: "xmark.circle")
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                        .foregroundStyle(Color("Grey-500"))
+                }
+            }
+            TransactionForm(viewModel: viewModel, isPresented: $isPresented)
+        }
+        .padding()
+        .background(Color("Background"))
     }
     
 }
