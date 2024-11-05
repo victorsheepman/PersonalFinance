@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		840F10AB2CCBFC6500666CA7 /* ItemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F10AA2CCBFC6500666CA7 /* ItemDataSource.swift */; };
 		840F10B22CCC0B8300666CA7 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F10B12CCC0B8300666CA7 /* TransactionViewModel.swift */; };
+		841707D52CDAA6AC0068FFCA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841707D42CDAA6AC0068FFCA /* HomeViewModel.swift */; };
 		841D72242CC8117200BF7F72 /* BudgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D72232CC8117200BF7F72 /* BudgetsView.swift */; };
 		841D72272CC812C000BF7F72 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D72262CC812C000BF7F72 /* PieChart.swift */; };
 		84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84234C6B2CC7F03500C52B74 /* Budget.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		840F10AA2CCBFC6500666CA7 /* ItemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDataSource.swift; sourceTree = "<group>"; };
 		840F10B12CCC0B8300666CA7 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		841707D42CDAA6AC0068FFCA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		841D72232CC8117200BF7F72 /* BudgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsView.swift; sourceTree = "<group>"; };
 		841D72262CC812C000BF7F72 /* PieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
 		84234C6B2CC7F03500C52B74 /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
@@ -85,6 +87,14 @@
 			);
 			name = ViewModel;
 			path = ../ViewModel;
+			sourceTree = "<group>";
+		};
+		841707D32CDAA69F0068FFCA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				841707D42CDAA6AC0068FFCA /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		841D72252CC8117A00BF7F72 /* Budgets */ = {
@@ -163,6 +173,7 @@
 		845CB2DC2CC6A88100181E76 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				841707D32CDAA69F0068FFCA /* ViewModel */,
 				845CB2DD2CC6A88700181E76 /* View */,
 			);
 			path = Home;
@@ -324,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */,
+				841707D52CDAA6AC0068FFCA /* HomeViewModel.swift in Sources */,
 				84F9E2B12CCBE16600DDFFD2 /* Extensions.swift in Sources */,
 				841D72272CC812C000BF7F72 /* PieChart.swift in Sources */,
 				845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */,

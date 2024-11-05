@@ -15,3 +15,10 @@ extension Date {
         return formatter.string(from: self)
     }
 }
+
+extension Array where Element: Identifiable {
+    func isLast(_ element: Element) -> Bool {
+        guard let lastElement = self.last else { return false }
+        return element.id == lastElement.id
+    }
+}
