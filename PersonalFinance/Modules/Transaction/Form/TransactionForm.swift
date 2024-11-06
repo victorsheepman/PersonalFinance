@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+enum TransactionValidationError: Error {
+    case budgetLimitReached
+    case invalidAmount
+    
+    var errorMessage: String {
+        switch self {
+        case .budgetLimitReached:
+            return "Cannot add more transactions to this budget as it has reached its maximum limit."
+        case .invalidAmount:
+            return "Invalid amount entered."
+        }
+    }
+}
+
 struct TransactionForm: View {
     
     @Environment(\.dismiss) private var dismiss
@@ -95,30 +109,32 @@ struct TransactionForm: View {
     }
 
     private func submitTransaction() {
-        guard validateTransaction() else { return }
-        
-        if let transaction = transactionToEdit {
-            updateExistingTransaction(transaction)
-        } else {
-            addNewTransaction()
+        switch validateTransaction() {
+        case .success:
+            if let transaction = transactionToEdit {
+                updateExistingTransaction(transaction)
+            } else {
+                addNewTransaction()
+            }
+        case .failure(let error):
+            alertMessage = error.errorMessage
+            showAlert = true
         }
     }
-
-    private func validateTransaction() -> Bool {
+    
+    
+    private func validateTransaction() -> Result<Void, TransactionValidationError> {
         if let budget = selectedBudget, budget.isOverBudget {
-            alertMessage = "Cannot add more transactions to this budget as it has reached its maximum limit."
-            showAlert = true
-            return false
+            return .failure(.budgetLimitReached)
         }
         
         guard Double(amount) != nil else {
-            alertMessage = "Invalid amount entered."
-            showAlert = true
-            return false
+            return .failure(.invalidAmount)
         }
         
-        return true
+        return .success(())
     }
+
 
     private func updateExistingTransaction(_ transaction: Transaction) {
         guard let selectedAmount = Double(amount) else { return }
