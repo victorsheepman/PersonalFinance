@@ -103,7 +103,7 @@ struct HomeView: View {
                 PieChart(budgets: budgets)
                 LazyVGrid(columns: columns, spacing: 10) {
                     ForEach(budgets,id: \.id) { budget in
-                        BudgetItemView(budget: budget)
+                        BudgetCellView(budget: budget)
                     }
                 }
                 .padding(.top, 20)
@@ -116,26 +116,6 @@ struct HomeView: View {
 
 }
 
-struct BudgetItemView: View {
-    var budget: Budget
-    var body: some View {
-        HStack{
-            Circle()
-                .fill(budget.theme.color)
-                .frame(width: 10, height: 10)
-            
-            VStack(alignment: .leading) {
-                Text(budget.category.rawValue)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                
-                Text("$\(budget.max, specifier: "%.2f")")
-                    .font(.system(size: 14).bold())
-                    .foregroundStyle(.black)
-            }
-        }
-    }
-}
 
 
 
