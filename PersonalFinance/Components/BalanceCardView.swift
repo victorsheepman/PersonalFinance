@@ -10,7 +10,7 @@ import SwiftUI
 struct BalanceCardView: View {
     
     var title: String
-    var balance: String
+    var balance: Double
     var isDark: Bool = false
     
     private var titleColor: Color {
@@ -24,8 +24,11 @@ struct BalanceCardView: View {
     
     private var backgroundColor: Color {
         isDark ? Color("Grey-900") : .white
-      }
+    }
 
+    private var balanceToString: String {
+        return String(balance)
+    }
     
     
     
@@ -34,7 +37,7 @@ struct BalanceCardView: View {
             Text(title)
                 .font(.system(size: 16))
                 .foregroundStyle(captionColor)
-            Text("$\(balance)")
+            Text("$\(balanceToString)")
                 .font(.system(size: 32))
                 .bold()
                 .foregroundStyle(titleColor)
@@ -47,5 +50,5 @@ struct BalanceCardView: View {
 }
 
 #Preview {
-    BalanceCardView(title: "Current Balance", balance: "4,836.00", isDark: false)
+    BalanceCardView(title: "Current Balance", balance: 4.83600, isDark: false)
 }

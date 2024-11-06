@@ -20,7 +20,7 @@ struct BudgetsView: View {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
                 ScrollView {
-                    VStack {
+                    LazyVStack {
                         budgetChart
                         ForEach(viewModel.budgets) { budget in
                             BudgetsCard(budget: budget, viewModel: viewModel)
@@ -35,13 +35,10 @@ struct BudgetsView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    
                     Text("Budgets")
                         .font(.largeTitle)
                         .bold()
                         .padding(.top)
-                    
-                    
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
@@ -65,21 +62,7 @@ struct BudgetsView: View {
             }
             .sheet(isPresented: $isPresented) {
                 VStack{
-                    HStack(spacing:95) {
-                        Text("Add New Budget")
-                            .font(.title)
-                            .bold()
-
-                        Button(action: {
-                            isPresented = false
-                        }) {
-                            Image(systemName: "xmark.circle")
-                                .resizable()
-                                .frame(width: 32, height: 32)
-                                .foregroundStyle(Color("Grey-500"))
-                        }
-                        
-                    }
+                    formHeader
                     BudgetForm(isPresented: $isPresented, viewModel: viewModel)
                 }
                 .padding()
@@ -91,6 +74,24 @@ struct BudgetsView: View {
         }
     }
     
+    var formHeader: some View {
+        HStack(spacing:95) {
+            Text("Add New Budget")
+                .font(.title)
+                .bold()
+
+            Button(action: {
+                isPresented = false
+            }) {
+                Image(systemName: "xmark.circle")
+                    .resizable()
+                    .frame(width: 32, height: 32)
+                    .foregroundStyle(Color("Grey-500"))
+            }
+            
+        }
+    }
+    
     var budgetChart: some View {
         VStack {
             PieChart(budgets: viewModel.budgets)
@@ -99,30 +100,8 @@ struct BudgetsView: View {
                 .font(.system(size: 20).bold())
                 .padding(.trailing, 148)
             
-            ForEach(viewModel.budgets) { budget in
-                HStack {
-                    
-                    Circle()
-                        .fill(budget.theme.color)
-                        .frame(width: 10, height: 10)
-                    
-                    Text(budget.category.rawValue)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    
-                    Text("$\(budget.spent, specifier: "%.2f")")
-                        .font(.system(size: 14).bold())
-                        .foregroundStyle(.primary)
-                        .frame(width: 80, alignment: .trailing)
-                    
-                    
-                    Text("of $\(budget.max, specifier: "%.2f") limit")
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                        .frame(width: 120, alignment: .trailing)
-                }
+            ForEach(viewModel.budgets, id: \.id) { budget in
+                BudgetCellView(budget: budget)
                 if budget.id != viewModel.budgets.last?.id {
                     Divider()
                         .background(Color("Grey-100"))
@@ -139,6 +118,8 @@ struct BudgetsView: View {
 
 
 
+
 #Preview {
     BudgetsView()
 }
+

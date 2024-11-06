@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+enum TransactionValidationError: Error {
+    case budgetLimitReached
+    case invalidAmount
+    
+    var errorMessage: String {
+        switch self {
+        case .budgetLimitReached:
+            return "Cannot add more transactions to this budget as it has reached its maximum limit."
+        case .invalidAmount:
+            return "Invalid amount entered."
+        }
+    }
+}
+
 struct TransactionForm: View {
     
     @Environment(\.dismiss) private var dismiss
@@ -86,59 +100,91 @@ struct TransactionForm: View {
         }.onAppear{
             viewModel.getAvailableBudgets()
             if let transaction = transactionToEdit {
-                title = transaction.title
-                selectedDate = transaction.date
-                amount = String(transaction.amount)
-                selectedBudget = transaction.budget
-                selectedType = transaction.type
-                selectedAccount = transaction.account
+                loadTransactionData(from: transaction)
             }
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
     }
-    
+
     private func submitTransaction() {
-        if let budget = selectedBudget, budget.isOverBudget {
-            alertMessage = "Cannot add more transactions to this budget as it has reached its maximum limit."
+        switch validateTransaction() {
+        case .success:
+            if let transaction = transactionToEdit {
+                updateExistingTransaction(transaction)
+            } else {
+                addNewTransaction()
+            }
+        case .failure(let error):
+            alertMessage = error.errorMessage
             showAlert = true
-            return
+        }
+    }
+    
+    
+    private func validateTransaction() -> Result<Void, TransactionValidationError> {
+        if let budget = selectedBudget, budget.isOverBudget {
+            return .failure(.budgetLimitReached)
         }
         
-        guard let selectedAmount = Double(amount) else {
-            return
+        guard Double(amount) != nil else {
+            return .failure(.invalidAmount)
         }
- 
         
-        if let transaction = transactionToEdit {
-            
-            let newTitle  = title != transaction.title ? title : nil
-            let newAmount = selectedAmount != transaction.amount ? selectedAmount : nil
-            var newBudget = selectedBudget != transaction.budget ? selectedBudget : nil
-            let newDate   = selectedDate != transaction.date ? selectedDate : nil
-            let newType   = selectedType != transaction.type ? selectedType : nil
-                    
-            viewModel.updateTransaction(
-                transaction: transaction,
-                newTitle: newTitle,
-                newAmount: newAmount,
-                newBudget: selectedBudget,
-                newDate: newDate,
-                newType: newType,
-                newAccount: selectedAccount
-            )
-            dismiss()
-        } else {
-            
-            let newTransaction = Transaction(title: title, amount: selectedAmount, date: selectedDate, type: selectedType, account: selectedAccount)
-          
-            viewModel.addTransaction(to: selectedBudget, transaction: newTransaction)
-            isPresented = false
-            amount = "0"
-            title = ""
-        }
-     
+        return .success(())
+    }
+
+
+    private func updateExistingTransaction(_ transaction: Transaction) {
+        guard let selectedAmount = Double(amount) else { return }
+        
+        let newTitle = title != transaction.title ? title : nil
+        let newAmount = selectedAmount != transaction.amount ? selectedAmount : nil
+        let newDate = selectedDate != transaction.date ? selectedDate : nil
+        let newType = selectedType != transaction.type ? selectedType : nil
+        
+        viewModel.updateTransaction(
+            transaction: transaction,
+            newTitle: newTitle,
+            newAmount: newAmount,
+            newBudget: selectedBudget,
+            newDate: newDate,
+            newType: newType,
+            newAccount: selectedAccount
+        )
+        
+        dismiss()
+    }
+
+    private func addNewTransaction() {
+        guard let selectedAmount = Double(amount) else { return }
+        
+        let newTransaction = Transaction(
+            title: title,
+            amount: selectedAmount,
+            date: selectedDate,
+            type: selectedType,
+            account: selectedAccount
+        )
+        
+        viewModel.addTransaction(to: selectedBudget, transaction: newTransaction)
+        resetForm()
+    }
+
+    private func resetForm() {
+        isPresented = false
+        amount = "0"
+        title = ""
+    }
+
+    private func loadTransactionData(from transaction: Transaction) {
+        title = transaction.title
+        selectedDate = transaction.date
+        amount = String(transaction.amount)
+        selectedBudget = transaction.budget
+        selectedType = transaction.type
+        selectedAccount = transaction.account
     }
 }
 

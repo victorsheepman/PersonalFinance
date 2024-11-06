@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		840F10AB2CCBFC6500666CA7 /* ItemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F10AA2CCBFC6500666CA7 /* ItemDataSource.swift */; };
 		840F10B22CCC0B8300666CA7 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F10B12CCC0B8300666CA7 /* TransactionViewModel.swift */; };
+		841707D52CDAA6AC0068FFCA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841707D42CDAA6AC0068FFCA /* HomeViewModel.swift */; };
+		841707D72CDAADEC0068FFCA /* BackgroundContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841707D62CDAADEC0068FFCA /* BackgroundContainer.swift */; };
 		841D72242CC8117200BF7F72 /* BudgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D72232CC8117200BF7F72 /* BudgetsView.swift */; };
 		841D72272CC812C000BF7F72 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D72262CC812C000BF7F72 /* PieChart.swift */; };
 		84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84234C6B2CC7F03500C52B74 /* Budget.swift */; };
@@ -25,6 +27,7 @@
 		845CB2E92CC6CB5E00181E76 /* TransactionDetailCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */; };
 		845CB2EC2CC6CBBE00181E76 /* LabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */; };
 		84607DF82CCA9E9E0097C233 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84607DF72CCA9E9E0097C233 /* TransactionView.swift */; };
+		848F31A62CDBAF3A006FA90A /* BudgetCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F31A52CDBAF3A006FA90A /* BudgetCellView.swift */; };
 		84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */; };
 		84AF9FE32CC9548500EAE5DB /* BudgetForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */; };
 		84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */; };
@@ -35,6 +38,8 @@
 /* Begin PBXFileReference section */
 		840F10AA2CCBFC6500666CA7 /* ItemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDataSource.swift; sourceTree = "<group>"; };
 		840F10B12CCC0B8300666CA7 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		841707D42CDAA6AC0068FFCA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		841707D62CDAADEC0068FFCA /* BackgroundContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundContainer.swift; sourceTree = "<group>"; };
 		841D72232CC8117200BF7F72 /* BudgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsView.swift; sourceTree = "<group>"; };
 		841D72262CC812C000BF7F72 /* PieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
 		84234C6B2CC7F03500C52B74 /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
@@ -52,6 +57,7 @@
 		845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailCellView.swift; sourceTree = "<group>"; };
 		845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyle.swift; sourceTree = "<group>"; };
 		84607DF72CCA9E9E0097C233 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
+		848F31A52CDBAF3A006FA90A /* BudgetCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCellView.swift; sourceTree = "<group>"; };
 		84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCard.swift; sourceTree = "<group>"; };
 		84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetForm.swift; sourceTree = "<group>"; };
 		84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewModel.swift; sourceTree = "<group>"; };
@@ -85,6 +91,14 @@
 			);
 			name = ViewModel;
 			path = ../ViewModel;
+			sourceTree = "<group>";
+		};
+		841707D32CDAA69F0068FFCA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				841707D42CDAA6AC0068FFCA /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		841D72252CC8117A00BF7F72 /* Budgets */ = {
@@ -146,6 +160,8 @@
 				845CB2E02CC6B4AC00181E76 /* BalanceCardView.swift */,
 				845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */,
 				841D72262CC812C000BF7F72 /* PieChart.swift */,
+				841707D62CDAADEC0068FFCA /* BackgroundContainer.swift */,
+				848F31A52CDBAF3A006FA90A /* BudgetCellView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -163,6 +179,7 @@
 		845CB2DC2CC6A88100181E76 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				841707D32CDAA69F0068FFCA /* ViewModel */,
 				845CB2DD2CC6A88700181E76 /* View */,
 			);
 			path = Home;
@@ -324,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */,
+				841707D52CDAA6AC0068FFCA /* HomeViewModel.swift in Sources */,
 				84F9E2B12CCBE16600DDFFD2 /* Extensions.swift in Sources */,
 				841D72272CC812C000BF7F72 /* PieChart.swift in Sources */,
 				845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */,
@@ -335,10 +353,12 @@
 				840F10AB2CCBFC6500666CA7 /* ItemDataSource.swift in Sources */,
 				845CB2E72CC6C2F100181E76 /* TransactionMock.swift in Sources */,
 				84F9E2B42CCBE34C00DDFFD2 /* TransactionForm.swift in Sources */,
+				848F31A62CDBAF3A006FA90A /* BudgetCellView.swift in Sources */,
 				845CB2E42CC6C16300181E76 /* Transaction.swift in Sources */,
 				845CB2D92CC6A24D00181E76 /* CustomTabBar.swift in Sources */,
 				84234C6E2CC7F06B00C52B74 /* BudgetMock.swift in Sources */,
 				845CB2E12CC6B4AC00181E76 /* BalanceCardView.swift in Sources */,
+				841707D72CDAADEC0068FFCA /* BackgroundContainer.swift in Sources */,
 				84607DF82CCA9E9E0097C233 /* TransactionView.swift in Sources */,
 				845CB2E92CC6CB5E00181E76 /* TransactionDetailCellView.swift in Sources */,
 				845CB2EC2CC6CBBE00181E76 /* LabelStyle.swift in Sources */,
