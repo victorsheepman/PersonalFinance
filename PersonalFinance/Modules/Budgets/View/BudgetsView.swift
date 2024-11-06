@@ -35,13 +35,10 @@ struct BudgetsView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    
                     Text("Budgets")
                         .font(.largeTitle)
                         .bold()
                         .padding(.top)
-                    
-                    
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {

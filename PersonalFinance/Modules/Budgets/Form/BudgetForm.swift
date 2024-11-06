@@ -32,7 +32,7 @@ struct BudgetForm: View {
     var body: some View {
         Form {
             Picker("Budget Category", selection: $selectedCategory) {
-                ForEach(BudgetCategory.allCases.filter { !usedCategories.contains($0) || budgetToEdit?.category == $0 }) { category in
+                ForEach(BudgetCategory.allCases.filter { !usedCategories.contains($0) || budgetToEdit?.category == $0 }, id:\.id) { category in
                     Text(category.rawValue).tag(category)
                 }
             }
@@ -43,7 +43,7 @@ struct BudgetForm: View {
                 .disableAutocorrection(true)
             
             Picker("Budget Theme", selection: $selectedTheme) {
-                ForEach(BudgetTheme.allCases.filter { !usedThemes.contains($0) || budgetToEdit?.theme == $0 }) { theme in
+                ForEach(BudgetTheme.allCases.filter { !usedThemes.contains($0) || budgetToEdit?.theme == $0 }, id: \.id) { theme in
                     Text(theme.rawValue).tag(theme)
                 }
             }
