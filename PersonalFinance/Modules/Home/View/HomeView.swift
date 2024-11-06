@@ -96,6 +96,7 @@ struct HomeView: View {
                     .font(.system(size: 20))
                     .bold()
                     .foregroundStyle(Color("Grey-900"))
+                Spacer()
             }
             
             if let budgets = viewModel.budgets {
