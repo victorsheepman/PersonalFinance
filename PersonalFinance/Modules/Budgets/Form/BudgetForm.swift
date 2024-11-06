@@ -18,6 +18,8 @@ struct BudgetForm: View {
     @State private var usedColors: Set<BudgetTheme> = [.cyan]
     @State private var selectedCategory: BudgetCategory = .entertainment
     @State private var maxSpent: String = ""
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
     
     private var usedThemes: Set<BudgetTheme> {
         Set(viewModel.budgets.map { $0.theme })
@@ -61,33 +63,64 @@ struct BudgetForm: View {
         }
         .onAppear {
             if let budget = budgetToEdit {
-                selectedCategory = budget.category
-                maxSpent = String(budget.max)
-                selectedTheme = budget.theme
+                loadBudgetData(from: budget)
             }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
         
     }
     
     private func submitBudget() {
-        if let max = Double(maxSpent) {
-            
-            if let budget = budgetToEdit {
-                viewModel.updateBudget(
-                    budget: budget,
-                    newCategory: selectedCategory,
-                    newMax: max,
-                    newSpent: budget.spent,
-                    newTheme: selectedTheme
-                )
-            } else {
-                viewModel.addBudget(category: selectedCategory, max: max, spent: 0, theme: selectedTheme)
-            }
-            
-            isPresented = false
-            maxSpent = "0"
-            
+        guard let max = parseMaxSpent() else { return }
+        
+        if let budget = budgetToEdit {
+            updateExistingBudget(budget, withMax: max)
+        } else {
+            addNewBudget(withMax: max)
         }
+        
+        resetForm()
+    }
+
+    private func parseMaxSpent() -> Double? {
+        guard let max = Double(maxSpent) else {
+            alertMessage = "Invalid maximum spending amount."
+            showAlert = true
+            return nil
+        }
+        return max
+    }
+
+    private func updateExistingBudget(_ budget: Budget, withMax max: Double) {
+        viewModel.updateBudget(
+            budget: budget,
+            newCategory: selectedCategory,
+            newMax: max,
+            newSpent: budget.spent,
+            newTheme: selectedTheme
+        )
+    }
+
+    private func addNewBudget(withMax max: Double) {
+        viewModel.addBudget(
+            category: selectedCategory,
+            max: max,
+            spent: 0,
+            theme: selectedTheme
+        )
+    }
+    
+    private func resetForm() {
+        isPresented = false
+        maxSpent = "0"
+    }
+
+    private func loadBudgetData(from budget: Budget) {
+        selectedCategory = budget.category
+        maxSpent = String(budget.max)
+        selectedTheme = budget.theme
     }
 }
 
