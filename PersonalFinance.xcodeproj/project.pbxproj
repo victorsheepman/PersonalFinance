@@ -28,6 +28,7 @@
 		845CB2EC2CC6CBBE00181E76 /* LabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */; };
 		84607DF82CCA9E9E0097C233 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84607DF72CCA9E9E0097C233 /* TransactionView.swift */; };
 		848F31A62CDBAF3A006FA90A /* BudgetCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F31A52CDBAF3A006FA90A /* BudgetCellView.swift */; };
+		84A170362CDD84B400091B23 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A170352CDD84B400091B23 /* ViewModelProtocol.swift */; };
 		84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */; };
 		84AF9FE32CC9548500EAE5DB /* BudgetForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */; };
 		84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */; };
@@ -58,6 +59,7 @@
 		845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyle.swift; sourceTree = "<group>"; };
 		84607DF72CCA9E9E0097C233 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		848F31A52CDBAF3A006FA90A /* BudgetCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCellView.swift; sourceTree = "<group>"; };
+		84A170352CDD84B400091B23 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCard.swift; sourceTree = "<group>"; };
 		84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetForm.swift; sourceTree = "<group>"; };
 		84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewModel.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			children = (
 				845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */,
 				84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */,
+				84A170352CDD84B400091B23 /* ViewModelProtocol.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				841D72272CC812C000BF7F72 /* PieChart.swift in Sources */,
 				845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */,
 				84AF9FE32CC9548500EAE5DB /* BudgetForm.swift in Sources */,
+				84A170362CDD84B400091B23 /* ViewModelProtocol.swift in Sources */,
 				841D72242CC8117200BF7F72 /* BudgetsView.swift in Sources */,
 				845CB2DF2CC6A89400181E76 /* HomeView.swift in Sources */,
 				84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */,
