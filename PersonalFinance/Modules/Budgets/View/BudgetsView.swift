@@ -69,7 +69,7 @@ struct BudgetsView: View {
                 .background(Color("Background"))
             }
         }
-        .onAppear(){
+        .onChange(of: viewModel.budgets) {
             viewModel.getBudgets()
         }
     }

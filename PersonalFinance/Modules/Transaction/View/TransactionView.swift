@@ -40,7 +40,7 @@ struct TransactionView: View {
         .sheet(isPresented: $isPresented) {
             transactionFormContainer
         }
-        .onAppear {
+        .onChange(of: viewModel.transactions) {
             viewModel.getTransactions()
         }
     }

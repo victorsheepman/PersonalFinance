@@ -44,8 +44,7 @@ class BudgetViewModel: ObservableObject {
     }
     
     func getBudgets() {
-        budgets = dataSource.fetch()
-        
+        budgets = dataSource.fetch()        
     }
     
     private func insertBudget(budget: Budget) {
