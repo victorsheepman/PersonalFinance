@@ -40,6 +40,10 @@ struct TransactionForm: View {
     
     @Binding var isPresented: Bool
     
+    var aviableBudgets: [Budget] {
+        return viewModel.availableBudgets.filter { !$0.isOverBudget }
+    }
+    
     var body: some View {
         Form {
             TextField("Title", text: $title)
@@ -69,7 +73,7 @@ struct TransactionForm: View {
             if selectedType == .expense {
                 Picker("Budget", selection: $selectedBudget) {
                     Text("General").tag(nil as Budget?)
-                    ForEach(viewModel.availableBudgets.filter { !$0.isOverBudget }) { budget in
+                    ForEach(aviableBudgets, id: \.id) { budget in
                         Text(budget.category.rawValue)
                             .tag(budget as Budget?)
                     }
