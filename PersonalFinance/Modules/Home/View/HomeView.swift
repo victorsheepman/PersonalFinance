@@ -27,17 +27,11 @@ struct HomeView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView{
                     VStack{
-                        
-                        
                         BalanceCardView(title: "Necesidades Basicas 50%", balance: viewModel.basicAmount, isDark: true)
                         BalanceCardView(title: "Gastos Prescindibles 30%", balance: viewModel.personalAmount)
                         BalanceCardView(title: "Ahorro 20%", balance: viewModel.savingAmount)
-                        
                         transactionSection
-                        
                         budgetSection
-              
-                        
                     }
                     .padding()
                     .padding(.bottom, 100)
@@ -45,7 +39,7 @@ struct HomeView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    
+
                     Text("Overview")
                         .font(.largeTitle)
                         .bold()
@@ -53,8 +47,10 @@ struct HomeView: View {
                     
                 }
             }
-            .onAppear {
+            .onChange(of: viewModel.budgets) {
                 viewModel.fetchBudget()
+            }
+            .onChange(of: viewModel.transactions) {
                 viewModel.fetchTransaction()
             }
         }
