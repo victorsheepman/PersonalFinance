@@ -8,18 +8,18 @@
 import Foundation
 
 
-@Observable
+
 class BudgetViewModel: ObservableObject, ViewModelProtocol {
     
-    @ObservationIgnored
+    
+    @Published var budgets: [Budget] = []
+    
     private let dataSource: SwiftDataService
 
     init(dataSource: SwiftDataService = SwiftDataService.shared) {
         self.dataSource = dataSource
         fetchBudgets()
     }
-    
-    var budgets: [Budget] = []
     
     func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
         let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme, transactions: [])
