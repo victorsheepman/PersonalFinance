@@ -9,16 +9,18 @@ import Foundation
 
 import SwiftUI
 
-class HomeViewModel: ObservableObject {
-    @Published var transactions: [Transaction]?
-    @Published var budgets: [Budget]?
+class HomeViewModel: ObservableObject, ViewModelProtocol {
+    
+    
+    @Published var transactions: [Transaction] = []
+    @Published var budgets: [Budget] = []
     
     private let dataSource: SwiftDataService
     
     init(dataSource: SwiftDataService = SwiftDataService.shared) {
         self.dataSource = dataSource
         fetchTransaction()
-        fetchBudget()
+        fetchBudgets()
     }
     
     
@@ -35,13 +37,13 @@ class HomeViewModel: ObservableObject {
     }
     
     private func calculateAmount(for account: TransactionAccount) -> Double {
-        let income = transactions?
+        let income = transactions
             .filter { $0.account == account && $0.type == .income }
-            .reduce(0) { $0 + $1.amount } ?? 0.0
+            .reduce(0) { $0 + $1.amount }
         
-        let expense = transactions?
+        let expense = transactions
             .filter { $0.account == account && $0.type == .expense }
-            .reduce(0) { $0 + $1.amount } ?? 0.0
+            .reduce(0) { $0 + $1.amount }
         
         return income - expense
     }
@@ -50,7 +52,7 @@ class HomeViewModel: ObservableObject {
         transactions = dataSource.fetch()
     }
     
-    func fetchBudget() {
+    func fetchBudgets() {
         budgets = dataSource.fetch()
     }
 }
