@@ -7,12 +7,10 @@
 
 import Foundation
 
+class TransactionViewModel: ObservableObject, ViewModelProtocol {
 
-@Observable
-class TransactionViewModel: ObservableObject {
-
-    var transactions: [Transaction] = []
-    var budgets: [Budget] = []
+    @Published var transactions: [Transaction] = []
+    @Published var budgets: [Budget] = []
     
     @ObservationIgnored
     private let dataSource: SwiftDataService
