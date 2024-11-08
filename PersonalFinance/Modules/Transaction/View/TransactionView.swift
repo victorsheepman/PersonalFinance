@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TransactionView: View {
     
-    @StateObject var viewModel: TransactionViewModel = TransactionViewModel(dataSource: .shared)
+    @StateObject var viewModel: TransactionViewModel = TransactionViewModel()
     
     @State private var isPresented: Bool = false
     @State private var search: String = ""

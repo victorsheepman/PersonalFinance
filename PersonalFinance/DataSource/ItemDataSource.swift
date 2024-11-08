@@ -17,7 +17,7 @@ final class SwiftDataService {
 
     @MainActor
     private init() {
-        self.modelContainer = try! ModelContainer(for: Budget.self, Transaction.self)
+        self.modelContainer = try! ModelContainer(for: Budget.self)
         self.modelContext = modelContainer.mainContext
     }
 
