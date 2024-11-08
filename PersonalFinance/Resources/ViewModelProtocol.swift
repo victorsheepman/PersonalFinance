@@ -8,9 +8,15 @@
 import Foundation
 
 protocol ViewModelProtocol {
-    var budgets: [Budget] { get set}
-    var transactions: [Transaction] {get set}
-    
+    var budgets: [Budget] { get set }
     func fetchBudgets() -> Void
-    func fetchTransactions() -> Void
+}
+
+extension ViewModelProtocol {
+    var transactions: [Transaction] {
+        return []
+    }
+    func fetchTransactions() {
+        
+    }
 }

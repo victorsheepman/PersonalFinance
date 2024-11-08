@@ -7,19 +7,17 @@
 
 import Foundation
 
+class TransactionViewModel: ObservableObject, ViewModelProtocol {
 
-@Observable
-class TransactionViewModel: ObservableObject {
-
-    var transactions: [Transaction] = []
-    var availableBudgets: [Budget] = []
+    @Published var transactions: [Transaction] = []
+    @Published var budgets: [Budget] = []
     
-    @ObservationIgnored
+
     private let dataSource: SwiftDataService
     
     init(dataSource: SwiftDataService = SwiftDataService.shared) {
         self.dataSource = dataSource
-        getTransactions()
+        fetchTransactions()
     }
     
     func addTransaction(to budget: Budget?, transaction: Transaction) -> Void {
@@ -29,7 +27,7 @@ class TransactionViewModel: ObservableObject {
         
         dataSource.append(transaction)
         transactions = []
-        getTransactions()
+        fetchTransactions()
     }
     
     func updateTransaction(transaction: Transaction, newTitle: String?, newAmount: Double?, newBudget: Budget?, newDate: Date?, newType: TransactionType?, newAccount: TransactionAccount?) {
@@ -65,7 +63,7 @@ class TransactionViewModel: ObservableObject {
         }
         
         transactions = []
-        getTransactions()
+        fetchTransactions()
     }
     
     func removeTransaction(_ id: UUID) {
@@ -95,11 +93,11 @@ class TransactionViewModel: ObservableObject {
         budget.spent += transaction.amount
     }
    
-    func getTransactions() {
+    func fetchTransactions() {
         transactions = dataSource.fetch()
     }
     
-    func getAvailableBudgets() {
-        availableBudgets = dataSource.fetch()
+    func fetchBudgets() {
+        budgets = dataSource.fetch()
     }
 }

@@ -70,7 +70,7 @@ struct BudgetsView: View {
             }
         }
         .onAppear() {
-            viewModel.getBudgets()
+            viewModel.fetchBudgets()
         }
     }
     

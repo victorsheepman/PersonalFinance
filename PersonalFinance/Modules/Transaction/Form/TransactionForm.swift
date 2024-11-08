@@ -41,7 +41,7 @@ struct TransactionForm: View {
     @Binding var isPresented: Bool
     
     var aviableBudgets: [Budget] {
-        return viewModel.availableBudgets.filter { !$0.isOverBudget }
+        return viewModel.budgets.filter { !$0.isOverBudget }
     }
     
     var body: some View {
@@ -102,7 +102,7 @@ struct TransactionForm: View {
             }
             
         }.onAppear{
-            viewModel.getAvailableBudgets()
+            viewModel.fetchBudgets()
             if let transaction = transactionToEdit {
                 loadTransactionData(from: transaction)
             }

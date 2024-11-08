@@ -48,7 +48,7 @@ struct HomeView: View {
                 }
             }
             .onAppear(){
-                viewModel.fetchBudget()
+                viewModel.fetchBudgets()
                 viewModel.fetchTransaction()
             }
         }
@@ -62,20 +62,20 @@ struct HomeView: View {
                 .bold()
                 .foregroundStyle(Color("Grey-900"))
             
-            if let transactions = viewModel.transactions {
+            
                 
-                let transactionSorted = transactions.suffix(3).sorted { $0.date > $1.date }
+            let transactionSorted = viewModel.transactions.suffix(3).sorted { $0.date > $1.date }
                 
                 ForEach(transactionSorted, id: \.id) { t in
                     
                     TransactionCellView(transaccion: t)
                     
-                    if t.id != transactions.suffix(3).last?.id {
+                    if t.id != viewModel.transactions.suffix(3).last?.id {
                         Divider()
                             .background(Color("Grey-100"))
                     }
                 }
-            }
+            
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
@@ -93,15 +93,15 @@ struct HomeView: View {
                 Spacer()
             }
             
-            if let budgets = viewModel.budgets {
-                PieChart(budgets: budgets)
+           
+            PieChart(budgets: viewModel.budgets)
                 LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(budgets,id: \.id) { budget in
+                    ForEach(viewModel.budgets,id: \.id) { budget in
                         BudgetCellView(budget: budget)
                     }
                 }
                 .padding(.top, 20)
-            }
+            
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
