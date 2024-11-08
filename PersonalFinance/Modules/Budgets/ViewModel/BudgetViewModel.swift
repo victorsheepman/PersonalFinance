@@ -9,7 +9,7 @@ import Foundation
 
 
 @Observable
-class BudgetViewModel: ObservableObject {
+class BudgetViewModel: ObservableObject, ViewModelProtocol {
     
     @ObservationIgnored
     private let dataSource: SwiftDataService
