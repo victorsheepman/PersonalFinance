@@ -16,7 +16,7 @@ class BudgetViewModel: ObservableObject {
 
     init(dataSource: SwiftDataService = SwiftDataService.shared) {
         self.dataSource = dataSource
-        getBudgets()
+        fetchBudgets()
     }
     
     var budgets: [Budget] = []
@@ -29,7 +29,7 @@ class BudgetViewModel: ObservableObject {
     func deleteBudget(budget: Budget) {
         dataSource.remove(budget)
         budgets = []
-        getBudgets()
+        fetchBudgets()
     }
     
     func updateBudget(budget: Budget, newCategory: BudgetCategory, newMax: Double, newSpent: Double, newTheme: BudgetTheme) {
@@ -40,17 +40,17 @@ class BudgetViewModel: ObservableObject {
         budget.theme = newTheme
         
         budgets = []
-        getBudgets()
+        fetchBudgets()
     }
     
-    func getBudgets() {
-        budgets = dataSource.fetch()        
+    func fetchBudgets() {
+        budgets = dataSource.fetch()
     }
     
     private func insertBudget(budget: Budget) {
         dataSource.append(budget)
         budgets = []
-        getBudgets()
+        fetchBudgets()
     }
 
 }
