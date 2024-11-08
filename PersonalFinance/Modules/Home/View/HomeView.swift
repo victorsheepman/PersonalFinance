@@ -47,10 +47,8 @@ struct HomeView: View {
                     
                 }
             }
-            .onChange(of: viewModel.budgets) {
+            .onAppear(){
                 viewModel.fetchBudget()
-            }
-            .onChange(of: viewModel.transactions) {
                 viewModel.fetchTransaction()
             }
         }
