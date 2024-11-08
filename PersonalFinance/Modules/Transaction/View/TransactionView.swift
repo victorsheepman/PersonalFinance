@@ -41,7 +41,7 @@ struct TransactionView: View {
             transactionFormContainer
         }
         .onAppear() {
-            viewModel.getTransactions()
+            viewModel.fetchTransactions()
         }
     }
     
