@@ -12,10 +12,9 @@ class TransactionViewModel: ObservableObject, ViewModelProtocol {
     @Published var transactions: [Transaction] = []
     @Published var budgets: [Budget] = []
     
-    @ObservationIgnored
     private let dataSource: SwiftDataService
     
-    init(dataSource: SwiftDataService = SwiftDataService.shared) {
+    init(dataSource: SwiftDataService) {
         self.dataSource = dataSource
         fetchTransactions()
     }

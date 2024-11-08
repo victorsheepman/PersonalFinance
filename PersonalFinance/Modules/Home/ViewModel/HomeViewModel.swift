@@ -17,7 +17,7 @@ class HomeViewModel: ObservableObject, ViewModelProtocol {
     
     private let dataSource: SwiftDataService
     
-    init(dataSource: SwiftDataService = SwiftDataService.shared) {
+    init(dataSource: SwiftDataService) {
         self.dataSource = dataSource
         fetchTransaction()
         fetchBudgets()

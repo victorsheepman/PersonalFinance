@@ -18,7 +18,7 @@ let columns = [
 
 struct HomeView: View {
     
-    @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var viewModel = HomeViewModel(dataSource: .shared)
 
     var body: some View {
         NavigationStack{
