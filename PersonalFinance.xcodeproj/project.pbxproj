@@ -33,6 +33,8 @@
 		84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */; };
 		84F9E2B12CCBE16600DDFFD2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */; };
 		84F9E2B42CCBE34C00DDFFD2 /* TransactionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E2B32CCBE34C00DDFFD2 /* TransactionForm.swift */; };
+		84FA24F52CDFBE99008C69FD /* TransactionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA24F42CDFBE99008C69FD /* TransactionSectionView.swift */; };
+		84FA24F72CDFBED8008C69FD /* BudgetSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA24F62CDFBED8008C69FD /* BudgetSectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +65,8 @@
 		84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewModel.swift; sourceTree = "<group>"; };
 		84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		84F9E2B32CCBE34C00DDFFD2 /* TransactionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionForm.swift; sourceTree = "<group>"; };
+		84FA24F42CDFBE99008C69FD /* TransactionSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSectionView.swift; sourceTree = "<group>"; };
+		84FA24F62CDFBED8008C69FD /* BudgetSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetSectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				845CB2DE2CC6A89400181E76 /* HomeView.swift */,
+				84FA24F42CDFBE99008C69FD /* TransactionSectionView.swift */,
+				84FA24F62CDFBED8008C69FD /* BudgetSectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,6 +350,8 @@
 				84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */,
 				840F10AB2CCBFC6500666CA7 /* ItemDataSource.swift in Sources */,
 				845CB2E72CC6C2F100181E76 /* TransactionMock.swift in Sources */,
+				84FA24F52CDFBE99008C69FD /* TransactionSectionView.swift in Sources */,
+				84FA24F72CDFBED8008C69FD /* BudgetSectionView.swift in Sources */,
 				84F9E2B42CCBE34C00DDFFD2 /* TransactionForm.swift in Sources */,
 				848F31A62CDBAF3A006FA90A /* BudgetCellView.swift in Sources */,
 				845CB2E42CC6C16300181E76 /* Transaction.swift in Sources */,
