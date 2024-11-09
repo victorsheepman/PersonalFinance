@@ -66,4 +66,7 @@ fileprivate struct BudgetCellView: View {
         }
     }
 }
+#Preview {
+   BudgetSectionView(budgets: budgetMock)
+}
 

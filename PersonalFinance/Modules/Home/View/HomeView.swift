@@ -6,12 +6,7 @@
 //
 
 import SwiftUI
-import Charts
 import SwiftData
-
-
-
-
 
 struct HomeView: View {
     @Query(sort: \Transaction.date) var transactions: [Transaction]
