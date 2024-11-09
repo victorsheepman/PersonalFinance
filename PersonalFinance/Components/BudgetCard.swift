@@ -57,7 +57,7 @@ struct BudgetsCard: View {
             ProgressView(value: budget.spent, total: budget.max)
                 .accentColor(budget.theme.color)
             
-            LazyVGrid(columns: columns, spacing: 10) {
+            LazyVGrid(columns: Constants.columns, spacing: 10) {
                 HStack{
                     Circle()
                         .fill(budget.theme.color)

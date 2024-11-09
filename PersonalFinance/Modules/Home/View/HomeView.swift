@@ -10,10 +10,7 @@ import Charts
 import SwiftData
 
 
-let columns = [
-    GridItem(.flexible(), alignment: .leading),
-    GridItem(.flexible(), alignment: .leading)  
-]
+
 
 
 struct HomeView: View {
@@ -48,7 +45,7 @@ struct HomeView: View {
                         BalanceCardView(title: "Gastos Prescindibles 30%", balance: personalAmount)
                         BalanceCardView(title: "Ahorro 20%", balance: savingAmount)
                         TransactionSectionView(transactions: transactions)
-                        BudgetSectionView(budgets: budgets, columns: columns)
+                        BudgetSectionView(budgets: budgets)
                     }
                     .padding()
                     .padding(.bottom, 100)
