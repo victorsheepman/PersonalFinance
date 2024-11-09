@@ -10,25 +10,27 @@ import SwiftUI
 struct BudgetSectionView: View {
     let budgets: [Budget]
     let columns: [GridItem]
+    
+    private var lastBudgetID: UUID? {
+        budgets.last?.id
+    }
 
     var body: some View {
         VStack {
-            HStack {
-                Text("Budgets")
-                    .font(.system(size: 20))
-                    .bold()
-                    .foregroundStyle(Color("Grey-900"))
-                Spacer()
-            }
-            
             PieChart(budgets: budgets)
             
-            LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(budgets, id: \.id) { budget in
-                    BudgetCellView(budget: budget)
+            Text("Spending Summary")
+                .font(.system(size: 20).bold())
+                .padding(.trailing, 148)
+            
+            ForEach(budgets, id: \.id) { budget in
+                BudgetCellView(budget: budget)
+                if budget.id != lastBudgetID {
+                    Divider()
+                        .background(Color("Grey-100"))
                 }
             }
-            .padding(.top, 20)
+            .padding(.top, 10)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
