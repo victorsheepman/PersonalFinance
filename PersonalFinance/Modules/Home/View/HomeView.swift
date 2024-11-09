@@ -18,32 +18,37 @@ let columns = [
 
 struct HomeView: View {
     @Query(sort: \Transaction.date) var transactions: [Transaction]
-    @StateObject private var viewModel = HomeViewModel()
-    
+    @Query(sort: \Budget.id) var budgets: [Budget]
+
     var basicAmount: Double {
-        viewModel.calculateAmount(for: .basic, transactions)
+        calculateAmount(for: .basic)
     }
     
     var personalAmount: Double {
-        viewModel.calculateAmount(for: .person, transactions)
+        calculateAmount(for: .person)
     }
     
     var savingAmount: Double {
-        viewModel.calculateAmount(for: .saving, transactions)
+       calculateAmount(for: .saving)
+    }
+    
+    var transactionSorted: [Transaction] {
+       transactions.suffix(3).sorted { $0.date > $1.date }
     }
 
     var body: some View {
         NavigationStack{
             ZStack {
                 Color("Background")
-                    .edgesIgnoringSafeArea(.all)
+                    .ignoresSafeArea()
+                    
                 ScrollView{
                     VStack{
                         BalanceCardView(title: "Necesidades Basicas 50%", balance: basicAmount, isDark: true)
                         BalanceCardView(title: "Gastos Prescindibles 30%", balance: personalAmount)
                         BalanceCardView(title: "Ahorro 20%", balance: savingAmount)
-                        transactionSection
-                        budgetSection
+                        TransactionSectionView(transactions: transactions)
+                        BudgetSectionView(budgets: budgets, columns: columns)
                     }
                     .padding()
                     .padding(.bottom, 100)
@@ -59,36 +64,50 @@ struct HomeView: View {
             }
         }
     }
-   
-    var transactionSection: some View {
+    
+    private func calculateAmount(for account: TransactionAccount ) -> Double {
+        let income = transactions
+            .filter { $0.account == account && $0.type == .income }
+            .reduce(0) { $0 + $1.amount }
+            
+        let expense = transactions
+            .filter { $0.account == account && $0.type == .expense }
+            .reduce(0) { $0 + $1.amount }
+            return income - expense
+        }
+}
+
+
+struct TransactionSectionView: View {
+    let transactions: [Transaction]
+
+    var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Transactions")
                 .font(.system(size: 20))
                 .bold()
                 .foregroundStyle(Color("Grey-900"))
             
-            
+            ForEach(transactions, id: \.id) { transaction in
+                TransactionCellView(transaccion: transaction)
                 
-            let transactionSorted = viewModel.transactions.suffix(3).sorted { $0.date > $1.date }
-                
-                ForEach(transactionSorted, id: \.id) { t in
-                    
-                    TransactionCellView(transaccion: t)
-                    
-                    if t.id != viewModel.transactions.suffix(3).last?.id {
-                        Divider()
-                            .background(Color("Grey-100"))
-                    }
+                if transaction.id != transactions.last?.id {
+                    Divider()
+                        .background(Color("Grey-100"))
                 }
-            
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
     }
-    
+}
 
-    var budgetSection: some View {
+struct BudgetSectionView: View {
+    let budgets: [Budget]
+    let columns: [GridItem]
+
+    var body: some View {
         VStack {
             HStack {
                 Text("Budgets")
@@ -98,22 +117,43 @@ struct HomeView: View {
                 Spacer()
             }
             
-           
-            PieChart(budgets: viewModel.budgets)
-                LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(viewModel.budgets,id: \.id) { budget in
-                        BudgetCellView(budget: budget)
-                    }
-                }
-                .padding(.top, 20)
+            PieChart(budgets: budgets)
             
+            LazyVGrid(columns: columns, spacing: 10) {
+                ForEach(budgets, id: \.id) { budget in
+                    BudgetCellView(budget: budget)
+                }
+            }
+            .padding(.top, 20)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
     }
-
 }
+
+
+final class HomeViewModel: ObservableObject {
+    @Query(sort: \Transaction.date) var transactions: [Transaction]
+    @Query(sort: \Budget.id) var budgets: [Budget]
+
+    var transactionSorted: [Transaction] {
+        transactions.suffix(3).sorted { $0.date > $1.date }
+    }
+
+    func calculateAmount(for account: TransactionAccount) -> Double {
+        let income = transactions
+            .filter { $0.account == account && $0.type == .income }
+            .reduce(0) { $0 + $1.amount }
+        
+        let expense = transactions
+            .filter { $0.account == account && $0.type == .expense }
+            .reduce(0) { $0 + $1.amount }
+        
+        return income - expense
+    }
+}
+
 
 
 
