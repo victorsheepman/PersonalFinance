@@ -17,8 +17,20 @@ let columns = [
 
 
 struct HomeView: View {
-    
+    @Query(sort: \Transaction.date) var transactions: [Transaction]
     @StateObject private var viewModel = HomeViewModel()
+    
+    var basicAmount: Double {
+        viewModel.calculateAmount(for: .basic, transactions)
+    }
+    
+    var personalAmount: Double {
+        viewModel.calculateAmount(for: .person, transactions)
+    }
+    
+    var savingAmount: Double {
+        viewModel.calculateAmount(for: .saving, transactions)
+    }
 
     var body: some View {
         NavigationStack{
@@ -27,9 +39,9 @@ struct HomeView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView{
                     VStack{
-                        BalanceCardView(title: "Necesidades Basicas 50%", balance: viewModel.basicAmount, isDark: true)
-                        BalanceCardView(title: "Gastos Prescindibles 30%", balance: viewModel.personalAmount)
-                        BalanceCardView(title: "Ahorro 20%", balance: viewModel.savingAmount)
+                        BalanceCardView(title: "Necesidades Basicas 50%", balance: basicAmount, isDark: true)
+                        BalanceCardView(title: "Gastos Prescindibles 30%", balance: personalAmount)
+                        BalanceCardView(title: "Ahorro 20%", balance: savingAmount)
                         transactionSection
                         budgetSection
                     }
@@ -39,20 +51,13 @@ struct HomeView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-
                     Text("Overview")
                         .font(.largeTitle)
                         .bold()
                         .padding(.top)
-                    
                 }
             }
-            .onAppear(){
-                viewModel.fetchBudgets()
-                viewModel.fetchTransaction()
-            }
         }
-        
     }
    
     var transactionSection: some View {

@@ -23,20 +23,7 @@ class HomeViewModel: ObservableObject, ViewModelProtocol {
         fetchBudgets()
     }
     
-    
-    var basicAmount: Double {
-        calculateAmount(for: .basic)
-    }
-    
-    var personalAmount: Double {
-        calculateAmount(for: .person)
-    }
-    
-    var savingAmount: Double {
-        calculateAmount(for: .saving)
-    }
-    
-    private func calculateAmount(for account: TransactionAccount) -> Double {
+    func calculateAmount(for account: TransactionAccount, _ transactions: [Transaction]) -> Double {
         let income = transactions
             .filter { $0.account == account && $0.type == .income }
             .reduce(0) { $0 + $1.amount }
@@ -46,10 +33,6 @@ class HomeViewModel: ObservableObject, ViewModelProtocol {
             .reduce(0) { $0 + $1.amount }
         
         return income - expense
-    }
-    
-    func fetchTransaction() {
-        transactions = dataSource.fetch()
     }
     
     func fetchBudgets() {
