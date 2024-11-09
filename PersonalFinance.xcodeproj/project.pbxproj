@@ -154,7 +154,6 @@
 				84FA24F62CDFBED8008C69FD /* BudgetSectionView.swift */,
 				84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */,
 				845CB2D82CC6A24D00181E76 /* CustomTabBar.swift */,
-				845CB2E02CC6B4AC00181E76 /* BalanceCardView.swift */,
 				845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */,
 				841D72262CC812C000BF7F72 /* PieChart.swift */,
 				841707D62CDAADEC0068FFCA /* BackgroundContainer.swift */,
@@ -185,6 +184,7 @@
 			children = (
 				845CB2DE2CC6A89400181E76 /* HomeView.swift */,
 				84FA24F42CDFBE99008C69FD /* TransactionSectionView.swift */,
+				845CB2E02CC6B4AC00181E76 /* BalanceCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
