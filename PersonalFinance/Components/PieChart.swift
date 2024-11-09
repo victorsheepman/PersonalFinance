@@ -33,7 +33,6 @@ struct PieChart: View {
         .frame(width: 300, height: 300)
         .chartBackground { ChartProxy in
             GeometryReader {  geometry in
-                
                 if let plotFrame = ChartProxy.plotFrame{
                     let frame = geometry[plotFrame]
                     VStack {
@@ -48,10 +47,8 @@ struct PieChart: View {
                     }
                     .position(x: frame.midX, y: frame.midY)
                 }
-                
             }
         }
-        
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct PersonalFinanceApp: App {
@@ -13,6 +14,7 @@ struct PersonalFinanceApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: [Transaction.self, Budget.self])
         
     }
 }

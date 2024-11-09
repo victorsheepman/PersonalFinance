@@ -21,7 +21,7 @@ struct BudgetsView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView {
                     LazyVStack {
-                        budgetChart
+                        BudgetSectionView(budgets: viewModel.budgets)
                         ForEach(viewModel.budgets) { budget in
                             BudgetsCard(budget: budget, viewModel: viewModel)
                                 .padding(.top, 24)
@@ -90,28 +90,6 @@ struct BudgetsView: View {
             }
             
         }
-    }
-    
-    var budgetChart: some View {
-        VStack {
-            PieChart(budgets: viewModel.budgets)
-            
-            Text("Spending Summary")
-                .font(.system(size: 20).bold())
-                .padding(.trailing, 148)
-            
-            ForEach(viewModel.budgets, id: \.id) { budget in
-                BudgetCellView(budget: budget)
-                if budget.id != viewModel.budgets.last?.id {
-                    Divider()
-                        .background(Color("Grey-100"))
-                }
-            }
-            .padding(.top, 10)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .background(RoundedRectangle(cornerRadius: 12).fill(.white))
     }
 }
 
