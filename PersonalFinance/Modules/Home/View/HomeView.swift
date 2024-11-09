@@ -35,7 +35,7 @@ struct HomeView: View {
                     .ignoresSafeArea()
                 
                 ScrollView{
-                    VStack{
+                    VStack(spacing: 15){
                         BalanceCardView(title: "Necesidades Basicas 50%", balance: basicAmount, isDark: true)
                         BalanceCardView(title: "Gastos Prescindibles 30%", balance: personalAmount)
                         BalanceCardView(title: "Ahorro 20%", balance: savingAmount)
