@@ -11,7 +11,7 @@ import SwiftData
 struct HomeView: View {
     @Query(sort: \Transaction.date) var transactions: [Transaction]
     @Query(sort: \Budget.id) var budgets: [Budget]
-
+    
     var basicAmount: Double {
         calculateAmount(for: .basic)
     }
@@ -21,19 +21,19 @@ struct HomeView: View {
     }
     
     var savingAmount: Double {
-       calculateAmount(for: .saving)
+        calculateAmount(for: .saving)
     }
     
     var transactionSorted: [Transaction] {
-       transactions.suffix(3).sorted { $0.date > $1.date }
+        transactions.suffix(3).sorted { $0.date > $1.date }
     }
-
+    
     var body: some View {
         NavigationStack{
             ZStack {
                 Color("Background")
                     .ignoresSafeArea()
-                    
+                
                 ScrollView{
                     VStack{
                         BalanceCardView(title: "Necesidades Basicas 50%", balance: basicAmount, isDark: true)
@@ -61,12 +61,12 @@ struct HomeView: View {
         let income = transactions
             .filter { $0.account == account && $0.type == .income }
             .reduce(0) { $0 + $1.amount }
-            
+        
         let expense = transactions
             .filter { $0.account == account && $0.type == .expense }
             .reduce(0) { $0 + $1.amount }
-            return income - expense
-        }
+        return income - expense
+    }
 }
 #Preview {
     HomeView()
