@@ -10,6 +10,10 @@ import SwiftUI
 
 struct TransactionSectionView: View {
     let transactions: [Transaction]
+   
+    private var lastTransactionID: UUID? {
+        transactions.last?.id
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -21,7 +25,7 @@ struct TransactionSectionView: View {
             ForEach(transactions, id: \.id) { transaction in
                 TransactionCellView(transaccion: transaction)
                 
-                if transaction.id != transactions.last?.id {
+                if transaction.id != lastTransactionID {
                     Divider()
                         .background(Color("Grey-100"))
                 }

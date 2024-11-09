@@ -12,18 +12,6 @@ struct HomeView: View {
     @Query(sort: \Transaction.date) var transactions: [Transaction]
     @Query(sort: \Budget.id) var budgets: [Budget]
     
-    var basicAmount: Double {
-        calculateAmount(for: .basic)
-    }
-    
-    var personalAmount: Double {
-        calculateAmount(for: .person)
-    }
-    
-    var savingAmount: Double {
-        calculateAmount(for: .saving)
-    }
-    
     var transactionSorted: [Transaction] {
         transactions.suffix(3).sorted { $0.date > $1.date }
     }
@@ -36,10 +24,10 @@ struct HomeView: View {
                 
                 ScrollView{
                     VStack(spacing: 15){
-                        BalanceCardView(title: "Necesidades Basicas 50%", balance: basicAmount, isDark: true)
-                        BalanceCardView(title: "Gastos Prescindibles 30%", balance: personalAmount)
-                        BalanceCardView(title: "Ahorro 20%", balance: savingAmount)
-                        TransactionSectionView(transactions: transactions)
+                        BalanceCardView(title: "Necesidades Basicas 50%", account: .basic)
+                        BalanceCardView(title: "Gastos Prescindibles 30%", account:.person)
+                        BalanceCardView(title: "Ahorro 20%", account: .saving)
+                        TransactionSectionView(transactions: transactionSorted)
                         BudgetSectionView(budgets: budgets)
                     }
                     .padding()
@@ -55,17 +43,6 @@ struct HomeView: View {
                 }
             }
         }
-    }
-    
-    private func calculateAmount(for account: TransactionAccount ) -> Double {
-        let income = transactions
-            .filter { $0.account == account && $0.type == .income }
-            .reduce(0) { $0 + $1.amount }
-        
-        let expense = transactions
-            .filter { $0.account == account && $0.type == .expense }
-            .reduce(0) { $0 + $1.amount }
-        return income - expense
     }
 }
 #Preview {
