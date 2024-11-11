@@ -18,15 +18,13 @@ struct TransactionCellView: View {
                     .foregroundColor(.gray)
             }
             Spacer()
-            
             VStack {
                 Text("\(transaccion.type == .income ? "+" : "-")\(transaccion.amount, specifier: "%.2f")$")
-                    .foregroundColor(transaccion.type == .income ? Color("Green") : Color("Red"))
+                    .foregroundColor(transaccion.type == .income ? Color("Green") : .red)
                 
                 Text(transaccion.date.formattedAsString())
                     .font(.system(size: 12))
-                    .foregroundStyle(Color("Grey-500"))
-                
+                    .foregroundStyle(.gray)
             }
         }
     }

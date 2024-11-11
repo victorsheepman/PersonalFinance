@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-
-
 struct BudgetSectionView: View {
     let budgets: [Budget]
     
