@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TransactionView: View {
+    
+    @Query(sort: \Transaction.date) var transactions: [Transaction]
     
     @StateObject var viewModel: TransactionViewModel = TransactionViewModel()
     
@@ -16,7 +19,7 @@ struct TransactionView: View {
     @State private var budgetSelected: BudgetCategory?
     
     var transactionFiltered: [Transaction] {
-        var filtered = viewModel.transactions
+        var filtered = transactions
         if !search.isEmpty {
             filtered = filtered.filter { $0.title.contains(search) }
         }
@@ -114,4 +117,5 @@ struct TransactionView: View {
 
 #Preview {
     TransactionView()
+        .modelContainer(Transaction.preview)
 }
