@@ -12,23 +12,25 @@ struct TransactionView: View {
     
     @Query(sort: \Transaction.date) var transactions: [Transaction]
     
+    @State private var search: String = ""
+    
+ 
     @StateObject var viewModel: TransactionViewModel = TransactionViewModel()
     
     @State private var isPresented: Bool = false
-    @State private var search: String = ""
+    
     @State private var budgetSelected: BudgetCategory?
     
     var transactionFiltered: [Transaction] {
-        var filtered = transactions
-        if !search.isEmpty {
-            filtered = filtered.filter { $0.title.contains(search) }
-        }
-        
-        if let currentBudget = budgetSelected {
-           filtered = filtered.filter { $0.budget?.category.rawValue == currentBudget.rawValue }
-        }
-        
-        return filtered.sorted { $0.date > $1.date }
+        transactions
+            .filter { transaction in
+                search.isEmpty || transaction.title.localizedCaseInsensitiveContains(search)
+            }
+            .filter { transaction in
+                guard let currentBudget = budgetSelected else { return true }
+                return transaction.budget?.category == currentBudget
+            }
+            .sorted { $0.date > $1.date }
     }
     
     var body: some View {
@@ -42,9 +44,6 @@ struct TransactionView: View {
         }
         .sheet(isPresented: $isPresented) {
             transactionFormContainer
-        }
-        .onAppear() {
-            viewModel.fetchTransactions()
         }
     }
     
