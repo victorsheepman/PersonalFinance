@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BudgetsView: View {
+    
+    @Query(sort: \Budget.id) var budgets: [Budget]
     
     @State private var isPresented: Bool = false
     @State private var showAlert: Bool = false
@@ -99,5 +102,6 @@ struct BudgetsView: View {
 
 #Preview {
     BudgetsView()
+        .modelContainer(Budget.preview)
 }
 
