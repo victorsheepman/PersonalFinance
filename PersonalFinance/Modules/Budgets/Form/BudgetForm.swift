@@ -31,16 +31,16 @@ struct BudgetForm: View {
     
     var body: some View {
         Form {
+            TextField("Maximum Spending", text: $maxSpent)
+                .keyboardType(.decimalPad)
+                .disableAutocorrection(true)
+            
             Picker("Budget Category", selection: $selectedCategory) {
                 ForEach(BudgetCategory.allCases.filter { !usedCategories.contains($0) || budgetToEdit?.category == $0 }, id:\.id) { category in
                     Text(category.rawValue).tag(category)
                 }
             }
             .pickerStyle(MenuPickerStyle())
-            
-            TextField("Maximum Spending", text: $maxSpent)
-                .keyboardType(.decimalPad)
-                .disableAutocorrection(true)
             
             Picker("Budget Theme", selection: $selectedTheme) {
                 ForEach(BudgetTheme.allCases.filter { !usedThemes.contains($0) || budgetToEdit?.theme == $0 }, id: \.id) { theme in
