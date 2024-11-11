@@ -27,7 +27,7 @@ struct TransactionView: View {
             }
             .navigationTitle("Transactions")
             .sheet(isPresented: $isPresented) {
-                transactionFormContainer
+                TransactionForm()
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -41,31 +41,12 @@ struct TransactionView: View {
                    
                 }
             }
-        }
-    }
-    private var transactionFormContainer: some View {
-        VStack {
-            HStack(spacing:95) {
-                Text("Add New Budget")
-                    .font(.title)
-                    .bold()
-                
-                Button(action: {
-                    isPresented = false
-                }) {
-                    Image(systemName: "xmark.circle")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .foregroundStyle(Color("Grey-500"))
-                }
             }
-            TransactionForm(isPresented: $isPresented)
+           
         }
-        .padding()
-        .background(Color("Background"))
     }
-    
-}
+
+
 
 
 
