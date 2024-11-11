@@ -36,11 +36,9 @@ struct TransactionView: View {
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     }
-                    
                 }
             }
         }
-        
     }
 }
 

@@ -26,10 +26,18 @@ struct TransactionListView: View {
         List {
             ForEach(transactions, id: \.id) { t in
                 TransactionCellView(transaccion: t)
-            }.onDelete { indexSet in
+            }
+            .onDelete { indexSet in
                 for index in indexSet {
                     context.delete(transactions[index])
                     removeTransactionFromBudget(transactions[index])
+                }
+            }
+        }
+        .overlay {
+            if transactions.isEmpty {
+                ContentUnavailableView {
+                    Label("No Transactions", systemImage: "tray.fill")
                 }
             }
         }
