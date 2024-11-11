@@ -66,15 +66,8 @@ class TransactionViewModel: ObservableObject, ViewModelProtocol {
         fetchTransactions()
     }
     
-    func removeTransaction(_ id: UUID) {
-        let transactionToDelete: Transaction? = transactions.first { $0.id == id} ?? nil
-        if let selectedTransaction = transactionToDelete {
-            removeTransactionFromBudget(selectedTransaction)
-            dataSource.remove(selectedTransaction)
-        }
-    }
-    
-    private func removeTransactionFromBudget(_ transaction: Transaction) -> Void {
+
+    func removeTransactionFromBudget(_ transaction: Transaction) -> Void {
         guard let budget = transaction.budget else {
             return
         }

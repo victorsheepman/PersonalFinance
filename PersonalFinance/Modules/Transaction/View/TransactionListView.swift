@@ -9,10 +9,11 @@ import SwiftUI
 import SwiftData
 
 struct TransactionListView: View {
+    
+    @Environment(\.modelContext) var context
     @Query(sort: \Transaction.date) var transactions: [Transaction]
     @State private var isPresented: Bool = false
-    @StateObject var viewModel: TransactionViewModel = TransactionViewModel()
-    
+  
     init(filterString: String) {
         let predicate = #Predicate<Transaction> { transaction in
             transaction.title.localizedStandardContains(filterString)
@@ -24,21 +25,24 @@ struct TransactionListView: View {
     var body: some View {
         List {
             ForEach(transactions, id: \.id) { t in
-                NavigationLink(destination:
-                                TransactionForm(
-                                    transactionToEdit: t,
-                                    viewModel: viewModel,
-                                    isPresented:$isPresented
-                                )
-                ) {
-                    TransactionCellView(transaccion: t)
-                }
+                TransactionCellView(transaccion: t)
             }.onDelete { indexSet in
-                if let index = indexSet.first {
-                    let transactionID = transactions[index].id
-                    viewModel.removeTransaction(transactionID)
+                for index in indexSet {
+                    context.delete(transactions[index])
+                    removeTransactionFromBudget(transactions[index])
                 }
             }
+        }
+    }
+    
+   private func removeTransactionFromBudget(_ transaction: Transaction) -> Void {
+        guard let budget = transaction.budget else {
+            return
+        }
+        
+        if let index = budget.transactions?.firstIndex(where: { $0.id == transaction.id }) {
+            budget.transactions?.remove(at: index)
+            budget.spent -= transaction.amount
         }
     }
 }
