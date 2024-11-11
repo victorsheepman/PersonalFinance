@@ -7,9 +7,10 @@
 
 import SwiftUI
 import Charts
+import SwiftData
 
 struct PieChart: View {
-    var budgets: [Budget]
+    @Query(sort: \Budget.id) var budgets: [Budget]
     
     var totalMax: Double {
         budgets.reduce(0) { $0 + $1.max }
@@ -53,5 +54,5 @@ struct PieChart: View {
 }
 
 #Preview {
-    PieChart(budgets: budgetMock)
+    PieChart()
 }
