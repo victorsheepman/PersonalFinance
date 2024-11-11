@@ -28,7 +28,7 @@ struct TransactionForm: View {
     @Query(sort: \Budget.id) var budgets: [Budget]
 
     @State private var title: String = ""
-    @State private var amount: String = ""
+    @State private var amount: CGFloat = 0
     @State private var selectedDate = Date()
     @State private var selectedBudget: Budget? = nil
     @State private var selectedType: TransactionType = .expense
@@ -41,13 +41,20 @@ struct TransactionForm: View {
     var aviableBudgets: [Budget] {
         budgets.filter { !$0.isOverBudget }
     }
+    
+    var formatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }
         
     var body: some View {
         Form {
             TextField("Title", text: $title)
             
       
-            TextField("Amount", text: $amount)
+            TextField("Amount", value: $amount, formatter: formatter)
                     .keyboardType(.decimalPad)
                     .disableAutocorrection(true)
             
@@ -121,42 +128,24 @@ struct TransactionForm: View {
     
     private func validateTransaction() -> Result<Void, TransactionValidationError> {
         
-        guard Double(amount) != nil else {
-            return .failure(.invalidAmount)
-        }
-        
         return .success(())
     }
 
     private func addTransaction() {
-        guard let selectedAmount = Double(amount) else { return }
-        
         let transaction = Transaction(
             title: title,
-            amount: selectedAmount,
+            amount: amount,
             date: selectedDate,
             type: selectedType,
             account: selectedAccount,
             budget: selectedBudget
         )
+        
         context.insert(transaction)
         dismiss()
     }
 
-    private func resetForm() {
-        isPresented = false
-        amount = "0"
-        title = ""
-    }
-
-    private func loadTransactionData(from transaction: Transaction) {
-        title = transaction.title
-        selectedDate = transaction.date
-        amount = String(transaction.amount)
-        selectedBudget = transaction.budget
-        selectedType = transaction.type
-        selectedAccount = transaction.account
-    }
+    
     
    
 }
