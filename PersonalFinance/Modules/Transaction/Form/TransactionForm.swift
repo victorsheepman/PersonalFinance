@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum TransactionValidationError: Error {
-    case budgetLimitReached
+    case emptyTitle
     case invalidAmount
     
     var errorMessage: String {
         switch self {
-        case .budgetLimitReached:
-            return "Cannot add more transactions to this budget as it has reached its maximum limit."
+        case .emptyTitle:
+            return "The title is empty"
         case .invalidAmount:
             return "Invalid amount entered."
         }
@@ -22,13 +23,10 @@ enum TransactionValidationError: Error {
 }
 
 struct TransactionForm: View {
-    
+    @Environment(\.modelContext) var context
     @Environment(\.dismiss) private var dismiss
-    
-    var transactionToEdit: Transaction? = nil
-    
-    @ObservedObject var viewModel: TransactionViewModel
-    
+    @Query(sort: \Budget.id) var budgets: [Budget]
+
     @State private var title: String = ""
     @State private var amount: String = ""
     @State private var selectedDate = Date()
@@ -41,16 +39,19 @@ struct TransactionForm: View {
     @Binding var isPresented: Bool
     
     var aviableBudgets: [Budget] {
-        return viewModel.budgets.filter { !$0.isOverBudget }
+        budgets.filter { !$0.isOverBudget }
     }
-    
+        
     var body: some View {
         Form {
             TextField("Title", text: $title)
             
+      
             TextField("Amount", text: $amount)
-                .keyboardType(.decimalPad)
-                .disableAutocorrection(true)
+                    .keyboardType(.decimalPad)
+                    .disableAutocorrection(true)
+            
+           
             
             
             Picker("Type", selection: $selectedType) {
@@ -92,7 +93,7 @@ struct TransactionForm: View {
             Button(action: {
                 submitTransaction()
             }) {
-                Text(transactionToEdit == nil ? "Add" : "Edit")
+                Text("Add")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -101,11 +102,6 @@ struct TransactionForm: View {
                     .cornerRadius(8)
             }
             
-        }.onAppear{
-            viewModel.fetchBudgets()
-            if let transaction = transactionToEdit {
-                loadTransactionData(from: transaction)
-            }
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
@@ -114,23 +110,16 @@ struct TransactionForm: View {
 
     private func submitTransaction() {
         switch validateTransaction() {
-        case .success:
-            if let transaction = transactionToEdit {
-                updateExistingTransaction(transaction)
-            } else {
-                addNewTransaction()
+            case .success:
+                addTransaction()
+            case .failure(let error):
+                alertMessage = error.errorMessage
+                showAlert = true
             }
-        case .failure(let error):
-            alertMessage = error.errorMessage
-            showAlert = true
-        }
     }
     
     
     private func validateTransaction() -> Result<Void, TransactionValidationError> {
-        if let budget = selectedBudget, budget.isOverBudget {
-            return .failure(.budgetLimitReached)
-        }
         
         guard Double(amount) != nil else {
             return .failure(.invalidAmount)
@@ -139,41 +128,19 @@ struct TransactionForm: View {
         return .success(())
     }
 
-
-    private func updateExistingTransaction(_ transaction: Transaction) {
+    private func addTransaction() {
         guard let selectedAmount = Double(amount) else { return }
         
-        let newTitle = title != transaction.title ? title : nil
-        let newAmount = selectedAmount != transaction.amount ? selectedAmount : nil
-        let newDate = selectedDate != transaction.date ? selectedDate : nil
-        let newType = selectedType != transaction.type ? selectedType : nil
-        
-        viewModel.updateTransaction(
-            transaction: transaction,
-            newTitle: newTitle,
-            newAmount: newAmount,
-            newBudget: selectedBudget,
-            newDate: newDate,
-            newType: newType,
-            newAccount: selectedAccount
-        )
-        
-        dismiss()
-    }
-
-    private func addNewTransaction() {
-        guard let selectedAmount = Double(amount) else { return }
-        
-        let newTransaction = Transaction(
+        let transaction = Transaction(
             title: title,
             amount: selectedAmount,
             date: selectedDate,
             type: selectedType,
-            account: selectedAccount
+            account: selectedAccount,
+            budget: selectedBudget
         )
-        
-        viewModel.addTransaction(to: selectedBudget, transaction: newTransaction)
-        resetForm()
+        context.insert(transaction)
+        dismiss()
     }
 
     private func resetForm() {
@@ -190,8 +157,10 @@ struct TransactionForm: View {
         selectedType = transaction.type
         selectedAccount = transaction.account
     }
+    
+   
 }
 
 #Preview {
-    TransactionForm(viewModel: TransactionViewModel(), isPresented: .constant(true))
+    TransactionForm(isPresented: .constant(true))
 }

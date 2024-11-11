@@ -59,7 +59,7 @@ struct TransactionView: View {
                         .foregroundStyle(Color("Grey-500"))
                 }
             }
-            TransactionForm(viewModel: viewModel, isPresented: $isPresented)
+            TransactionForm(isPresented: $isPresented)
         }
         .padding()
         .background(Color("Background"))

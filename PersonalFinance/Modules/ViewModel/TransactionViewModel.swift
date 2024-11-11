@@ -30,43 +30,7 @@ class TransactionViewModel: ObservableObject, ViewModelProtocol {
         fetchTransactions()
     }
     
-    func updateTransaction(transaction: Transaction, newTitle: String?, newAmount: Double?, newBudget: Budget?, newDate: Date?, newType: TransactionType?, newAccount: TransactionAccount?) {
-        
-        if let title = newTitle {
-            transaction.title = title
-        }
-        
-        if let amount = newAmount {
-            transaction.amount = amount
-        }
-        
-        
-        if let budget = newBudget, transaction.budget != budget {
-            removeTransactionFromBudget(transaction)
-            transactionToBudget(transaction, budget)
-        }
-        
-        if let date = newDate {
-            transaction.date = date
-        }
-        
-        if let type = newType {
-            transaction.type = type
-        }
-        
-        if transaction.type == .income{
-            removeTransactionFromBudget(transaction)
-        }
-        
-        if let account = newAccount {
-            transaction.account = account
-        }
-        
-        transactions = []
-        fetchTransactions()
-    }
-    
-
+   
     func removeTransactionFromBudget(_ transaction: Transaction) -> Void {
         guard let budget = transaction.budget else {
             return
