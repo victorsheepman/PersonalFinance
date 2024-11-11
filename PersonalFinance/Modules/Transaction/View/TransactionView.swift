@@ -10,8 +10,6 @@ import SwiftData
 
 struct TransactionView: View {
     
-    @StateObject var viewModel: TransactionViewModel = TransactionViewModel()
-    
     @State private var isPresented: Bool = false
     @State private var searchText: String = ""
     
@@ -38,13 +36,13 @@ struct TransactionView: View {
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     }
-                   
+                    
                 }
             }
-            }
-           
         }
+        
     }
+}
 
 
 

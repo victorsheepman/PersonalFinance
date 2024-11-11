@@ -9,9 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct TransactionForm: View {
-    @Environment(\.modelContext) var context
+    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @Query(sort: \Budget.id) var budgets: [Budget]
+    @Query(sort: \Budget.id) private var budgets: [Budget]
 
     @State private var title: String = ""
     @State private var amount: CGFloat = 0
@@ -37,8 +37,9 @@ struct TransactionForm: View {
                 TextField("Title", text: $title)
                 
                 TextField("Amount", value: $amount, formatter: formatter)
-                        .keyboardType(.decimalPad)
-                        .disableAutocorrection(true)
+                    .keyboardType(.decimalPad)
+                    .disableAutocorrection(true)
+                
                 Picker("Type", selection: $selectedType) {
                     ForEach(TransactionType.allCases) { type in
                         Text(type.rawValue)
@@ -72,7 +73,6 @@ struct TransactionForm: View {
                     selection: $selectedDate,
                     displayedComponents: .date
                 )
-                .datePickerStyle(.graphical)
             }
             .navigationTitle("Add Transaction")
             .toolbar {
