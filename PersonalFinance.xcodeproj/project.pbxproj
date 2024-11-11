@@ -14,6 +14,7 @@
 		841D72272CC812C000BF7F72 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D72262CC812C000BF7F72 /* PieChart.swift */; };
 		84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84234C6B2CC7F03500C52B74 /* Budget.swift */; };
 		84234C6E2CC7F06B00C52B74 /* BudgetMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84234C6D2CC7F06B00C52B74 /* BudgetMock.swift */; };
+		844357692CE2552400D1095D /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844357682CE2552400D1095D /* TransactionListView.swift */; };
 		845CB2CB2CC69A0100181E76 /* PersonalFinanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2CA2CC69A0100181E76 /* PersonalFinanceApp.swift */; };
 		845CB2CD2CC69A0100181E76 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2CC2CC69A0100181E76 /* ContentView.swift */; };
 		845CB2CF2CC69A0200181E76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845CB2CE2CC69A0200181E76 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		841D72262CC812C000BF7F72 /* PieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
 		84234C6B2CC7F03500C52B74 /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
 		84234C6D2CC7F06B00C52B74 /* BudgetMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetMock.swift; sourceTree = "<group>"; };
+		844357682CE2552400D1095D /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
 		845CB2C72CC69A0100181E76 /* PersonalFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845CB2CA2CC69A0100181E76 /* PersonalFinanceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFinanceApp.swift; sourceTree = "<group>"; };
 		845CB2CC2CC69A0100181E76 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				84607DF72CCA9E9E0097C233 /* TransactionView.swift */,
+				844357682CE2552400D1095D /* TransactionListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				845CB2DF2CC6A89400181E76 /* HomeView.swift in Sources */,
 				84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */,
 				84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */,
+				844357692CE2552400D1095D /* TransactionListView.swift in Sources */,
 				840F10AB2CCBFC6500666CA7 /* ItemDataSource.swift in Sources */,
 				845CB2E72CC6C2F100181E76 /* TransactionMock.swift in Sources */,
 				84FA24F52CDFBE99008C69FD /* TransactionSectionView.swift in Sources */,
