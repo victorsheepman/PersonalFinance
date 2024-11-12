@@ -20,7 +20,6 @@
 		845CB2E12CC6B4AC00181E76 /* BalanceCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2E02CC6B4AC00181E76 /* BalanceCardView.swift */; };
 		845CB2E42CC6C16300181E76 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2E32CC6C16300181E76 /* Transaction.swift */; };
 		845CB2E92CC6CB5E00181E76 /* TransactionDetailCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */; };
-		845CB2EC2CC6CBBE00181E76 /* LabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */; };
 		84607DF82CCA9E9E0097C233 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84607DF72CCA9E9E0097C233 /* TransactionView.swift */; };
 		84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */; };
 		84AF9FE32CC9548500EAE5DB /* BudgetForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */; };
@@ -46,7 +45,6 @@
 		845CB2E02CC6B4AC00181E76 /* BalanceCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceCardView.swift; sourceTree = "<group>"; };
 		845CB2E32CC6C16300181E76 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailCellView.swift; sourceTree = "<group>"; };
-		845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyle.swift; sourceTree = "<group>"; };
 		84607DF72CCA9E9E0097C233 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCard.swift; sourceTree = "<group>"; };
 		84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetForm.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 		845CB2EA2CC6CBA800181E76 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				845CB2EB2CC6CBBE00181E76 /* LabelStyle.swift */,
 				84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */,
 				84FA24F82CDFC2E0008C69FD /* Constants.swift */,
 			);
@@ -305,7 +302,6 @@
 				845CB2E12CC6B4AC00181E76 /* BalanceCardView.swift in Sources */,
 				84607DF82CCA9E9E0097C233 /* TransactionView.swift in Sources */,
 				845CB2E92CC6CB5E00181E76 /* TransactionDetailCellView.swift in Sources */,
-				845CB2EC2CC6CBBE00181E76 /* LabelStyle.swift in Sources */,
 				845CB2CB2CC69A0100181E76 /* PersonalFinanceApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,13 +17,6 @@ extension Date {
     }
 }
 
-extension Array where Element: Identifiable {
-    func isLast(_ element: Element) -> Bool {
-        guard let lastElement = self.last else { return false }
-        return element.id == lastElement.id
-    }
-}
-
 extension Transaction {
     @MainActor
     static var preview: ModelContainer {
