@@ -9,7 +9,6 @@ import Foundation
 import SwiftData
 
 extension Date {
-    // Función para formatear la fecha en el formato deseado
     func formattedAsString() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM yyyy" // Formato deseado: "19 Aug 2024"
