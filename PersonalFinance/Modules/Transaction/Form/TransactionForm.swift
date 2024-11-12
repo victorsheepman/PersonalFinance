@@ -100,6 +100,7 @@ struct TransactionForm: View {
         )
         
         context.insert(transaction)
+        try? context.save()
         dismiss()
     }
 }

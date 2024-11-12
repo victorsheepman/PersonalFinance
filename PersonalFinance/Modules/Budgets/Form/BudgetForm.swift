@@ -9,8 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct BudgetForm: View {
+    
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    
     @Query(sort: \Budget.id) private var budgets: [Budget]
 
     
@@ -19,7 +21,7 @@ struct BudgetForm: View {
     @State private var selectedCategory: BudgetCategory = .entertainment
     @State private var maxSpent: CGFloat = 0
     @State private var showAlert: Bool = false
-    @State private var alertMessage: String = ""
+ 
     
     private var usedThemes: Set<BudgetTheme> {
         Set(budgets.map { $0.theme })
@@ -72,9 +74,6 @@ struct BudgetForm: View {
                     
                 }
             }
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-            }
         }
         
     }
@@ -90,6 +89,7 @@ struct BudgetForm: View {
         )
         
         context.insert(budget)
+        try? context.save()
         dismiss()
     }
 }
