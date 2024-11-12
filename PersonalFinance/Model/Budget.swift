@@ -16,7 +16,7 @@ class Budget {
     
     var category: BudgetCategory
     var max: Double
-    var spent: Double
+    var spent: Double 
     var theme: BudgetTheme
     
     @Relationship(deleteRule: .nullify, inverse: \Transaction.budget) var transactions: [Transaction]?

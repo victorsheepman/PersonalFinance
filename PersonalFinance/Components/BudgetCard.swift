@@ -111,7 +111,7 @@ struct BudgetsCard: View {
                     
                 }
                 
-                BudgetForm(budgetToEdit: budget, isPresented: $isPresented, viewModel: viewModel)
+                BudgetForm()
                     
             }
             .padding()

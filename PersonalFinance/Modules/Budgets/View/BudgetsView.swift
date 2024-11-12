@@ -63,7 +63,7 @@ struct BudgetsView: View {
                 )
             }
             .sheet(isPresented: $isPresented) {
-                BudgetForm(isPresented: $isPresented, viewModel: viewModel)
+                BudgetForm()
             }
         }
     }

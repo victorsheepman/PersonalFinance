@@ -6,46 +6,48 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BudgetForm: View {
-    
-    var budgetToEdit: Budget? = nil
-    
+    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @Binding var isPresented: Bool
-    @ObservedObject var viewModel: BudgetViewModel
+    @Query(sort: \Budget.id) private var budgets: [Budget]
+
     
     @State private var selectedTheme: BudgetTheme = .cyan
     @State private var usedColors: Set<BudgetTheme> = [.cyan]
     @State private var selectedCategory: BudgetCategory = .entertainment
-    @State private var maxSpent: String = ""
+    @State private var maxSpent: CGFloat = 0
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
     
     private var usedThemes: Set<BudgetTheme> {
-        Set(viewModel.budgets.map { $0.theme })
+        Set(budgets.map { $0.theme })
     }
     
     private var usedCategories: Set<BudgetCategory> {
-        Set(viewModel.budgets.map { $0.category })
+        Set(budgets.map { $0.category })
     }
+    
+    let initialSpent: Double = 0.0
+    
     
     var body: some View {
         NavigationStack {
             Form {
-                TextField("Maximum Spending", text: $maxSpent)
+                TextField("Maximum Spending", value: $maxSpent, formatter: Constants.formatter)
                     .keyboardType(.decimalPad)
                     .disableAutocorrection(true)
                 
                 Picker("Budget Category", selection: $selectedCategory) {
-                    ForEach(BudgetCategory.allCases.filter { !usedCategories.contains($0) || budgetToEdit?.category == $0 }, id:\.id) { category in
+                    ForEach(BudgetCategory.allCases.filter { !usedCategories.contains($0) }, id:\.id) { category in
                         Text(category.rawValue).tag(category)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
                 
                 Picker("Budget Theme", selection: $selectedTheme) {
-                    ForEach(BudgetTheme.allCases.filter { !usedThemes.contains($0) || budgetToEdit?.theme == $0 }, id: \.id) { theme in
+                    ForEach(BudgetTheme.allCases.filter { !usedThemes.contains($0) }, id: \.id) { theme in
                         Text(theme.rawValue).tag(theme)
                     }
                 }
@@ -62,16 +64,12 @@ struct BudgetForm: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add") {
-                        print("subida")
+                        addBudget()
                     }
                     .tint(.blue)
                     .buttonStyle(.borderedProminent)
+                    .disabled( maxSpent <= 0)
                     
-                }
-            }
-            .onAppear {
-                if let budget = budgetToEdit {
-                    loadBudgetData(from: budget)
                 }
             }
             .alert(isPresented: $showAlert) {
@@ -81,58 +79,22 @@ struct BudgetForm: View {
         
     }
     
-    private func submitBudget() {
-        guard let max = parseMaxSpent() else { return }
-        
-        if let budget = budgetToEdit {
-            updateExistingBudget(budget, withMax: max)
-        } else {
-            addNewBudget(withMax: max)
-        }
-        
-        resetForm()
-    }
-    
-    private func parseMaxSpent() -> Double? {
-        guard let max = Double(maxSpent) else {
-            alertMessage = "Invalid maximum spending amount."
-            showAlert = true
-            return nil
-        }
-        return max
-    }
-    
-    private func updateExistingBudget(_ budget: Budget, withMax max: Double) {
-        viewModel.updateBudget(
-            budget: budget,
-            newCategory: selectedCategory,
-            newMax: max,
-            newSpent: budget.spent,
-            newTheme: selectedTheme
-        )
-    }
-    
-    private func addNewBudget(withMax max: Double) {
-        viewModel.addBudget(
+   
+    private func addBudget() {
+        let budget = Budget(
             category: selectedCategory,
-            max: max,
-            spent: 0,
-            theme: selectedTheme
+            max: maxSpent,
+            spent: initialSpent,
+            theme: selectedTheme,
+            transactions: []
         )
-    }
-    
-    private func resetForm() {
-        isPresented = false
-        maxSpent = "0"
-    }
-    
-    private func loadBudgetData(from budget: Budget) {
-        selectedCategory = budget.category
-        maxSpent = String(budget.max)
-        selectedTheme = budget.theme
+        
+        context.insert(budget)
+        dismiss()
     }
 }
 
 #Preview {
-    BudgetForm(isPresented: .constant(true), viewModel: BudgetViewModel())
+    BudgetForm()
+        .modelContainer(Budget.preview)
 }
