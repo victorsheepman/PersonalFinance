@@ -24,7 +24,6 @@
 		84607DF82CCA9E9E0097C233 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84607DF72CCA9E9E0097C233 /* TransactionView.swift */; };
 		84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */; };
 		84AF9FE32CC9548500EAE5DB /* BudgetForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */; };
-		84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */; };
 		84F9E2B12CCBE16600DDFFD2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */; };
 		84F9E2B42CCBE34C00DDFFD2 /* TransactionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E2B32CCBE34C00DDFFD2 /* TransactionForm.swift */; };
 		84FA24F52CDFBE99008C69FD /* TransactionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA24F42CDFBE99008C69FD /* TransactionSectionView.swift */; };
@@ -51,7 +50,6 @@
 		84607DF72CCA9E9E0097C233 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCard.swift; sourceTree = "<group>"; };
 		84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetForm.swift; sourceTree = "<group>"; };
-		84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewModel.swift; sourceTree = "<group>"; };
 		84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		84F9E2B32CCBE34C00DDFFD2 /* TransactionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionForm.swift; sourceTree = "<group>"; };
 		84FA24F42CDFBE99008C69FD /* TransactionSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSectionView.swift; sourceTree = "<group>"; };
@@ -73,7 +71,6 @@
 		841D72252CC8117A00BF7F72 /* Budgets */ = {
 			isa = PBXGroup;
 			children = (
-				84AF9FE42CC9591300EAE5DB /* ViewModel */,
 				84AF9FE12CC9547100EAE5DB /* Form */,
 				84AF9FE02CC9546A00EAE5DB /* View */,
 			);
@@ -212,14 +209,6 @@
 			path = Form;
 			sourceTree = "<group>";
 		};
-		84AF9FE42CC9591300EAE5DB /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				84AF9FE52CC9596B00EAE5DB /* BudgetViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		84F9E2B22CCBE33B00DDFFD2 /* Form */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,7 +296,6 @@
 				84FA24F92CDFC2E0008C69FD /* Constants.swift in Sources */,
 				845CB2DF2CC6A89400181E76 /* HomeView.swift in Sources */,
 				84234C6C2CC7F03500C52B74 /* Budget.swift in Sources */,
-				84AF9FE62CC9596B00EAE5DB /* BudgetViewModel.swift in Sources */,
 				844357692CE2552400D1095D /* TransactionListView.swift in Sources */,
 				84FA24F52CDFBE99008C69FD /* TransactionSectionView.swift in Sources */,
 				84FA24F72CDFBED8008C69FD /* BudgetSectionView.swift in Sources */,
