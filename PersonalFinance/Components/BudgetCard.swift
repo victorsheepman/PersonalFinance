@@ -55,14 +55,10 @@ struct BudgetsCard: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 16)
         
-            Menu {
-                Button("Delete Budget", role: .destructive){
-                   deleteBudget(budget: budget)
+                Button("",systemImage: "trash",role: .destructive){
+                    deleteBudget(budget: budget)
                 }
-            } label: {
-                Image(systemName: "ellipsis")
-                    .foregroundStyle(Color("Grey-300"))
-            }
+           
         }
     }
     
