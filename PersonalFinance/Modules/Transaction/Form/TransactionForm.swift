@@ -103,6 +103,14 @@ struct TransactionForm: View {
         try? context.save()
         dismiss()
     }
+    
+    // To Remove
+    private func transactionToBudget(_ transaction: Transaction, _ budget:Budget) -> Void{
+        transaction.budget = budget
+        budget.transactions?.append(transaction)
+        budget.spent += transaction.amount
+    }
+   
 }
 
 #Preview {

@@ -9,17 +9,12 @@ import Foundation
 
 
 
-class BudgetViewModel: ObservableObject, ViewModelProtocol {
+class BudgetViewModel: ObservableObject {
     
     
     @Published var budgets: [Budget] = []
     
-    private let dataSource: SwiftDataService
-
-    init(dataSource: SwiftDataService = SwiftDataService.shared) {
-        self.dataSource = dataSource
-        fetchBudgets()
-    }
+   
     
     func addBudget(category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
         let newBudget = Budget(id: UUID(), category: category, max: max, spent: spent, theme: theme, transactions: [])
@@ -27,7 +22,7 @@ class BudgetViewModel: ObservableObject, ViewModelProtocol {
     }
     
     func deleteBudget(budget: Budget) {
-        dataSource.remove(budget)
+        
         budgets = []
         fetchBudgets()
     }
@@ -44,11 +39,11 @@ class BudgetViewModel: ObservableObject, ViewModelProtocol {
     }
     
     func fetchBudgets() {
-        budgets = dataSource.fetch()
+       
     }
     
     private func insertBudget(budget: Budget) {
-        dataSource.append(budget)
+       
         budgets = []
         fetchBudgets()
     }
