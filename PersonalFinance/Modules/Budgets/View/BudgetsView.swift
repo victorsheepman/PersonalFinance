@@ -6,14 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BudgetsView: View {
+    
+    @Query(sort: \Budget.id) var budgets: [Budget]
     
     @State private var isPresented: Bool = false
     @State private var showAlert: Bool = false
     
-    @StateObject private var viewModel: BudgetViewModel = BudgetViewModel()
- 
+    var totalBudgets: Bool {
+        budgets.count < 4
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -21,9 +26,10 @@ struct BudgetsView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView {
                     LazyVStack {
-                        BudgetSectionView(budgets: viewModel.budgets)
-                        ForEach(viewModel.budgets) { budget in
-                            BudgetsCard(budget: budget, viewModel: viewModel)
+                        BudgetSectionView()
+                        
+                        ForEach(budgets) { budget in
+                            BudgetsCard(budget: budget)
                                 .padding(.top, 24)
                         }
                         Spacer()
@@ -33,16 +39,11 @@ struct BudgetsView: View {
                     .padding(.top, 40)
                 }
             }
+            .navigationTitle("Budgets")
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Text("Budgets")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.top)
-                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        if viewModel.budgets.count < 4 {
+                        if totalBudgets {
                             isPresented = true
                         } else {
                             showAlert = true
@@ -61,43 +62,14 @@ struct BudgetsView: View {
                 )
             }
             .sheet(isPresented: $isPresented) {
-                VStack{
-                    formHeader
-                    BudgetForm(isPresented: $isPresented, viewModel: viewModel)
-                }
-                .padding()
-                .background(Color("Background"))
+                BudgetForm()
             }
-        }
-        .onAppear() {
-            viewModel.fetchBudgets()
-        }
-    }
-    
-    var formHeader: some View {
-        HStack(spacing:95) {
-            Text("Add New Budget")
-                .font(.title)
-                .bold()
-
-            Button(action: {
-                isPresented = false
-            }) {
-                Image(systemName: "xmark.circle")
-                    .resizable()
-                    .frame(width: 32, height: 32)
-                    .foregroundStyle(Color("Grey-500"))
-            }
-            
         }
     }
 }
 
-
-
-
-
 #Preview {
     BudgetsView()
+        .modelContainer(Budget.preview)
 }
 

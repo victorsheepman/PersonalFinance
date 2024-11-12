@@ -16,7 +16,7 @@ class Budget {
     
     var category: BudgetCategory
     var max: Double
-    var spent: Double
+    var spent: Double 
     var theme: BudgetTheme
     
     @Relationship(deleteRule: .nullify, inverse: \Transaction.budget) var transactions: [Transaction]?
@@ -31,7 +31,7 @@ class Budget {
         return spent > max
     }
     
-    init(id: UUID, category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme, transactions:[Transaction]? = nil) {
+    init(id: UUID = UUID(), category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme, transactions:[Transaction]? = nil) {
         self.id = id
         self.category = category
         self.max = max

@@ -23,20 +23,13 @@ struct TransactionForm: View {
     var aviableBudgets: [Budget] {
         budgets.filter { !$0.isOverBudget }
     }
-    
-    var formatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        return formatter
-    }
-        
+   
     var body: some View {
         NavigationStack {
             Form {
                 TextField("Title", text: $title)
                 
-                TextField("Amount", value: $amount, formatter: formatter)
+                TextField("Amount", value: $amount, formatter: Constants.formatter)
                     .keyboardType(.decimalPad)
                     .disableAutocorrection(true)
                 
@@ -107,6 +100,7 @@ struct TransactionForm: View {
         )
         
         context.insert(transaction)
+        try? context.save()
         dismiss()
     }
 }

@@ -33,3 +33,13 @@ extension Transaction {
         return container
     }
 }
+
+
+extension Budget {
+    @MainActor
+    static var preview: ModelContainer {
+        let container = try! ModelContainer(for: Budget.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        container.mainContext.insert(Budget( category: .bills, max: 100.0 , spent: 0.0, theme: .cyan, transactions: []))
+        return container
+    }
+}

@@ -10,7 +10,6 @@ import SwiftData
 
 struct HomeView: View {
     @Query(sort: \Transaction.date) var transactions: [Transaction]
-    @Query(sort: \Budget.id) var budgets: [Budget]
     
     var transactionSorted: [Transaction] {
         transactions.suffix(3).sorted { $0.date > $1.date }
@@ -28,7 +27,7 @@ struct HomeView: View {
                         BalanceCardView(title: "Gastos Prescindibles 30%", account:.person)
                         BalanceCardView(title: "Ahorro 20%", account: .saving)
                         TransactionSectionView(transactions: transactionSorted)
-                        BudgetSectionView(budgets: budgets)
+                        BudgetSectionView()
                     }
                     .padding()
                     .padding(.bottom, 100)

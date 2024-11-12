@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
+
 struct BudgetSectionView: View {
-    let budgets: [Budget]
+    @Query(sort: \Budget.id) var budgets: [Budget]
     
     private var lastBudgetID: UUID? {
         budgets.last?.id
@@ -15,7 +17,7 @@ struct BudgetSectionView: View {
 
     var body: some View {
         VStack {
-            PieChart(budgets: budgets)
+            PieChart()
             
             Text("Spending Summary")
                 .font(.system(size: 20).bold())
@@ -63,6 +65,13 @@ fileprivate struct BudgetCellView: View {
                 .frame(width: 120, alignment: .trailing)
         }
     }
+}
+
+
+
+#Preview {
+    BudgetSectionView()
+        .modelContainer(Budget.preview)
 }
 
 
