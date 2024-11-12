@@ -90,18 +90,25 @@ struct TransactionForm: View {
     }
 
     private func addTransaction() {
-        let transaction = Transaction(
-            title: title,
-            amount: amount,
-            date: selectedDate,
-            type: selectedType,
-            account: selectedAccount,
-            budget: selectedBudget
-        )
+        withAnimation {
+            let transaction = Transaction(
+                title: title,
+                amount: amount,
+                date: selectedDate,
+                type: selectedType,
+                account: selectedAccount,
+                budget: selectedBudget
+            )
+            
+            context.insert(transaction)
         
-        context.insert(transaction)
-        try? context.save()
-        dismiss()
+            if let budget = selectedBudget {
+                budget.transactions?.append(transaction)
+                budget.spent += transaction.amount
+            }
+            try? context.save()
+            dismiss()
+        }
     }
     
     // To Remove
