@@ -63,31 +63,8 @@ struct BudgetsView: View {
                 )
             }
             .sheet(isPresented: $isPresented) {
-                VStack{
-                    formHeader
-                    BudgetForm(isPresented: $isPresented, viewModel: viewModel)
-                }
-                .padding()
-                .background(Color("Background"))
+                BudgetForm(isPresented: $isPresented, viewModel: viewModel)
             }
-        }
-    }
-    
-    var formHeader: some View {
-        HStack(spacing:95) {
-            Text("Add New Budget")
-                .font(.title)
-                .bold()
-
-            Button(action: {
-                isPresented = false
-            }) {
-                Image(systemName: "xmark.circle")
-                    .resizable()
-                    .frame(width: 32, height: 32)
-                    .foregroundStyle(Color("Grey-500"))
-            }
-            
         }
     }
 }
