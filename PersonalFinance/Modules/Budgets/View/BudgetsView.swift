@@ -15,12 +15,10 @@ struct BudgetsView: View {
     @State private var isPresented: Bool = false
     @State private var showAlert: Bool = false
     
-    @StateObject private var viewModel: BudgetViewModel = BudgetViewModel()
-    
     var totalBudgets: Bool {
         budgets.count < 4
     }
- 
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -29,8 +27,9 @@ struct BudgetsView: View {
                 ScrollView {
                     LazyVStack {
                         BudgetSectionView()
+                        
                         ForEach(budgets) { budget in
-                            BudgetsCard(budget: budget, viewModel: viewModel)
+                            BudgetsCard(budget: budget)
                                 .padding(.top, 24)
                         }
                         Spacer()
@@ -68,10 +67,6 @@ struct BudgetsView: View {
         }
     }
 }
-
-
-
-
 
 #Preview {
     BudgetsView()
