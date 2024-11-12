@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
+
 struct BudgetSectionView: View {
-    let budgets: [Budget]
+    @Query(sort: \Budget.id) var budgets: [Budget]
     
     private var lastBudgetID: UUID? {
         budgets.last?.id
@@ -63,6 +65,13 @@ fileprivate struct BudgetCellView: View {
                 .frame(width: 120, alignment: .trailing)
         }
     }
+}
+
+
+
+#Preview {
+    BudgetSectionView()
+        .modelContainer(Budget.preview)
 }
 
 

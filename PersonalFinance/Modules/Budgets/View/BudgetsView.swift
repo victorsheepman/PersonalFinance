@@ -28,7 +28,7 @@ struct BudgetsView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView {
                     LazyVStack {
-                        BudgetSectionView(budgets: budgets)
+                        BudgetSectionView()
                         ForEach(budgets) { budget in
                             BudgetsCard(budget: budget, viewModel: viewModel)
                                 .padding(.top, 24)

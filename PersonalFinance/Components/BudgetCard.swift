@@ -44,9 +44,6 @@ struct BudgetsCard: View {
                     Image(systemName: "ellipsis")
                         .foregroundStyle(Color("Grey-300"))
                 }
-                    
-                
-                
             }
             
             Text("Maximum of $\(budget.max, specifier: "%.2f")")
@@ -94,7 +91,7 @@ struct BudgetsCard: View {
             .padding(.top, 20)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-       .padding()
+        .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
         .sheet(isPresented: $isPresented) {
             VStack{
@@ -123,6 +120,3 @@ struct BudgetsCard: View {
     }
 }
 
-#Preview {
-    BudgetsCard(budget: Budget(id: UUID(), category: .entertainment, max: 50.00,  spent: 25.00,  theme: .green),viewModel: BudgetViewModel() )
-}
