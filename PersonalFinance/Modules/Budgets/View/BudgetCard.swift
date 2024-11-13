@@ -42,7 +42,7 @@ struct BudgetsCard: View {
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
         .onAppear{
-            print(budget.transactions.first?.title ?? "No hay")
+            print(budget.spent)
         }
     }
     

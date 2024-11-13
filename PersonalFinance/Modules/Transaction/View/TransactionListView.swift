@@ -12,6 +12,7 @@ struct TransactionListView: View {
     
     @Environment(\.modelContext) var context
     @Query(sort: \Transaction.date) var transactions: [Transaction]
+    @Query(sort: \Budget.id) var budgets: [Budget]
     @State private var isPresented: Bool = false
   
     init(filterString: String) {
@@ -44,14 +45,19 @@ struct TransactionListView: View {
     }
     
    private func removeTransactionFromBudget(_ transaction: Transaction) -> Void {
-        guard let budget = transaction.budget else {
-            return
-        }
+    
+       guard let selectedBudget = transaction.budget else {
+           return
+       }
+       
+       let budget = budgets.first(where: { $0.id == selectedBudget.id })
         
-       if let index = budget.transactions.firstIndex(where: { $0.id == transaction.id }) {
-            budget.transactions.remove(at: index)
-            budget.spent -= transaction.amount
-        }
+       guard let index = budget?.transactions.firstIndex(where: { $0.id == transaction.id }) else { return }
+       
+       budget?.transactions.remove(at: index)
+       budget?.spent -= transaction.amount
+       print(budget?.spent ?? "")
+       try? context.save()
     }
 }
 
