@@ -30,7 +30,6 @@ struct TransactionListView: View {
             }
             .onDelete { indexSet in
                 for index in indexSet {
-                   
                     removeTransactionFromBudget(transactions[index])
                     context.delete(transactions[index])
                 }
