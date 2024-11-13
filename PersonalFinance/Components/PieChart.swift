@@ -55,4 +55,5 @@ struct PieChart: View {
 
 #Preview {
     PieChart()
+        .modelContainer(Budget.preview)
 }
