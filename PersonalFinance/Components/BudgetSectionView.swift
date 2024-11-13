@@ -44,7 +44,7 @@ fileprivate struct BudgetCellView: View {
         HStack {
             
             Circle()
-                .fill(budget.theme.color)
+                .fill(budget.theme.color.gradient)
                 .frame(width: 10, height: 10)
             
             Text(budget.category.rawValue)

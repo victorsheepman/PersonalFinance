@@ -42,12 +42,12 @@ struct PieChart: View {
                 outerRadius: selectedBudget?.id == budget.id ? 140 : 110,
                 angularInset: 1
             )
-            .foregroundStyle(budget.theme.color)
+            .foregroundStyle(budget.theme.color.gradient)
             .cornerRadius(6)
             .opacity(selectedBudget?.id == budget.id ? 1.0 : 0.3)
         }
         .chartAngleSelection(value: $rawSelectedChartValue.animation(.easeInOut))
-        .frame(width: 300, height: 300)
+        .frame(height: 240)
         .chartBackground { ChartProxy in
             GeometryReader {  geometry in
                 if let plotFrame = ChartProxy.plotFrame{

@@ -46,7 +46,7 @@ struct BudgetsCard: View {
     var header: some View {
         HStack {
             Circle()
-                .fill(budget.theme.color)
+                .fill(budget.theme.color.gradient)
                 .frame(width: 16, height: 16)
             
             Text(budget.category.rawValue)
@@ -74,7 +74,7 @@ fileprivate struct AmountTitle: View {
     var body: some View {
         HStack {
             Circle()
-                .fill(color)
+                .fill(color.gradient)
                 .frame(width: 10, height: 10)
             
             VStack(alignment: .leading) {
