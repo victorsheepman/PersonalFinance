@@ -33,6 +33,13 @@ struct BudgetForm: View {
     
     let initialSpent: Double = 0.0
     
+    var availableCategories: [BudgetCategory] {
+        BudgetCategory.allCases.filter { !usedCategories.contains($0) }
+    }
+    
+    var availableTheme: [BudgetTheme] {
+        BudgetTheme.allCases.filter { !usedThemes.contains($0) }
+    }
     
     var body: some View {
         NavigationStack {
@@ -42,14 +49,14 @@ struct BudgetForm: View {
                     .disableAutocorrection(true)
                 
                 Picker("Budget Category", selection: $selectedCategory) {
-                    ForEach(BudgetCategory.allCases.filter { !usedCategories.contains($0) }, id:\.id) { category in
+                    ForEach(availableCategories, id:\.id) { category in
                         Text(category.rawValue).tag(category)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
                 
                 Picker("Budget Theme", selection: $selectedTheme) {
-                    ForEach(BudgetTheme.allCases.filter { !usedThemes.contains($0) }, id: \.id) { theme in
+                    ForEach(availableTheme, id: \.id) { theme in
                         Text(theme.rawValue).tag(theme)
                     }
                 }
@@ -65,8 +72,11 @@ struct BudgetForm: View {
                     .tint(.red)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add") {
-                        addBudget()
+                    Button("Save") {
+                        withAnimation {
+                            save()
+                            dismiss()
+                        }
                     }
                     .tint(.blue)
                     .buttonStyle(.borderedProminent)
@@ -79,18 +89,17 @@ struct BudgetForm: View {
     }
     
    
-    private func addBudget() {
+    private func save() {
         let budget = Budget(
             category: selectedCategory,
             max: maxSpent,
             spent: initialSpent,
-            theme: selectedTheme,
-            transactions: []
+            theme: selectedTheme
         )
         
         context.insert(budget)
         try? context.save()
-        dismiss()
+        
     }
 }
 

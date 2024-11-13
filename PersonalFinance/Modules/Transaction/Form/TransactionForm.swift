@@ -16,7 +16,7 @@ struct TransactionForm: View {
     @State private var title: String = ""
     @State private var amount: CGFloat = 0
     @State private var selectedDate = Date()
-    @State private var selectedBudget: Budget? = nil
+    @State private var selectedBudget: Budget?
     @State private var selectedType: TransactionType = .expense
     @State private var selectedAccount: TransactionAccount = .basic
     
@@ -76,8 +76,11 @@ struct TransactionForm: View {
                     .tint(.red)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add") {
-                        addTransaction()
+                    Button("Save") {
+                        withAnimation {
+                            save()
+                            dismiss()
+                        }
                     }
                     .tint(.blue)
                     .buttonStyle(.borderedProminent)
@@ -89,19 +92,25 @@ struct TransactionForm: View {
         
     }
 
-    private func addTransaction() {
+    private func save() {
+        
         let transaction = Transaction(
             title: title,
             amount: amount,
             date: selectedDate,
             type: selectedType,
-            account: selectedAccount,
-            budget: selectedBudget
+            account: selectedAccount
         )
         
+        transaction.budget = selectedBudget
         context.insert(transaction)
+        
+        let budget = budgets.first(where: { $0.id == selectedBudget?.id })
+        
+        budget?.transactions.append(transaction)
+        budget?.spent += transaction.amount
+     
         try? context.save()
-        dismiss()
     }
 }
 

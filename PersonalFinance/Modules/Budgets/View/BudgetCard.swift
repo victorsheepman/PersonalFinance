@@ -11,12 +11,12 @@ struct BudgetsCard: View {
     
     @Environment(\.modelContext) var context
     
-    var budget: Budget
-    
     @State private var isPresented: Bool = false
     
+    var budget: Budget
+    
     var free: Double {
-       budget.max - budget.spent
+        budget.max - budget.spent
     }
     
     var body: some View {
@@ -54,16 +54,14 @@ struct BudgetsCard: View {
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 16)
-        
-                Button("",systemImage: "trash",role: .destructive){
-                    deleteBudget(budget: budget)
+            
+            Button("",systemImage: "trash",role: .destructive){
+                withAnimation{
+                    context.delete(budget)
                 }
-           
+                
+            }
         }
-    }
-    
-    func deleteBudget(budget: Budget) {
-        context.delete(budget)
     }
 }
 
