@@ -72,8 +72,11 @@ struct BudgetForm: View {
                     .tint(.red)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add") {
-                        addBudget()
+                    Button("Save") {
+                        withAnimation {
+                            save()
+                            dismiss()
+                        }
                     }
                     .tint(.blue)
                     .buttonStyle(.borderedProminent)
@@ -86,7 +89,7 @@ struct BudgetForm: View {
     }
     
    
-    private func addBudget() {
+    private func save() {
         let budget = Budget(
             category: selectedCategory,
             max: maxSpent,
@@ -96,7 +99,7 @@ struct BudgetForm: View {
         
         context.insert(budget)
         try? context.save()
-        dismiss()
+        
     }
 }
 

@@ -76,7 +76,7 @@ struct TransactionForm: View {
                     .tint(.red)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add") {
+                    Button("Save") {
                         withAnimation {
                             save()
                             dismiss()
