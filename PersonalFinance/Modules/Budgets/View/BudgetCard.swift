@@ -56,14 +56,13 @@ struct BudgetsCard: View {
                 .padding(.leading, 16)
         
                 Button("",systemImage: "trash",role: .destructive){
-                    deleteBudget(budget: budget)
+                    withAnimation{
+                        context.delete(budget)
+                    }
+                  
                 }
            
         }
-    }
-    
-    func deleteBudget(budget: Budget) {
-        context.delete(budget)
     }
 }
 
