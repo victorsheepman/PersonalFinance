@@ -109,7 +109,7 @@ struct TransactionForm: View {
         
         budget?.transactions.append(transaction)
         budget?.spent += transaction.amount
-        
+     
         try? context.save()
     }
 }

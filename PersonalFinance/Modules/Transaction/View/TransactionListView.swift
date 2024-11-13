@@ -30,8 +30,9 @@ struct TransactionListView: View {
             }
             .onDelete { indexSet in
                 for index in indexSet {
-                    context.delete(transactions[index])
+                   
                     removeTransactionFromBudget(transactions[index])
+                    context.delete(transactions[index])
                 }
             }
         }
@@ -45,18 +46,19 @@ struct TransactionListView: View {
     }
     
    private func removeTransactionFromBudget(_ transaction: Transaction) -> Void {
-    
+
        guard let selectedBudget = transaction.budget else {
            return
        }
-       
+
        let budget = budgets.first(where: { $0.id == selectedBudget.id })
-        
+       
+       
        guard let index = budget?.transactions.firstIndex(where: { $0.id == transaction.id }) else { return }
        
        budget?.transactions.remove(at: index)
        budget?.spent -= transaction.amount
-       print(budget?.spent ?? "")
+    
        try? context.save()
     }
 }
