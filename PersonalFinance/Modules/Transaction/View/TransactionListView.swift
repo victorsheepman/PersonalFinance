@@ -48,8 +48,8 @@ struct TransactionListView: View {
             return
         }
         
-        if let index = budget.transactions?.firstIndex(where: { $0.id == transaction.id }) {
-            budget.transactions?.remove(at: index)
+       if let index = budget.transactions.firstIndex(where: { $0.id == transaction.id }) {
+            budget.transactions.remove(at: index)
             budget.spent -= transaction.amount
         }
     }

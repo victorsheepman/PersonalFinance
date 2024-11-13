@@ -91,8 +91,7 @@ struct BudgetForm: View {
             category: selectedCategory,
             max: maxSpent,
             spent: initialSpent,
-            theme: selectedTheme,
-            transactions: []
+            theme: selectedTheme
         )
         
         context.insert(budget)
