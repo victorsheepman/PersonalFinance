@@ -25,12 +25,11 @@ struct PieChart: View {
         }
     }
     
-    
     var totalMax: Double {
         budgets.reduce(0) { $0 + $1.max }
     }
-       
-     
+    
+    
     var totalSpent: Double {
         budgets.reduce(0) { $0 + $1.spent }
     }
@@ -39,11 +38,12 @@ struct PieChart: View {
         Chart(budgets) { budget in
             SectorMark(
                 angle: .value("Value", budget.max),
-                innerRadius: .ratio(0.618),
-                outerRadius: .inset(10),
+                innerRadius: .ratio(0.610),
+                outerRadius: selectedBudget?.id == budget.id ? 140 : 110,
                 angularInset: 1
             )
             .foregroundStyle(budget.theme.color)
+            .cornerRadius(6)
             .opacity(selectedBudget?.id == budget.id ? 1.0 : 0.3)
         }
         .chartAngleSelection(value: $rawSelectedChartValue.animation(.easeInOut))
@@ -54,21 +54,22 @@ struct PieChart: View {
                     let frame = geometry[plotFrame]
                     if let selectedBudget {
                         VStack {
-                           
-                            Text("$\(selectedBudget.spent, specifier: "%.2f")")
-                                .font(.title2.bold())
-                                .foregroundStyle(.primary)
-                            Text("of $\(selectedBudget.max, specifier: "%.2f") limit")
-                                .font(.callout)
-                                .foregroundStyle(.secondary)
-                            
-                         
+                            Group {
+                                Text("$\(selectedBudget.spent, specifier: "%.2f")")
+                                    .font(.title2.bold())
+                                    .foregroundStyle(.primary)
+                                Text("of $\(selectedBudget.max, specifier: "%.2f") limit")
+                                    .font(.callout)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .contentTransition(.numericText())
                         }
                         .position(x: frame.midX, y: frame.midY)
                     }
                 }
             }
         }
+        .sensoryFeedback(.selection, trigger: selectedBudget)
     }
 }
 
