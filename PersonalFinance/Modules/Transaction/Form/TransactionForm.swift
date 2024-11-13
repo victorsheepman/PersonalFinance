@@ -94,26 +94,24 @@ struct TransactionForm: View {
 
     private func save() {
         
-            let transaction = Transaction(
-                title: title,
-                amount: amount,
-                date: selectedDate,
-                type: selectedType,
-                account: selectedAccount
-            )
-            
-            transaction.budget = selectedBudget
-            context.insert(transaction)
+        let transaction = Transaction(
+            title: title,
+            amount: amount,
+            date: selectedDate,
+            type: selectedType,
+            account: selectedAccount
+        )
+        
+        transaction.budget = selectedBudget
+        context.insert(transaction)
+        
+        let budget = budgets.first(where: { $0.id == selectedBudget?.id })
+        
+        budget?.transactions.append(transaction)
+        budget?.spent += transaction.amount
+        
+        try? context.save()
     }
-
-    
-    // To Remove
-    /*private func transactionToBudget(_ transaction: Transaction, _ budget:Budget) -> Void{
-        transaction.budget = budget
-        budget.transactions?.append(transaction)
-        budget.spent += transaction.amount
-    }
-   */
 }
 
 #Preview {

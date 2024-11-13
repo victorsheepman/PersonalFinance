@@ -41,6 +41,9 @@ struct BudgetsCard: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
+        .onAppear{
+            print(budget.transactions.first?.title ?? "No hay")
+        }
     }
     
     var header: some View {
