@@ -14,12 +14,16 @@ struct BudgetSectionView: View {
     private var lastBudgetID: UUID? {
         budgets.last?.id
     }
-
+    
+    private var title: String {
+        budgets.isEmpty ? "" : "Spending Summary"
+    }
+    
     var body: some View {
         VStack {
             PieChart(budgets: budgets)
             
-            Text("Spending Summary")
+            Text(title)
                 .font(.system(size: 20).bold())
                 .padding(.trailing, 148)
             

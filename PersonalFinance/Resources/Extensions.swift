@@ -20,8 +20,8 @@ extension Transaction {
     @MainActor
     static var preview: ModelContainer {
         let container = try! ModelContainer(for: Transaction.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-        container.mainContext.insert(Transaction(title: "Test-1", amount: 20, date: .now, type: .expense, account: .basic))
-        container.mainContext.insert(Transaction(title: "Test-2", amount: 20, date: .now, type: .expense, account: .person))
+        container.mainContext.insert(Transaction(title: "Test-1", amount: 20, date: .now, type: .income, account: .basic))
+        container.mainContext.insert(Transaction(title: "Test-2", amount: 20, date: .now, type: .income, account: .person))
         return container
     }
 }

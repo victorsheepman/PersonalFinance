@@ -46,6 +46,7 @@ struct HomeView: View {
 }
 #Preview {
     HomeView()
+        .modelContainer(Transaction.preview)
 }
 
 
