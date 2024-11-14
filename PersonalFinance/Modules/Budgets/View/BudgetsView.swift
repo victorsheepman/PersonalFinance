@@ -12,10 +12,11 @@ struct BudgetsView: View {
     
     @Query(sort: \Budget.id) var budgets: [Budget]
     
-    @State private var isPresented: Bool = false
-    @State private var showAlert: Bool = false
     
-    var totalBudgets: Bool {
+    @State private var isPresentingBudgetForm: Bool = false
+    @State private var isShowingBudgetLimitAlert: Bool = false
+    
+    var canAddMoreBudgets: Bool {
         budgets.count < 4
     }
     
@@ -43,29 +44,35 @@ struct BudgetsView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        if totalBudgets {
-                            isPresented = true
-                        } else {
-                            showAlert = true
-                        }
+                        handleAddButtonTap()
                     }) {
                         Image(systemName: "plus")
                             .foregroundStyle(.black)
                     }
                 }
             }
-            .alert(isPresented: $showAlert) {
+            .alert(isPresented: $isShowingBudgetLimitAlert) {
                 Alert(
                     title: Text("Budget Limit Reached"),
                     message: Text("You cannot add more than 4 budgets."),
                     dismissButton: .default(Text("OK"))
                 )
             }
-            .sheet(isPresented: $isPresented) {
+            .sheet(isPresented: $isPresentingBudgetForm) {
                 BudgetForm()
             }
         }
     }
+    
+    private func handleAddButtonTap() {
+        if canAddMoreBudgets {
+            isPresentingBudgetForm = true
+        } else {
+            isShowingBudgetLimitAlert = true 
+        }
+    }
+    
+    
 }
 
 #Preview {
