@@ -16,10 +16,13 @@ enum Tab: String, CaseIterable {
 }
 
 struct CustomTabBar: View {
+    
     @Binding var selectedTab: Tab
+    
     private var fillImage: String {
-        selectedTab.rawValue 
+        selectedTab.rawValue
     }
+    
     private var tabColor: Color {
         switch selectedTab {
         case .house:
@@ -31,7 +34,7 @@ struct CustomTabBar: View {
         
         }
     }
-    
+ 
     
     var body: some View {
         VStack {
