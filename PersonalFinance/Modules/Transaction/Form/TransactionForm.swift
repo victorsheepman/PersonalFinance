@@ -111,12 +111,17 @@ struct TransactionForm: View {
         transaction.budget = selectedBudget
         context.insert(transaction)
         
+        appendTransactionToBudget(transaction)
+        
+        try? context.save()
+    }
+    
+    private func appendTransactionToBudget(_ transaction: Transaction) {
+        
         let budget = budgets.first(where: { $0.id == selectedBudget?.id })
         
         budget?.transactions.append(transaction)
         budget?.spent += transaction.amount
-     
-        try? context.save()
     }
 }
 
