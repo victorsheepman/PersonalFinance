@@ -25,15 +25,6 @@ struct PieChart: View {
         }
     }
     
-    var totalMax: Double {
-        budgets.reduce(0) { $0 + $1.max }
-    }
-    
-    
-    var totalSpent: Double {
-        budgets.reduce(0) { $0 + $1.spent }
-    }
-    
     var body: some View {
         Chart(budgets) { budget in
             SectorMark(
@@ -47,33 +38,66 @@ struct PieChart: View {
             .opacity(selectedBudget?.id == budget.id ? 1.0 : 0.3)
         }
         .chartAngleSelection(value: $rawSelectedChartValue.animation(.easeInOut))
+        .sensoryFeedback(.selection, trigger: selectedBudget)
         .frame(height: 240)
         .chartBackground { ChartProxy in
             GeometryReader {  geometry in
                 if let plotFrame = ChartProxy.plotFrame{
-                    let frame = geometry[plotFrame]
+                    let frame: CGRect = geometry[plotFrame]
                     if let selectedBudget {
-                        VStack {
-                            Group {
-                                Text("$\(selectedBudget.spent, specifier: "%.2f")")
-                                    .font(.title2.bold())
-                                    .foregroundStyle(.primary)
-                                Text("of $\(selectedBudget.max, specifier: "%.2f") limit")
-                                    .font(.callout)
-                                    .foregroundStyle(.secondary)
-                            }
-                            .contentTransition(.numericText())
-                        }
-                        .position(x: frame.midX, y: frame.midY)
+                        BudgetInfoView (
+                            budget: selectedBudget,
+                            frame: frame
+                        )
                     }
                 }
             }
         }
-        .sensoryFeedback(.selection, trigger: selectedBudget)
+        .overlay {
+            if budgets.isEmpty {
+                chartEmpty
+            }
+        }
+    }
+    
+    var chartEmpty: some View {
+        ContentUnavailableView {
+            Image(systemName: "chart.pie")
+                .resizable()
+                .frame(width: 32, height: 32)
+                .padding(.bottom, 8)
+                
+            Text("No Data")
+                .font(.callout.bold())
+            
+            Text("There is no step count data from the Health App")
+                .font(.footnote)
+        }
+        .foregroundStyle(.secondary)
+        .offset(y:-12)
     }
 }
 
 #Preview {
     PieChart()
         .modelContainer(Budget.preview)
+}
+
+fileprivate struct BudgetInfoView: View {
+    var budget: Budget
+    var frame: CGRect
+    var body: some View {
+        VStack {
+            Group {
+                Text("$\(budget.spent, specifier: "%.2f")")
+                    .font(.title2.bold())
+                    .foregroundStyle(.primary)
+                Text("of $\(budget.max, specifier: "%.2f") limit")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
+            .contentTransition(.numericText())
+        }
+        .position(x: frame.midX, y: frame.midY)
+    }
 }
