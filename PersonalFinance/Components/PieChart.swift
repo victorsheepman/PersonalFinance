@@ -12,7 +12,6 @@ import SwiftData
 struct PieChart: View {
     @Query(sort: \Budget.id) var budgets: [Budget]
     
-    
     @State private var rawSelectedChartValue: Double? = 0
     @State private var selectedDay: Date?
     
@@ -84,8 +83,10 @@ struct PieChart: View {
 }
 
 fileprivate struct BudgetInfoView: View {
+    
     var budget: Budget
     var frame: CGRect
+    
     var body: some View {
         VStack {
             Group {
