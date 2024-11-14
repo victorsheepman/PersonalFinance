@@ -26,7 +26,7 @@ struct BudgetsView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView {
                     LazyVStack {
-                        //BudgetSectionView()
+                        BudgetSectionView()
                         
                         ForEach(budgets) { budget in
                             BudgetsCard(budget: budget)

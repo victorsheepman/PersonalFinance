@@ -18,7 +18,7 @@ struct BudgetForm: View {
     
     @State private var selectedTheme: BudgetTheme?
     @State private var selectedCategory: BudgetCategory?
-    @State private var maxSpent: CGFloat = 0
+    @State private var maxSpent: Double = 0
     @State private var showAlert: Bool = false
  
     
@@ -81,7 +81,7 @@ struct BudgetForm: View {
                     }
                     .tint(.blue)
                     .buttonStyle(.borderedProminent)
-                    .disabled( maxSpent <= 0 )
+                    .disabled( maxSpent <= 0 || selectedCategory == nil ||  selectedTheme == nil)
                     
                 }
             }
@@ -100,7 +100,7 @@ struct BudgetForm: View {
             spent: initialSpent,
             theme: theme
         )
-        
+
         context.insert(budget)
         try? context.save()
         

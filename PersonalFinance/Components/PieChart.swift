@@ -7,22 +7,23 @@
 
 import SwiftUI
 import Charts
-import SwiftData
+
 
 struct PieChart: View {
-    @Query(sort: \Budget.id) var budgets: [Budget]
+     var budgets: [Budget] = []
     
     @State private var rawSelectedChartValue: Double? = 0
-    @State private var selectedDay: Date?
     
     var selectedBudget: Budget? {
         guard let rawSelectedChartValue else { return nil }
+        
         var total = 0.0
         return budgets.first {
             total += $0.max
             return rawSelectedChartValue <= total
         }
     }
+
     
     var body: some View {
         Chart(budgets) { budget in
@@ -75,11 +76,6 @@ struct PieChart: View {
         .foregroundStyle(.secondary)
         .offset(y:-12)
     }
-}
-
-#Preview {
-    PieChart()
-        .modelContainer(Budget.preview)
 }
 
 fileprivate struct BudgetInfoView: View {

@@ -17,7 +17,7 @@ struct BudgetSectionView: View {
 
     var body: some View {
         VStack {
-            PieChart()
+            PieChart(budgets: budgets)
             
             Text("Spending Summary")
                 .font(.system(size: 20).bold())
