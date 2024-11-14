@@ -16,10 +16,9 @@ struct BudgetForm: View {
     @Query(sort: \Budget.id) private var budgets: [Budget]
 
     
-    @State private var selectedTheme: BudgetTheme = .cyan
-    @State private var usedColors: Set<BudgetTheme> = [.cyan]
-    @State private var selectedCategory: BudgetCategory = .entertainment
-    @State private var maxSpent: CGFloat = 0
+    @State private var selectedTheme: BudgetTheme?
+    @State private var selectedCategory: BudgetCategory?
+    @State private var maxSpent: Double = 0
     @State private var showAlert: Bool = false
  
     
@@ -49,15 +48,17 @@ struct BudgetForm: View {
                     .disableAutocorrection(true)
                 
                 Picker("Budget Category", selection: $selectedCategory) {
+                    Text("Select a category").tag(nil as BudgetCategory?)
                     ForEach(availableCategories, id:\.id) { category in
-                        Text(category.rawValue).tag(category)
+                        Text(category.rawValue).tag(category as BudgetCategory?)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
                 
                 Picker("Budget Theme", selection: $selectedTheme) {
+                    Text("Select a theme").tag(nil as BudgetTheme?)
                     ForEach(availableTheme, id: \.id) { theme in
-                        Text(theme.rawValue).tag(theme)
+                        Text(theme.rawValue).tag(theme as BudgetTheme?)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
@@ -80,7 +81,7 @@ struct BudgetForm: View {
                     }
                     .tint(.blue)
                     .buttonStyle(.borderedProminent)
-                    .disabled( maxSpent <= 0)
+                    .disabled( maxSpent <= 0 || selectedCategory == nil ||  selectedTheme == nil)
                     
                 }
             }
@@ -90,13 +91,16 @@ struct BudgetForm: View {
     
    
     private func save() {
+        guard let theme = selectedTheme, let category = selectedCategory else {
+            return
+        }
         let budget = Budget(
-            category: selectedCategory,
+            category: category,
             max: maxSpent,
             spent: initialSpent,
-            theme: selectedTheme
+            theme: theme
         )
-        
+
         context.insert(budget)
         try? context.save()
         
