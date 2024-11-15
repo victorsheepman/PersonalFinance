@@ -23,12 +23,24 @@
 		84607DF82CCA9E9E0097C233 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84607DF72CCA9E9E0097C233 /* TransactionView.swift */; };
 		84AF9FDF2CC9458B00EAE5DB /* BudgetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */; };
 		84AF9FE32CC9548500EAE5DB /* BudgetForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */; };
+		84C4BD0C2CE7B2E0005C5BAA /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4BD0B2CE7B2E0005C5BAA /* TestView.swift */; };
+		84C4BD142CE7B4B0005C5BAA /* PersonalFinanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4BD132CE7B4B0005C5BAA /* PersonalFinanceTests.swift */; };
 		84F9E2B12CCBE16600DDFFD2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */; };
 		84F9E2B42CCBE34C00DDFFD2 /* TransactionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E2B32CCBE34C00DDFFD2 /* TransactionForm.swift */; };
 		84FA24F52CDFBE99008C69FD /* TransactionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA24F42CDFBE99008C69FD /* TransactionSectionView.swift */; };
 		84FA24F72CDFBED8008C69FD /* BudgetSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA24F62CDFBED8008C69FD /* BudgetSectionView.swift */; };
 		84FA24F92CDFC2E0008C69FD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA24F82CDFC2E0008C69FD /* Constants.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		84C4BD152CE7B4B0005C5BAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 845CB2BF2CC69A0100181E76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 845CB2C62CC69A0100181E76;
+			remoteInfo = PersonalFinance;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		841D72232CC8117200BF7F72 /* BudgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsView.swift; sourceTree = "<group>"; };
@@ -48,6 +60,9 @@
 		84607DF72CCA9E9E0097C233 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		84AF9FDE2CC9458B00EAE5DB /* BudgetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCard.swift; sourceTree = "<group>"; };
 		84AF9FE22CC9548500EAE5DB /* BudgetForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetForm.swift; sourceTree = "<group>"; };
+		84C4BD0B2CE7B2E0005C5BAA /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		84C4BD112CE7B4B0005C5BAA /* PersonalFinanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PersonalFinanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		84C4BD132CE7B4B0005C5BAA /* PersonalFinanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalFinanceTests.swift; sourceTree = "<group>"; };
 		84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		84F9E2B32CCBE34C00DDFFD2 /* TransactionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionForm.swift; sourceTree = "<group>"; };
 		84FA24F42CDFBE99008C69FD /* TransactionSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSectionView.swift; sourceTree = "<group>"; };
@@ -57,6 +72,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		845CB2C42CC69A0100181E76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84C4BD0E2CE7B4B0005C5BAA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -79,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				845CB2C92CC69A0100181E76 /* PersonalFinance */,
+				84C4BD122CE7B4B0005C5BAA /* PersonalFinanceTests */,
 				845CB2C82CC69A0100181E76 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				845CB2C72CC69A0100181E76 /* PersonalFinance.app */,
+				84C4BD112CE7B4B0005C5BAA /* PersonalFinanceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,6 +191,7 @@
 			children = (
 				84F9E2B02CCBE16600DDFFD2 /* Extensions.swift */,
 				84FA24F82CDFC2E0008C69FD /* Constants.swift */,
+				84C4BD0B2CE7B2E0005C5BAA /* TestView.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -206,6 +231,14 @@
 			path = Form;
 			sourceTree = "<group>";
 		};
+		84C4BD122CE7B4B0005C5BAA /* PersonalFinanceTests */ = {
+			isa = PBXGroup;
+			children = (
+				84C4BD132CE7B4B0005C5BAA /* PersonalFinanceTests.swift */,
+			);
+			path = PersonalFinanceTests;
+			sourceTree = "<group>";
+		};
 		84F9E2B22CCBE33B00DDFFD2 /* Form */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +267,24 @@
 			productReference = 845CB2C72CC69A0100181E76 /* PersonalFinance.app */;
 			productType = "com.apple.product-type.application";
 		};
+		84C4BD102CE7B4B0005C5BAA /* PersonalFinanceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84C4BD172CE7B4B0005C5BAA /* Build configuration list for PBXNativeTarget "PersonalFinanceTests" */;
+			buildPhases = (
+				84C4BD0D2CE7B4B0005C5BAA /* Sources */,
+				84C4BD0E2CE7B4B0005C5BAA /* Frameworks */,
+				84C4BD0F2CE7B4B0005C5BAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84C4BD162CE7B4B0005C5BAA /* PBXTargetDependency */,
+			);
+			name = PersonalFinanceTests;
+			productName = PersonalFinanceTests;
+			productReference = 84C4BD112CE7B4B0005C5BAA /* PersonalFinanceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -246,6 +297,10 @@
 				TargetAttributes = {
 					845CB2C62CC69A0100181E76 = {
 						CreatedOnToolsVersion = 15.0.1;
+					};
+					84C4BD102CE7B4B0005C5BAA = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 845CB2C62CC69A0100181E76;
 					};
 				};
 			};
@@ -263,6 +318,7 @@
 			projectRoot = "";
 			targets = (
 				845CB2C62CC69A0100181E76 /* PersonalFinance */,
+				84C4BD102CE7B4B0005C5BAA /* PersonalFinanceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -274,6 +330,13 @@
 			files = (
 				845CB2D22CC69A0200181E76 /* Preview Assets.xcassets in Resources */,
 				845CB2CF2CC69A0200181E76 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84C4BD0F2CE7B4B0005C5BAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,13 +363,30 @@
 				845CB2E42CC6C16300181E76 /* Transaction.swift in Sources */,
 				845CB2D92CC6A24D00181E76 /* CustomTabBar.swift in Sources */,
 				845CB2E12CC6B4AC00181E76 /* BalanceCardView.swift in Sources */,
+				84C4BD0C2CE7B2E0005C5BAA /* TestView.swift in Sources */,
 				84607DF82CCA9E9E0097C233 /* TransactionView.swift in Sources */,
 				845CB2E92CC6CB5E00181E76 /* TransactionDetailCellView.swift in Sources */,
 				845CB2CB2CC69A0100181E76 /* PersonalFinanceApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		84C4BD0D2CE7B4B0005C5BAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84C4BD142CE7B4B0005C5BAA /* PersonalFinanceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		84C4BD162CE7B4B0005C5BAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 845CB2C62CC69A0100181E76 /* PersonalFinance */;
+			targetProxy = 84C4BD152CE7B4B0005C5BAA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		845CB2D32CC69A0200181E76 /* Debug */ = {
@@ -486,6 +566,50 @@
 			};
 			name = Release;
 		};
+		84C4BD182CE7B4B0005C5BAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AB95K5R2N4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.victorsheepman.PersonalFinanceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PersonalFinance.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PersonalFinance";
+			};
+			name = Debug;
+		};
+		84C4BD192CE7B4B0005C5BAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AB95K5R2N4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.victorsheepman.PersonalFinanceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PersonalFinance.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PersonalFinance";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -503,6 +627,15 @@
 			buildConfigurations = (
 				845CB2D62CC69A0200181E76 /* Debug */,
 				845CB2D72CC69A0200181E76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84C4BD172CE7B4B0005C5BAA /* Build configuration list for PBXNativeTarget "PersonalFinanceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84C4BD182CE7B4B0005C5BAA /* Debug */,
+				84C4BD192CE7B4B0005C5BAA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
