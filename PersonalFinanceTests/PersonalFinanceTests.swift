@@ -20,5 +20,17 @@ final class PersonalFinanceTests: XCTestCase {
 
         XCTAssertEqual(sut.budgets.count, 0, "There should be 0 movies when the app is first launched.")
     }
+    
+    @MainActor
+    func testCreatingAndClearingLeavesAppEmpty() throws {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: Budget.self, configurations: config)
+
+        let sut = TestView.ViewModel(modelContext: container.mainContext)
+        sut.addSamples()
+        sut.clear()
+
+        XCTAssertEqual(sut.budgets.count, 0, "There should be 0 movies after deleting all data.")
+    }
 
 }
