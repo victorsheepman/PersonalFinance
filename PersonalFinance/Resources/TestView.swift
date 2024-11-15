@@ -8,21 +8,15 @@
 import SwiftUI
 import SwiftData
 
+protocol ViewModelTestable {
+    init(modelContext: ModelContext)
+}
+
 struct TestView: View {
     @State private var viewModel: ViewModel
     
     var body: some View {
-        NavigationStack {
-            List(viewModel.budgets) { budget in
-                Text("\(budget.max)")
-            }
-           
-        }
-    }
-    
-    init(modelContext: ModelContext) {
-        let viewModel = ViewModel(modelContext: modelContext)
-        _viewModel = State(initialValue: viewModel)
+        Text("Esto solo es un test")
     }
 }
 
@@ -63,4 +57,9 @@ extension TestView {
             }
         }
     }
+}
+
+
+extension TestView.ViewModel: ViewModelTestable {
+    
 }
