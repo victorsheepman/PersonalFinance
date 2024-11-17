@@ -26,7 +26,7 @@ Este proyecto está en desarrollo y está diseñado para fortalecer conocimiento
 - iOS
 - Swift
 - SwiftUI
-- MVVM
+- XCtest
 - SwiftData
 - SwiftChart
 
