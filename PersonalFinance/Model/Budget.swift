@@ -16,10 +16,10 @@ class Budget {
     
     var category: BudgetCategory
     var max: Double
-    var spent: Double
+    var spent: Double 
     var theme: BudgetTheme
     
-    @Relationship(deleteRule: .nullify, inverse: \Transaction.budget) var transactions: [Transaction]?
+    @Relationship(deleteRule: .nullify, inverse: \Transaction.budget) var transactions = [Transaction]()
     
     
     @Transient var percentageSpent: Double {
@@ -31,13 +31,12 @@ class Budget {
         return spent > max
     }
     
-    init(id: UUID, category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme, transactions:[Transaction]? = nil) {
+    init(id: UUID = UUID(), category: BudgetCategory, max: Double, spent: Double, theme: BudgetTheme) {
         self.id = id
         self.category = category
         self.max = max
         self.spent = spent
         self.theme = theme
-        self.transactions = transactions
     }
 }
 

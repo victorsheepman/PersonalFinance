@@ -6,91 +6,108 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BudgetForm: View {
     
-    var budgetToEdit: Budget? = nil
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
     
-    @Binding var isPresented: Bool
-    @ObservedObject var viewModel: BudgetViewModel
+    @Query(sort: \Budget.id) private var budgets: [Budget]
+
     
-    @State private var selectedTheme: BudgetTheme = .cyan
-    @State private var usedColors: Set<BudgetTheme> = [.cyan]
-    @State private var selectedCategory: BudgetCategory = .entertainment
-    @State private var maxSpent: String = ""
+    @State private var selectedTheme: BudgetTheme?
+    @State private var selectedCategory: BudgetCategory?
+    @State private var maxSpent: Double = 0
+    @State private var showAlert: Bool = false
+ 
     
     private var usedThemes: Set<BudgetTheme> {
-        Set(viewModel.budgets.map { $0.theme })
+        Set(budgets.map { $0.theme })
     }
     
     private var usedCategories: Set<BudgetCategory> {
-        Set(viewModel.budgets.map { $0.category })
+        Set(budgets.map { $0.category })
+    }
+    
+    let initialSpent: Double = 0.0
+    
+    var availableCategories: [BudgetCategory] {
+        BudgetCategory.allCases.filter { !usedCategories.contains($0) }
+    }
+    
+    var availableTheme: [BudgetTheme] {
+        BudgetTheme.allCases.filter { !usedThemes.contains($0) }
     }
     
     var body: some View {
-        Form {
-            Picker("Budget Category", selection: $selectedCategory) {
-                ForEach(BudgetCategory.allCases.filter { !usedCategories.contains($0) || budgetToEdit?.category == $0 }) { category in
-                    Text(category.rawValue).tag(category)
+        NavigationStack {
+            Form {
+                TextField("Maximum Spending", value: $maxSpent, formatter: Constants.formatter)
+                    .keyboardType(.decimalPad)
+                    .disableAutocorrection(true)
+                
+                Picker("Budget Category", selection: $selectedCategory) {
+                    Text("Select a category").tag(nil as BudgetCategory?)
+                    ForEach(availableCategories, id:\.id) { category in
+                        Text(category.rawValue).tag(category as BudgetCategory?)
+                    }
                 }
-            }
-            .pickerStyle(MenuPickerStyle())
-            
-            TextField("Maximum Spending", text: $maxSpent)
-                .keyboardType(.decimalPad)
-                .disableAutocorrection(true)
-            
-            Picker("Budget Theme", selection: $selectedTheme) {
-                ForEach(BudgetTheme.allCases.filter { !usedThemes.contains($0) || budgetToEdit?.theme == $0 }) { theme in
-                    Text(theme.rawValue).tag(theme)
+                .pickerStyle(MenuPickerStyle())
+                
+                Picker("Budget Theme", selection: $selectedTheme) {
+                    Text("Select a theme").tag(nil as BudgetTheme?)
+                    ForEach(availableTheme, id: \.id) { theme in
+                        Text(theme.rawValue).tag(theme as BudgetTheme?)
+                    }
                 }
+                .pickerStyle(MenuPickerStyle())
+                
             }
-            .pickerStyle(MenuPickerStyle())
-            
-            Button(action: {
-                submitBudget()
-            }) {
-                Text("Add Budget")
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color("Grey-900"))
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
-        }
-        .onAppear {
-            if let budget = budgetToEdit {
-                selectedCategory = budget.category
-                maxSpent = String(budget.max)
-                selectedTheme = budget.theme
+            .navigationTitle("Add Budget")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                       dismiss()
+                    }
+                    .tint(.red)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Save") {
+                        withAnimation {
+                            save()
+                            dismiss()
+                        }
+                    }
+                    .tint(.blue)
+                    .buttonStyle(.borderedProminent)
+                    .disabled( maxSpent <= 0 || selectedCategory == nil ||  selectedTheme == nil)
+                    
+                }
             }
         }
         
     }
     
-    private func submitBudget() {
-        if let max = Double(maxSpent) {
-            
-            if let budget = budgetToEdit {
-                viewModel.updateBudget(
-                    budget: budget,
-                    newCategory: selectedCategory,
-                    newMax: max,
-                    newSpent: budget.spent,
-                    newTheme: selectedTheme
-                )
-            } else {
-                viewModel.addBudget(category: selectedCategory, max: max, spent: 0, theme: selectedTheme)
-            }
-            
-            isPresented = false
-            maxSpent = "0"
-            
+   
+    private func save() {
+        guard let theme = selectedTheme, let category = selectedCategory else {
+            return
         }
+        let budget = Budget(
+            category: category,
+            max: maxSpent,
+            spent: initialSpent,
+            theme: theme
+        )
+
+        context.insert(budget)
+        try? context.save()
+        
     }
 }
 
 #Preview {
-    BudgetForm(isPresented: .constant(true), viewModel: BudgetViewModel())
+    BudgetForm()
+        .modelContainer(Budget.preview)
 }

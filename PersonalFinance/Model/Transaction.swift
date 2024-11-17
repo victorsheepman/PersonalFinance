@@ -20,13 +20,12 @@ class Transaction {
     var budget: Budget?
     var account: TransactionAccount
     
-    init(id: UUID = UUID(),title:String, amount: Double, date: Date, type: TransactionType, account: TransactionAccount, budget:Budget? = nil) {
+    init(id: UUID = UUID(),title:String, amount: Double, date: Date, type: TransactionType, account: TransactionAccount) {
         self.id      = id
         self.title   = title
         self.amount  = amount
         self.date    = date
         self.type    = type
-        self.budget  = budget
         self.account = account
         
     }

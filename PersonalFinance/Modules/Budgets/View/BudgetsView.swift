@@ -6,24 +6,31 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BudgetsView: View {
     
-    @State private var isPresented: Bool = false
-    @State private var showAlert: Bool = false
+    @Query(sort: \Budget.id) var budgets: [Budget]
     
-    @StateObject private var viewModel: BudgetViewModel = BudgetViewModel()
- 
+    
+    @State private var isPresentingBudgetForm: Bool = false
+    @State private var isShowingBudgetLimitAlert: Bool = false
+    
+    var canAddMoreBudgets: Bool {
+        budgets.count < 4
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
                 ScrollView {
-                    VStack {
-                        budgetChart
-                        ForEach(viewModel.budgets) { budget in
-                            BudgetsCard(budget: budget, viewModel: viewModel)
+                    LazyVStack {
+                        BudgetSectionView()
+                        
+                        ForEach(budgets) { budget in
+                            BudgetsCard(budget: budget)
                                 .padding(.top, 24)
                         }
                         Spacer()
@@ -33,112 +40,43 @@ struct BudgetsView: View {
                     .padding(.top, 40)
                 }
             }
+            .navigationTitle("Budgets")
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    
-                    Text("Budgets")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.top)
-                    
-                    
-                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        if viewModel.budgets.count < 4 {
-                            isPresented = true
-                        } else {
-                            showAlert = true
-                        }
+                        handleAddButtonTap()
                     }) {
                         Image(systemName: "plus")
                             .foregroundStyle(.black)
                     }
                 }
             }
-            .alert(isPresented: $showAlert) {
+            .alert(isPresented: $isShowingBudgetLimitAlert) {
                 Alert(
                     title: Text("Budget Limit Reached"),
                     message: Text("You cannot add more than 4 budgets."),
                     dismissButton: .default(Text("OK"))
                 )
             }
-            .sheet(isPresented: $isPresented) {
-                VStack{
-                    HStack(spacing:95) {
-                        Text("Add New Budget")
-                            .font(.title)
-                            .bold()
-
-                        Button(action: {
-                            isPresented = false
-                        }) {
-                            Image(systemName: "xmark.circle")
-                                .resizable()
-                                .frame(width: 32, height: 32)
-                                .foregroundStyle(Color("Grey-500"))
-                        }
-                        
-                    }
-                    BudgetForm(isPresented: $isPresented, viewModel: viewModel)
-                }
-                .padding()
-                .background(Color("Background"))
+            .sheet(isPresented: $isPresentingBudgetForm) {
+                BudgetForm()
             }
-        }
-        .onAppear(){
-            viewModel.getBudgets()
         }
     }
     
-    var budgetChart: some View {
-        VStack {
-            PieChart(budgets: viewModel.budgets)
-            
-            Text("Spending Summary")
-                .font(.system(size: 20).bold())
-                .padding(.trailing, 148)
-            
-            ForEach(viewModel.budgets) { budget in
-                HStack {
-                    
-                    Circle()
-                        .fill(budget.theme.color)
-                        .frame(width: 10, height: 10)
-                    
-                    Text(budget.category.rawValue)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    
-                    Text("$\(budget.spent, specifier: "%.2f")")
-                        .font(.system(size: 14).bold())
-                        .foregroundStyle(.primary)
-                        .frame(width: 80, alignment: .trailing)
-                    
-                    
-                    Text("of $\(budget.max, specifier: "%.2f") limit")
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                        .frame(width: 120, alignment: .trailing)
-                }
-                if budget.id != viewModel.budgets.last?.id {
-                    Divider()
-                        .background(Color("Grey-100"))
-                }
-            }
-            .padding(.top, 10)
+    private func handleAddButtonTap() {
+        if canAddMoreBudgets {
+            isPresentingBudgetForm = true
+        } else {
+            isShowingBudgetLimitAlert = true 
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .background(RoundedRectangle(cornerRadius: 12).fill(.white))
     }
+    
+    
 }
-
-
-
 
 #Preview {
     BudgetsView()
+        .modelContainer(Budget.preview)
 }
+
