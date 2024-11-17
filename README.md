@@ -33,8 +33,8 @@ Este proyecto está en desarrollo y está diseñado para fortalecer conocimiento
 
 ## Imagenes 
 
-![Home](https://sqrevjfizglmjxxfuvxy.supabase.co/storage/v1/object/sign/Talhua/Personal%20Finance/Home.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJUYWxodWEvUGVyc29uYWwgRmluYW5jZS9Ib21lLnBuZyIsImlhdCI6MTczMDczMjg1OSwiZXhwIjoxNzYyMjY4ODU5fQ.u55ntarRKTGmKHamyetFJSThXNLvdxchuXs2pntdb7k&t=2024-11-04T15%3A06%3A50.944Z)
+![Home](https://sqrevjfizglmjxxfuvxy.supabase.co/storage/v1/object/sign/Talhua/Personal%20Finance/Home%20(1).png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJUYWxodWEvUGVyc29uYWwgRmluYW5jZS9Ib21lICgxKS5wbmciLCJpYXQiOjE3MzE4NjIxMjYsImV4cCI6MTc2MzM5ODEyNn0.ELmby60G2yX2gKLHVRfkRjXEMxvoHUvovbhDtHDa60M&t=2024-11-17T16%3A47%3A54.806Z)
 
-![Transaction](https://sqrevjfizglmjxxfuvxy.supabase.co/storage/v1/object/sign/Talhua/Personal%20Finance/Transaction.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJUYWxodWEvUGVyc29uYWwgRmluYW5jZS9UcmFuc2FjdGlvbi5wbmciLCJpYXQiOjE3MzA3MzI4OTIsImV4cCI6MTc2MjI2ODg5Mn0.CidO-m9WyxGrCNdr1ii2RkXDXruwBuiQfTMli_riQck&t=2024-11-04T15%3A07%3A23.406Z)
+![Transaction](https://sqrevjfizglmjxxfuvxy.supabase.co/storage/v1/object/sign/Talhua/Personal%20Finance/List.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJUYWxodWEvUGVyc29uYWwgRmluYW5jZS9MaXN0LnBuZyIsImlhdCI6MTczMTg2MjE2NywiZXhwIjoxNzYzMzk4MTY3fQ.oZfL17pbyDPbanXkdSLwNwahPMkrEiLBA2-pbe-jJWY&t=2024-11-17T16%3A48%3A35.560Z)
 
-![Budget](https://sqrevjfizglmjxxfuvxy.supabase.co/storage/v1/object/sign/Talhua/Personal%20Finance/Budget.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJUYWxodWEvUGVyc29uYWwgRmluYW5jZS9CdWRnZXQucG5nIiwiaWF0IjoxNzMwNzMyOTE2LCJleHAiOjE3NjIyNjg5MTZ9.9hx9nm7_G-DGHI3vG8C3Ah9-Wu6Px1RtroskoLWT_5Y&t=2024-11-04T15%3A07%3A47.572Z)
+![Budget](https://sqrevjfizglmjxxfuvxy.supabase.co/storage/v1/object/sign/Talhua/Personal%20Finance/Budget%20(1).png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJUYWxodWEvUGVyc29uYWwgRmluYW5jZS9CdWRnZXQgKDEpLnBuZyIsImlhdCI6MTczMTg2MjE0NiwiZXhwIjoxNzYzMzk4MTQ2fQ.ualIti5kOaMpWhQX3eS7FtbRXsHJg8_Ju0jmJExuCNQ&t=2024-11-17T16%3A48%3A14.224Z)
