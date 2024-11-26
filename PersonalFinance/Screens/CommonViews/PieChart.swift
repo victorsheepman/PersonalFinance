@@ -10,11 +10,11 @@ import Charts
 
 
 struct PieChart: View {
-     var budgets: [Budget] = []
+    var budgets: [Budget] = []
     
     @State private var rawSelectedChartValue: Double? = 0
     
-    var selectedBudget: Budget? {
+    private var selectedBudget: Budget? {
         guard let rawSelectedChartValue else { return nil }
         
         var total = 0.0
@@ -23,7 +23,7 @@ struct PieChart: View {
             return rawSelectedChartValue <= total
         }
     }
-
+    
     
     var body: some View {
         Chart(budgets) { budget in
@@ -45,10 +45,7 @@ struct PieChart: View {
                 if let plotFrame = ChartProxy.plotFrame{
                     let frame: CGRect = geometry[plotFrame]
                     if let selectedBudget {
-                        BudgetInfoView (
-                            budget: selectedBudget,
-                            frame: frame
-                        )
+                        budgetInfo(selectedBudget, frame)
                     }
                 }
             }
@@ -60,13 +57,13 @@ struct PieChart: View {
         }
     }
     
-    var chartEmpty: some View {
+    private var chartEmpty: some View {
         ContentUnavailableView {
             Image(systemName: "chart.pie")
                 .resizable()
                 .frame(width: 32, height: 32)
                 .padding(.bottom, 8)
-                
+            
             Text("No Data")
                 .font(.callout.bold())
             
@@ -76,14 +73,8 @@ struct PieChart: View {
         .foregroundStyle(.secondary)
         .offset(y:-12)
     }
-}
-
-fileprivate struct BudgetInfoView: View {
     
-    var budget: Budget
-    var frame: CGRect
-    
-    var body: some View {
+    private func budgetInfo(_ budget: Budget, _ frame: CGRect) -> some View {
         VStack {
             Group {
                 Text("$\(budget.spent, specifier: "%.2f")")
@@ -98,3 +89,4 @@ fileprivate struct BudgetInfoView: View {
         .position(x: frame.midX, y: frame.midY)
     }
 }
+
