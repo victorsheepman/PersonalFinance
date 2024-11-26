@@ -11,7 +11,7 @@ import SwiftData
 struct HomeView: View {
     @Query(sort: \Transaction.date) var transactions: [Transaction]
     
-    var transactionSorted: [Transaction] {
+    private var transactionSorted: [Transaction] {
         transactions.suffix(3).sorted { $0.date > $1.date }
     }
     
@@ -33,14 +33,7 @@ struct HomeView: View {
                     .padding(.bottom, 100)
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Text("Overview")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.top)
-                }
-            }
+            .navigationTitle("Overview")
         }
     }
 }

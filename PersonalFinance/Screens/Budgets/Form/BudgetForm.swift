@@ -15,7 +15,6 @@ struct BudgetForm: View {
     
     @Query(sort: \Budget.id) private var budgets: [Budget]
 
-    
     @State private var selectedTheme: BudgetTheme?
     @State private var selectedCategory: BudgetCategory?
     @State private var maxSpent: Double = 0
@@ -30,13 +29,13 @@ struct BudgetForm: View {
         Set(budgets.map { $0.category })
     }
     
-    let initialSpent: Double = 0.0
+    private let initialSpent: Double = 0.0
     
-    var availableCategories: [BudgetCategory] {
+    private var availableCategories: [BudgetCategory] {
         BudgetCategory.allCases.filter { !usedCategories.contains($0) }
     }
     
-    var availableTheme: [BudgetTheme] {
+    private var availableTheme: [BudgetTheme] {
         BudgetTheme.allCases.filter { !usedThemes.contains($0) }
     }
     

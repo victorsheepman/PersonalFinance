@@ -118,10 +118,9 @@
 		845CB2C92CC69A0100181E76 /* PersonalFinance */ = {
 			isa = PBXGroup;
 			children = (
+				84E46ED32CF64EE000C8C521 /* Screens */,
 				845CB2EA2CC6CBA800181E76 /* Resources */,
 				845CB2E22CC6C15400181E76 /* Model */,
-				845CB2DB2CC6A87800181E76 /* Modules */,
-				845CB2DA2CC6A25300181E76 /* Components */,
 				845CB2CA2CC69A0100181E76 /* PersonalFinanceApp.swift */,
 				845CB2CC2CC69A0100181E76 /* ContentView.swift */,
 				845CB2CE2CC69A0200181E76 /* Assets.xcassets */,
@@ -136,27 +135,6 @@
 				845CB2D12CC69A0200181E76 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		845CB2DA2CC6A25300181E76 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				84FA24F62CDFBED8008C69FD /* BudgetSectionView.swift */,
-				845CB2D82CC6A24D00181E76 /* CustomTabBar.swift */,
-				845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */,
-				841D72262CC812C000BF7F72 /* PieChart.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		845CB2DB2CC6A87800181E76 /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-				84607DF52CCA9E860097C233 /* Transaction */,
-				845CB2DC2CC6A88100181E76 /* Home */,
-				841D72252CC8117A00BF7F72 /* Budgets */,
-			);
-			path = Modules;
 			sourceTree = "<group>";
 		};
 		845CB2DC2CC6A88100181E76 /* Home */ = {
@@ -237,6 +215,28 @@
 				84C4BD132CE7B4B0005C5BAA /* PersonalFinanceTests.swift */,
 			);
 			path = PersonalFinanceTests;
+			sourceTree = "<group>";
+		};
+		84E46ED32CF64EE000C8C521 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				84E46ED42CF64F2100C8C521 /* CommonViews */,
+				845CB2DC2CC6A88100181E76 /* Home */,
+				84607DF52CCA9E860097C233 /* Transaction */,
+				841D72252CC8117A00BF7F72 /* Budgets */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		84E46ED42CF64F2100C8C521 /* CommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				841D72262CC812C000BF7F72 /* PieChart.swift */,
+				845CB2E82CC6CB5E00181E76 /* TransactionDetailCellView.swift */,
+				84FA24F62CDFBED8008C69FD /* BudgetSectionView.swift */,
+				845CB2D82CC6A24D00181E76 /* CustomTabBar.swift */,
+			);
+			path = CommonViews;
 			sourceTree = "<group>";
 		};
 		84F9E2B22CCBE33B00DDFFD2 /* Form */ = {
