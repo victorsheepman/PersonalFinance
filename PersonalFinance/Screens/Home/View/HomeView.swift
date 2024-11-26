@@ -33,14 +33,7 @@ struct HomeView: View {
                     .padding(.bottom, 100)
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Text("Overview")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.top)
-                }
-            }
+            .navigationTitle("Overview")
         }
     }
 }

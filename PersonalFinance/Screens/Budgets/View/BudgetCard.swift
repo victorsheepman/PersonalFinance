@@ -32,9 +32,17 @@ struct BudgetsCard: View {
                 .accentColor(budget.theme.color)
             
             LazyVGrid(columns: Constants.columns, spacing: 10) {
-                AmountTitle(title: "Spent", amount: budget.spent, color: budget.theme.color)
+                amountTitle(
+                    title: "Spent",
+                    amount: budget.spent,
+                    color: budget.theme.color
+                )
                 
-                AmountTitle(title: "Free", amount: free, color: Color("Beige-100"))
+                amountTitle(
+                    title: "Free",
+                    amount: free,
+                    color: Color("Beige-100")
+                )
             }
             .padding(.top, 20)
         }
@@ -59,19 +67,11 @@ struct BudgetsCard: View {
                 withAnimation{
                     context.delete(budget)
                 }
-                
             }
         }
     }
-}
-
-fileprivate struct AmountTitle: View {
     
-    var title: String
-    var amount: CGFloat = 0
-    var color: Color
-    
-    var body: some View {
+    private func amountTitle(title: String, amount: CGFloat, color: Color) -> some View {
         HStack {
             Circle()
                 .fill(color.gradient)
@@ -89,4 +89,3 @@ fileprivate struct AmountTitle: View {
         }
     }
 }
-
