@@ -16,7 +16,7 @@ struct BudgetsView: View {
     @State private var isPresentingBudgetForm: Bool = false
     @State private var isShowingBudgetLimitAlert: Bool = false
     
-    var canAddMoreBudgets: Bool {
+    private var canAddMoreBudgets: Bool {
         budgets.count < 4
     }
     
