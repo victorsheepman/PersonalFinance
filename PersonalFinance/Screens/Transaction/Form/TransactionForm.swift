@@ -22,7 +22,7 @@ struct TransactionForm: View {
     @State private var selectedType: TransactionType?
     @State private var selectedAccount: TransactionAccount?
     
-    var aviableBudgets: [Budget] {
+    private var aviableBudgets: [Budget] {
         budgets.filter { !$0.isOverBudget }
     }
    

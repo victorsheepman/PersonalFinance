@@ -15,7 +15,7 @@ struct BudgetsCard: View {
     
     var budget: Budget
     
-    var free: Double {
+    private var free: Double {
         budget.max - budget.spent
     }
     
@@ -51,7 +51,7 @@ struct BudgetsCard: View {
         .background(RoundedRectangle(cornerRadius: 12).fill(.white))
     }
     
-    var header: some View {
+    private var header: some View {
         HStack {
             Circle()
                 .fill(budget.theme.color.gradient)
