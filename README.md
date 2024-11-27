@@ -4,7 +4,7 @@ Personal Finance App es una aplicación de finanzas personales desarrollada en S
 
 ## Estado 
 
-Este proyecto está en desarrollo y está diseñado para fortalecer conocimientos en SwiftUI, el patrón arquitectónico MVVM y el uso de SwiftData para el manejo de datos financieros de manera eficiente.
+Este proyecto está en desarrollo y está diseñado para fortalecer conocimientos en SwiftUI y el uso de SwiftData para el manejo de datos financieros de manera eficiente.
 
 ## Funcionalidades 
 
